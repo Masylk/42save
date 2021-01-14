@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 15:50:39 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/14 17:22:35 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/01/14 18:58:23 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,8 @@ char	*ft_concat(char **dest, char *src, int srclen)
 	}
 	if (tmp)
 		ft_strlcpy(*dest, tmp, ft_strlen(tmp) + 1);
-	printf ("after copy : %s\n", *dest);
-	printf("srclen : %d\n", srclen);
 	ft_strlcat(*dest, src, ft_strlen(*dest) + srclen + 1);
-	printf ("after cat : %s\n", *dest);
-	free(tmp);
+//	free(tmp);
 	return (*dest);
 }
 
@@ -56,11 +53,11 @@ int		get_next_line(int fd, char **line)
     char		buffer[BUFFER_SIZE];
     static char	*previous_buffer;
 
-	if (!(*line))
+	if (*line)
 		free(*line);
 	if (previous_buffer)
 	{
-		if (previous_buffer && !(ft_concat(line, previous_buffer, ft_strlen(previous_buffer))))
+		if (previous_buffer[0] != '\n' && !(ft_concat(line, previous_buffer, ft_strlen(previous_buffer))))
 			return (-1);
 		free(previous_buffer);
 	}
@@ -75,7 +72,8 @@ int		get_next_line(int fd, char **line)
 		index = get_line(line, buffer);  
 	}
     // lorsque la ligne est complète, mettre le reste du buffer dans l'array static
-	/*if(!(ft_concat(&previous_buffer, buffer + (index + 1), ft_strlen(buffer + index + 1))))
-		return (-1);*/
+	if(!(ft_concat(&previous_buffer, buffer + (index + 1), ft_strlen(buffer + index + 1))))
+		return (-1);
+	printf("prev : %s\n", previous_buffer);
 	return (1);
 }
