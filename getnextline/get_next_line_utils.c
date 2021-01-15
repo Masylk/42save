@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 15:55:53 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/14 17:10:13 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/01/15 17:16:55 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*ft_strchr(const char *s, int c)
 	int	i;
 
 	i = 0;
-	while (s[i])
+	while (s && s[i])
 	{
 		if (s[i] == c)
 			return ((char *)s + i);
@@ -56,20 +56,6 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 	}
 	dst[i] = '\0';
 	return (sizesrc);
-}
-
-int		ft_strcat(char *dst, char *src)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (dst[i])
-		i++;
-	while (src[i])
-		dst[i + j] = src[j];
-	return (i + j);
 }
 
 size_t	ft_strlcat(char *dst, const char *src, size_t size)

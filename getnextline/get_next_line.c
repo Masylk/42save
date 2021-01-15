@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 15:50:39 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/14 18:58:23 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/01/15 18:55:29 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,11 @@ char	*ft_concat(char **dest, char *src, int srclen)
 		free(tmp);
 		return (NULL);
 	}
+	*dest[0] = '\0';
 	if (tmp)
 		ft_strlcpy(*dest, tmp, ft_strlen(tmp) + 1);
 	ft_strlcat(*dest, src, ft_strlen(*dest) + srclen + 1);
-//	free(tmp);
+	free(tmp);
 	return (*dest);
 }
 
@@ -50,30 +51,34 @@ int		get_next_line(int fd, char **line)
 {
     int			index;
     int			ret;
-    char		buffer[BUFFER_SIZE];
-    static char	*previous_buffer;
+    char		buffer[BUFFER_SIZE + 1];
+    static char	*previous_buffer = NULL;
 
-	if (*line)
-		free(*line);
 	if (previous_buffer)
 	{
-		if (previous_buffer[0] != '\n' && !(ft_concat(line, previous_buffer, ft_strlen(previous_buffer))))
+		//en faire une fonction
+		if (!(ft_concat(line, previous_buffer, ft_strlen(previous_buffer))))
 			return (-1);
 		free(previous_buffer);
+		previous_buffer = NULL;
 	}
 	index = -1;
 	while (index < 0)
 	{
 		ret = read(fd, buffer, BUFFER_SIZE);
+		//renvoyer une line vide
 		if (ret == 0)
+		{
+			*line = malloc(sizeof(char) * 1);
+			*line[0] = '\0';
 			return (0);
+		}
 		if (ret < 0)
 			return (-1);
+		buffer[BUFFER_SIZE] = '\0';
 		index = get_line(line, buffer);  
 	}
-    // lorsque la ligne est complète, mettre le reste du buffer dans l'array static
-	if(!(ft_concat(&previous_buffer, buffer + (index + 1), ft_strlen(buffer + index + 1))))
+	if(!(ft_concat(&previous_buffer, buffer + (index + 1), ft_strlen(buffer + (index + 1)))))
 		return (-1);
-	printf("prev : %s\n", previous_buffer);
 	return (1);
 }
