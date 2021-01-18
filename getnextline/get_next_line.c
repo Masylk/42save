@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 15:50:39 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/18 16:40:17 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/01/18 16:59:36 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,24 @@ int		get_line(char **line, char *buffer)
 	return (result);
 }
 
+/*int		get_buffer(int fd, char **line, char **curr, char *buffer[BUFFER_SIZE + 1], int *index)
+{
+	int	ret;
+
+	while (index < 0)
+	{
+		ret = read(fd, *buffer, BUFFER_SIZE);
+		if (ret == 0)
+			return (0);
+		if (ret < 0)
+			return (-1);
+		*buffer[ret] = '\0';
+		*curr = *buffer;
+		*index = get_line(line, *curr);
+	}
+	return (1);
+}*/
+
 int		get_next_line(int fd, char **line)
 {
     int			index;
@@ -61,6 +79,7 @@ int		get_next_line(int fd, char **line)
 	*line = malloc(sizeof(char) * 1);
 	*line[0] = '\0';
 	curr = ft_strdup(previous_buffer);
+	ret = 0;
 	index = -1;
 	if (curr)
 		index = get_line(line, curr);
