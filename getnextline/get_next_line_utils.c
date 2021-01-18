@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 15:55:53 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/15 17:16:55 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/01/18 16:27:49 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,19 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 	}
 	dst[i] = '\0';
 	return (sizedest + sizesrc);
+}
+
+char	*ft_strdup(const char *s)
+{
+	char	*p;
+	size_t	size;
+
+	if (!s)
+		return (NULL);
+	size = ft_strlen(s) + 1;
+	p = malloc((size) * sizeof(char));
+	if (!p)
+		return (NULL);
+	ft_strlcpy(p, s, size);
+	return (p);
 }

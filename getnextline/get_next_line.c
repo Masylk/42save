@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 15:50:39 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/16 14:16:44 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/01/18 16:40:17 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,33 +55,31 @@ int		get_next_line(int fd, char **line)
     static char	*previous_buffer = NULL;
 	char		*curr;
 
-	if (!line)
+	//decouper en 2 fonctions
+	if (!line || BUFFER_SIZE <= 0 || fd < 0)
 		return (-1);
+	*line = malloc(sizeof(char) * 1);
+	*line[0] = '\0';
+	curr = ft_strdup(previous_buffer);
 	index = -1;
+	if (curr)
+		index = get_line(line, curr);
 	while (index < 0)
 	{
-		if (!previous_buffer)
-		{
-			ret = read(fd, buffer, BUFFER_SIZE);
-			if (ret == 0)
-			{
-				if (!(*line))
-				{
-					*line = malloc(sizeof(char) * 1);
-					*line[0] = '\0';
-				}
-				return (0);
-			}
-			if (ret < 0)
-				return (-1);
-			buffer[BUFFER_SIZE] = '\0';
-			curr = buffer;
-		}
-		else
-			curr = previous_buffer;
-		index = get_line(line, curr);  
+		ret = read(fd, buffer, BUFFER_SIZE);
+		if (ret == 0)
+			return (0);
+		if (ret < 0)
+			return (-1);
+		buffer[ret] = '\0';
+		curr = buffer;
+		index = get_line(line, curr);
 	}
-	if(!(ft_concat(&previous_buffer, curr + (index + 1), ft_strlen(curr + (index + 1)))))
+	free(previous_buffer);
+	previous_buffer = ft_strdup(curr + index + 1);
+	if (curr != buffer)
+		free(curr);
+	if (!previous_buffer)
 		return (-1);
 	return (1);
 }
