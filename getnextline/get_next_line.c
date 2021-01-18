@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 15:50:39 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/15 18:55:29 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/01/16 14:16:44 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,32 +53,35 @@ int		get_next_line(int fd, char **line)
     int			ret;
     char		buffer[BUFFER_SIZE + 1];
     static char	*previous_buffer = NULL;
+	char		*curr;
 
-	if (previous_buffer)
-	{
-		//en faire une fonction
-		if (!(ft_concat(line, previous_buffer, ft_strlen(previous_buffer))))
-			return (-1);
-		free(previous_buffer);
-		previous_buffer = NULL;
-	}
+	if (!line)
+		return (-1);
 	index = -1;
 	while (index < 0)
 	{
-		ret = read(fd, buffer, BUFFER_SIZE);
-		//renvoyer une line vide
-		if (ret == 0)
+		if (!previous_buffer)
 		{
-			*line = malloc(sizeof(char) * 1);
-			*line[0] = '\0';
-			return (0);
+			ret = read(fd, buffer, BUFFER_SIZE);
+			if (ret == 0)
+			{
+				if (!(*line))
+				{
+					*line = malloc(sizeof(char) * 1);
+					*line[0] = '\0';
+				}
+				return (0);
+			}
+			if (ret < 0)
+				return (-1);
+			buffer[BUFFER_SIZE] = '\0';
+			curr = buffer;
 		}
-		if (ret < 0)
-			return (-1);
-		buffer[BUFFER_SIZE] = '\0';
-		index = get_line(line, buffer);  
+		else
+			curr = previous_buffer;
+		index = get_line(line, curr);  
 	}
-	if(!(ft_concat(&previous_buffer, buffer + (index + 1), ft_strlen(buffer + (index + 1)))))
+	if(!(ft_concat(&previous_buffer, curr + (index + 1), ft_strlen(curr + (index + 1)))))
 		return (-1);
 	return (1);
 }

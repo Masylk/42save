@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 17:00:34 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/15 17:16:15 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/01/16 14:12:28 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	main(int ac, char **av)
 	printf("result : %s\n", line);
 	free(line);
 	line = NULL;
+	get_next_line(fd, &line);
+	printf("result : %s\n", line);
 	get_next_line(fd, &line);
 	printf("result : %s\n", line);
 }
