@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 14:05:12 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/09 17:34:56 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/01/20 17:10:19 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	size_t			i;
 
 	i = 0;
+	if (!dest || !src)
+		return (dest);
 	cdest = (unsigned char *)dest;
 	csrc = (unsigned char *)src;
 	while (i < n)

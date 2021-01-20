@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:08:17 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/09 17:37:38 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/01/20 17:10:23 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 		return (result);
 	while (len > 0 && ft_strchr(set, s1[len--]))
 		end += 1;
+	free(result);
 	result = ft_calloc(ft_strlen(s1) - start - end, sizeof(char));
 	if (!result)
 		return (NULL);

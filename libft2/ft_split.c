@@ -6,13 +6,13 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:37:41 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/09 17:36:09 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/01/20 17:10:22 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		count_words(char const *str, char c)
+static int		count_words(char const *str, char c)
 {
 	int	words;
 	int	count;
@@ -38,7 +38,7 @@ int		count_words(char const *str, char c)
 	return (words);
 }
 
-int		filltab(char **result, char const *str, char c, int pos)
+static int		filltab(char **result, char const *str, char c, int pos)
 {
 	int	j;
 	int	i;
@@ -59,13 +59,15 @@ int		filltab(char **result, char const *str, char c, int pos)
 	return (j);
 }
 
-char	**ft_split(char const *s, char c)
+char			**ft_split(char const *s, char c)
 {
 	char	**result;
 	int		size;
 	int		i;
 	int		start;
 
+	if (!s)
+		return (NULL);
 	size = count_words(s, c);
 	if ((result = malloc((size + 1) * sizeof(char *))) == NULL)
 		return (NULL);

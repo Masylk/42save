@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:57:58 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/09 17:38:31 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/01/20 17:10:11 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
+	if (!lst || !del)
+		return ;
 	(*del)(lst->content);
 	free(lst);
 }

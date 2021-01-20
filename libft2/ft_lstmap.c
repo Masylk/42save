@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 16:01:00 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/09 17:38:34 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/01/20 17:10:14 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	t_list	*result;
 	t_list	*list;
 
+	if (!lst || !f || !del)
+		return (NULL);
 	result = ft_lstnew((*f)(lst->content));
 	if (!result)
 	{

@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:47:07 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/09 17:36:02 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/01/20 17:10:22 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	ft_putstr_fd(char *s, int fd)
 	int	i;
 
 	i = 0;
+	if (!s)
+		return ;
 	while (s[i])
 		ft_putchar_fd(s[i++], fd);
 }

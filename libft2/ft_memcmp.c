@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 14:32:59 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/09 17:38:39 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/01/20 17:10:18 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 	cs2 = (unsigned char *)s2;
 	if (s1 == s2)
 		return (0);
+	else if (!cs1 && cs2)
+		return (-cs2[i]);
+	else if (!cs2)
+		return (cs1[i]);
 	while (i < n)
 	{
 		if (cs1[i] != cs2[i])

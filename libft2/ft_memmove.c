@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 18:49:08 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/09 17:35:15 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/01/20 17:10:20 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 	size_t				i;
 	int					idx;
 
+	if (!dest || !src)
+		return (dest);
 	cdest = (unsigned char *)dest;
 	csrc = (const unsigned char *)src;
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 15:50:39 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/20 16:23:01 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/01/18 15:44:28 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ int		get_line(char **line, char *buffer)
 	char	*chr;
 	int		result;
 
-	if (!buffer)
-		return (-1);
 	chr = ft_strchr(buffer, '\n');
 	line_length = ft_strlen(buffer) - ft_strlen(chr);
 	ft_concat(line, buffer, line_length);
@@ -49,26 +47,22 @@ int		get_line(char **line, char *buffer)
 	return (result);
 }
 
-int		get_prev(char **previous_buffer, char *buffer, int index)
+int		get_next_line(int fd, char **line)
 {
-	char	*tmp;
+    int			index;
+    int			ret;
+    char		buffer[BUFFER_SIZE + 1];
+    static char	*previous_buffer = NULL;
+	char		*curr;
 
-	tmp = ft_strdup(buffer);
-	free(*previous_buffer);
-	*previous_buffer = ft_strdup(tmp + index + 1);
-	if (!(*previous_buffer))
+	if (!line || BUFFER_SIZE <= 0 || fd < 0)
 		return (-1);
-	free(tmp);
-	return (1);
-}
-
-int		read_line(int fd, char **line, char **previous_buffer)
-{
-	int		index;
-	char	buffer[BUFFER_SIZE + 1];
-	int		ret;
-
+	*line = malloc(sizeof(char) * 1);
+	*line[0] = '\0';
+	curr = ft_strdup(previous_buffer);
 	index = -1;
+	if (curr)
+		index = get_line(line, curr);
 	while (index < 0)
 	{
 		ret = read(fd, buffer, BUFFER_SIZE);
@@ -77,34 +71,14 @@ int		read_line(int fd, char **line, char **previous_buffer)
 		if (ret < 0)
 			return (-1);
 		buffer[ret] = '\0';
-		index = get_line(line, buffer);
+		curr = buffer;
+		index = get_line(line, curr);
 	}
-	ret = get_prev(previous_buffer, buffer, index);
-	return (1);
-}
-
-int		get_next_line(int fd, char **line)
-{
-	int			index;
-	int			ret;
-	static char	*previous_buffer = NULL;
-
-	if (!line || BUFFER_SIZE <= 0 || fd < 0)
+	free(previous_buffer);
+	previous_buffer = ft_strdup(curr + index + 1);
+	if (curr != buffer)
+		free(curr);
+	if (!previous_buffer)
 		return (-1);
-	*line = malloc(sizeof(char) * 1);
-	if (!(*line))
-		return (-1);
-	*line[0] = '\0';
-	index = get_line(line, previous_buffer);
-	if (index < 0)
-	{
-		ret = read_line(fd, line, &previous_buffer);
-		if (ret == 0)
-			return (0);
-		else if (ret < 0)
-			return (-1);
-	}
-	else
-		ret = get_prev(&previous_buffer, previous_buffer, index);
 	return (1);
 }

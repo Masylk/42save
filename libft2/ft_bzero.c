@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 14:04:44 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/07 14:37:51 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/01/20 16:28:40 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	ft_bzero(void *s, size_t n)
 	unsigned char	*p;
 	size_t			i;
 
+	if (!s)
+		return ;
 	p = (unsigned char *)s;
 	i = 0;
 	while (i < n)

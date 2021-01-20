@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:55:41 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/09 17:38:33 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/01/20 17:10:13 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ t_list	*ft_lstlast(t_list *lst)
 {
 	t_list *ptr;
 
+	if (!lst)
+		return (NULL);
 	ptr = lst;
 	while (ptr->next)
 		ptr = ptr->next;

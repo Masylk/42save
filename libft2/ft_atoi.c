@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 14:02:56 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/09 17:30:07 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/01/20 16:30:27 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int		ft_atoi(const char *nptr)
 	sign = 1;
 	i = 0;
 	result = 0;
+	if (!nptr)
+		return (0);
 	while (ft_isspace(nptr[i]))
 		i++;
 	if (nptr[i] == '+' || nptr[i] == '-')

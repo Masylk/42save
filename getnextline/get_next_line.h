@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 15:46:04 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/18 15:08:47 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/01/20 16:00:46 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <stdio.h>
 
 # ifndef BUFFER_SIZE
-# define BUFFER_SIZE 2
+#  define BUFFER_SIZE 2
 # endif
 
 int		get_next_line(int fd, char **line);

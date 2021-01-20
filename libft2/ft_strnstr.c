@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:00:02 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/09 17:37:22 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/01/20 17:10:23 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*ft_strnstr(const char *s1, const char *s2, size_t len)
 	int		j;
 
 	i = 0;
+	if (!s1 || !s2)
+		return (NULL);
 	if (!s2[i])
 		return ((char *)s1);
 	while (i < len && s1[i])

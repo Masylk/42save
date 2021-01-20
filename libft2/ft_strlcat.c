@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 14:58:12 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/09 17:36:34 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/01/20 17:10:22 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 		return (sizesrc);
 	if (size <= (unsigned int)sizedest)
 		return (sizesrc + size);
+	if (!dst || !src)
+		return (sizedest + sizesrc);
 	while (dst[i])
 		i++;
 	while (src[j] && i < size - 1)

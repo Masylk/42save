@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 16:22:51 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/09 16:57:44 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/01/20 17:11:57 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ char			*ft_strjoin(char const *s1, char const *s2);
 char			*ft_substr(const char *s, unsigned int start, size_t len);
 char			*ft_strtrim(char const *s1, char const *set);
 char			**ft_split(char const *s, char c);
-int				get_nb_size(int base, long long n);
 char			*ft_itoa(int n);
 char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void			ft_lstadd_front(t_list **alst, t_list *new);
