@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:37:41 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/20 17:10:22 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/01/22 12:37:41 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,26 @@ static int		filltab(char **result, char const *str, char c, int pos)
 	while (str[j] && str[j] != c)
 		j++;
 	size = j;
-	if ((*result = malloc((size + 1) * sizeof(char))) == NULL)
-		return (0);
+	*result = malloc((size + 1) * sizeof(char));
+	if (!(*result))
+		return (-1);
 	i = 0;
 	while (i < size && str[pos] != c)
 		(*result)[i++] = str[pos++];
 	(*result)[i] = '\0';
 	return (j);
+}
+
+static void		free_tab(char **tab)
+{
+	int	i;
+
+	i = 0;
+	if (!tab)
+		return ;
+	while (tab[i])
+		free(tab[i++]);
+	free(tab);
 }
 
 char			**ft_split(char const *s, char c)
@@ -69,12 +82,20 @@ char			**ft_split(char const *s, char c)
 	if (!s)
 		return (NULL);
 	size = count_words(s, c);
-	if ((result = malloc((size + 1) * sizeof(char *))) == NULL)
+	result = malloc((size + 1) * sizeof(char *));
+	if (!result)
 		return (NULL);
 	result[size] = 0;
 	i = 0;
 	start = 0;
 	while (i < size)
+	{
 		start = filltab(&result[i++], s, c, start);
+		if (start == -1)
+		{
+			free_tab(result);
+			return (NULL);
+		}
+	}
 	return (result);
 }
