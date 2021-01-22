@@ -5,20 +5,33 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/07 15:06:04 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/09 17:37:44 by mtogbe           ###   ########.fr       */
+/*   Created: 2021/01/22 12:04:40 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/01/22 12:10:17 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(const char *s, unsigned int start, size_t len)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*p;
+	size_t	i;
+	char	*res;
 
-	p = ft_calloc(len, sizeof(char));
-	if (!p)
+	i = 0;
+	res = malloc(sizeof(char) * (len + 1));
+	if (!res)
 		return (NULL);
-	ft_strlcpy(p, s + start, len + 1);
-	return (p);
+	if (start > (unsigned int)ft_strlen(s))
+	{
+		res[i] = '\0';
+		return (res);
+	}
+	while (i < len && s[start])
+	{
+		res[i] = s[start];
+		i++;
+		start++;
+	}
+	res[i] = '\0';
+	return (res);
 }

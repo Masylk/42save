@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/07 15:44:34 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/09 17:37:08 by mtogbe           ###   ########.fr       */
+/*   Created: 2021/01/22 12:10:10 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/01/22 12:10:15 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	unsigned int	i;
-	char			*result;
+	char	*res;
+	int		i;
 
 	i = 0;
-	result = ft_calloc(ft_strlen(s), sizeof(char));
-	if (!result)
+	res = malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (!res)
 		return (NULL);
-	ft_strlcpy(result, s, ft_strlen(s) + 1);
-	while (result[i])
+	while (s[i])
 	{
-		result[i] = (*f)(i, result[i]);
+		res[i] = f(i, s[i]);
 		i++;
 	}
-	return (result);
+	res[i] = '\0';
+	return (res);
 }

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/07 15:57:02 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/09 17:38:27 by mtogbe           ###   ########.fr       */
+/*   Created: 2021/01/22 12:05:37 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/01/22 12:10:27 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,17 @@
 
 void	ft_lstadd_back(t_list **alst, t_list *new)
 {
-	t_list	*ptr;
+	t_list *curr;
 
-	if (!(*alst))
-		(*alst) = new;
-	else
+	curr = *alst;
+	if (alst)
 	{
-		ptr = ft_lstlast(*alst);
-		ptr->next = new;
+		if (*alst)
+		{
+			curr = ft_lstlast(*alst);
+			curr->next = new;
+		}
+		else
+			*alst = new;
 	}
 }

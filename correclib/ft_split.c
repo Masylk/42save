@@ -5,74 +5,73 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/07 15:37:41 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/09 17:36:09 by mtogbe           ###   ########.fr       */
+/*   Created: 2021/01/22 12:05:03 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/01/22 12:10:24 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		count_words(char const *str, char c)
+int		ft_taille_word(const char *s, char c)
 {
-	int	words;
-	int	count;
-	int	i;
+	int len;
 
+	len = 0;
+	while (s[len] != c && s[len])
+		len++;
+	return (len);
+}
+
+int		ft_sep(char curr, char c)
+{
+	return (curr == c);
+}
+
+int		ft_nbwords(const char *s, char c)
+{
+	int len;
+	int i;
+
+	len = 0;
 	i = 0;
-	words = 0;
-	count = 0;
-	while (str[i])
+	while (*s)
 	{
-		if (str[i] == c)
-		{
-			if (count > 0)
-				words++;
-			count = 0;
-		}
+		if (ft_sep(*s, c))
+			s++;
 		else
-			count++;
-		i++;
+		{
+			while (*s && !ft_sep(*s, c))
+				s++;
+			len++;
+		}
 	}
-	if (count > 0)
-		words++;
-	return (words);
+	return (len);
 }
 
-int		filltab(char **result, char const *str, char c, int pos)
+char	**ft_split(const char *s, char c)
 {
-	int	j;
-	int	i;
-	int	size;
-
-	while (str[pos] && str[pos] == c)
-		pos++;
-	j = pos;
-	while (str[j] && str[j] != c)
-		j++;
-	size = j;
-	if ((*result = malloc((size + 1) * sizeof(char))) == NULL)
-		return (0);
-	i = 0;
-	while (i < size && str[pos] != c)
-		(*result)[i++] = str[pos++];
-	(*result)[i] = '\0';
-	return (j);
-}
-
-char	**ft_split(char const *s, char c)
-{
-	char	**result;
-	int		size;
+	char	**res;
 	int		i;
-	int		start;
+	int		nb_words;
+	int		len;
 
-	size = count_words(s, c);
-	if ((result = malloc((size + 1) * sizeof(char *))) == NULL)
-		return (NULL);
-	result[size] = 0;
 	i = 0;
-	start = 0;
-	while (i < size)
-		start = filltab(&result[i++], s, c, start);
-	return (result);
+	if (!s)
+		return (NULL);
+	nb_words = ft_nbwords(s, c);
+	res = malloc(sizeof(char *) * (nb_words + 1));
+	if (!res)
+		return (NULL);
+	while (nb_words > 0)
+	{
+		while (*s && *s == c)
+			s++;
+		len = ft_taille_word(s, c);
+		res[i] = ft_substr(s, 0, len);
+		s = s + len;
+		i++;
+		nb_words--;
+	}
+	res[i] = NULL;
+	return (res);
 }
