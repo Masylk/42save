@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 15:50:39 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/20 16:23:01 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/01/29 15:23:32 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_concat(char **dest, char *src, int srclen)
 		free(tmp);
 		return (NULL);
 	}
-	*dest[0] = '\0';
+	(*dest)[0] = '\0';
 	if (tmp)
 		ft_strlcpy(*dest, tmp, ft_strlen(tmp) + 1);
 	ft_strlcat(*dest, src, ft_strlen(*dest) + srclen + 1);
@@ -75,7 +75,11 @@ int		read_line(int fd, char **line, char **previous_buffer)
 		if (ret == 0)
 			return (0);
 		if (ret < 0)
+		{
+			free(*line);
+			*line = NULL;
 			return (-1);
+		}
 		buffer[ret] = '\0';
 		index = get_line(line, buffer);
 	}
@@ -89,20 +93,24 @@ int		get_next_line(int fd, char **line)
 	int			ret;
 	static char	*previous_buffer = NULL;
 
-	if (!line || BUFFER_SIZE <= 0 || fd < 0)
+	if (!line || BUFFER_SIZE <= 0 || fd < 0 || fd > 1024)
 		return (-1);
 	*line = malloc(sizeof(char) * 1);
 	if (!(*line))
 		return (-1);
-	*line[0] = '\0';
+	(*line)[0] = '\0';
 	index = get_line(line, previous_buffer);
 	if (index < 0)
 	{
 		ret = read_line(fd, line, &previous_buffer);
-		if (ret == 0)
-			return (0);
-		else if (ret < 0)
-			return (-1);
+		if (ret <= 0)
+		{
+			free(previous_buffer);
+			if (ret == 0)
+				return (0);
+			else if (ret < 0)
+				return (-1);
+		}
 	}
 	else
 		ret = get_prev(&previous_buffer, previous_buffer, index);

@@ -6,11 +6,11 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 15:50:39 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/22 13:55:27 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/01/29 15:28:37 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_concat(char **dest, char *src, int srclen)
 {
@@ -75,7 +75,11 @@ int		read_line(int fd, char **line, char **previous_buffer)
 		if (ret == 0)
 			return (0);
 		if (ret < 0)
+		{
+			free(*line);
+			*line = NULL;
 			return (-1);
+		}
 		buffer[ret] = '\0';
 		index = get_line(line, buffer);
 	}
@@ -87,7 +91,7 @@ int		get_next_line(int fd, char **line)
 {
 	int			index;
 	int			ret;
-	static char	*previous_buffer[1500] = NULL;
+	static char	*previous_buffer[1500];
 
 	if (!line || BUFFER_SIZE <= 0 || fd < 0)
 		return (-1);

@@ -6,16 +6,13 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 15:46:04 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/22 13:52:19 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/01/29 15:26:35 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
 
