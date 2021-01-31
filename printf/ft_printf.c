@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 16:05:39 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/31 17:02:34 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/01/31 17:18:11 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	conv_s(va_list args, t_flagmodes *s, int *count)
 	(void)count;
 	i = 0;
 	str = (char *)va_arg(args, char *);
-	while (str[i])
+	while (str && str[i])
 		ft_putchar_fd(str[i++], 1);
 	return (1);
 }
@@ -53,7 +53,7 @@ void	*set_converters(int (***f)(va_list, t_flagmodes *, int *))
 	*f = malloc(sizeof(**f) * 8);
 	if (!(*f))
 		return (NULL);
-	(*f[1]) = &conv_s;
+	(*f)[1] = &conv_s;
 	return (*f);
 }
 
@@ -68,19 +68,20 @@ int	get_format(char *str, t_flagmodes *flagmodes, va_list args, int *count)
 	i = 1;
 	flagsetters = set_flagsetters();
 	set_converters(&converters);
-	while (str[i] && flag >= 0)
+	format = -1;
+	flag = 0;
+	while (str[i] && flag >= 0 && format < 0)
 	{
 		flag = get_flags(flagmodes, str + i, args, flagsetters); 
 		if (flag > 0)
 			i += flag;
-		else
-		{
+		else if (flag == 0)
 			format = ft_getpos(str[i], "cspdiuxX");
-			if (format >= 0)
-				(*converters[i])(args, flagmodes, count);
-			break ;
-		}
+		if (flag >= 0 && format >= 0)
+			(*converters[format])(args, flagmodes, count);
 	}
+	if (str[i] && (format < 0 || flag < 0))
+		ft_putchar_fd(1, str[i++]);
 	return (i);
 }
 
@@ -125,9 +126,9 @@ int	ft_printf(const char *str, ...)
 
 int	main(void)
 {
-	char	str[] = "ouuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuui";
+	char	*str = "ouuuui";
 
 	(void)str;
-	ft_printf("allo%s%%ca\n", str);
+	ft_printf("allo%s%%\n", str);
 	printf("a%100.skb", str);
 }
