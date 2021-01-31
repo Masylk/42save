@@ -6,29 +6,22 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 16:05:39 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/28 17:00:16 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/01/31 17:02:34 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	get_flags(char c, t_flagmodes *flagmodes, char *str, va_list arg)
+int	get_flags(t_flagmodes *flagmodes, char *str, va_list arg, int (**f)(t_flagmodes *, va_list))
 {
 	char	*flags;
-	int		fill;
+	int		i;
 
-	flags = "-.*";
-	if (ft_getpos(c, flags) >= 0)
-	{
-		if (c == '*')
-			fill = (int)va_arg(arg, int);
-		if ((c == '-' && !(flagmodes->left) || fill < 0) && !(flagmodes->precision))
-			return (set_flag(&(flagmodes->left)));
-		else if (c == '.' && !(flagmodes->precision))
-			return (set_flag(&(flagmodes->precision)));
-		return (-1);
-	}
-	else if (ft_isdigit(c))
+	flags = "-.*0";
+	i = ft_getpos(str[0], flags);
+	if (i >= 0)
+		return ((*f[i])(flagmodes, arg));
+	else if (ft_isdigit(str[0]))
 	{
 		if (flagmodes->precision && flagmodes->max < 0)
 			return (set_size(&(flagmodes->max), str));
@@ -39,33 +32,53 @@ int	get_flags(char c, t_flagmodes *flagmodes, char *str, va_list arg)
 	return (0);
 }
 
-int	get_format(char *str, t_flagmodes *flagmodes, va_list args)
+int	conv_s(va_list args, t_flagmodes *s, int *count)
 {
-	char		*formats;
+	char	*str;
+	int		i;
+
+	(void)s;
+	(void)count;
+	i = 0;
+	str = (char *)va_arg(args, char *);
+	while (str[i])
+		ft_putchar_fd(str[i++], 1);
+	return (1);
+}
+
+void	*set_converters(int (***f)(va_list, t_flagmodes *, int *))
+{
+	//int			(**converters)(va_list a, t_flagmodes *s, int o);
+
+	*f = malloc(sizeof(**f) * 8);
+	if (!(*f))
+		return (NULL);
+	(*f[1]) = &conv_s;
+	return (*f);
+}
+
+int	get_format(char *str, t_flagmodes *flagmodes, va_list args, int *count)
+{
 	int			i;
 	int			format;
 	int			flag;
+	int			(**flagsetters)(t_flagmodes *s, va_list a);
+	int			(**converters)(va_list a, t_flagmodes *s, int *c);
 
-	formats = "cspdiuxX";
 	i = 1;
-	if (!str)
-		return (i);
-	while (str[i])
+	flagsetters = set_flagsetters();
+	set_converters(&converters);
+	while (str[i] && flag >= 0)
 	{
-		flag = get_flags(str[i], flagmodes, str + i, args); 
-		if (flag < 0)
-			break ;
-		else if (flag > 0)
-		{
-		//	printf("left : %d\nprecision : %d\nmin : %d\nmax : %d\n", flagmodes->left, flagmodes->precision, flagmodes->min, flagmodes->max);
+		flag = get_flags(flagmodes, str + i, args, flagsetters); 
+		if (flag > 0)
 			i += flag;
-		}
 		else
 		{
-			format = ft_getpos(str[i], "-");
-			if (format < 0)
-				break ;
-			i++;
+			format = ft_getpos(str[i], "cspdiuxX");
+			if (format >= 0)
+				(*converters[i])(args, flagmodes, count);
+			break ;
 		}
 	}
 	return (i);
@@ -75,38 +88,46 @@ int	set_flagmodes(t_flagmodes *flagmodes)
 {
 	flagmodes->left = 0;
 	flagmodes->precision = 0;
+	flagmodes->fill = 0;
 	flagmodes->min = 0;
 	flagmodes->max = -1;
+	flagmodes->zero = 0;
 	return (1);
 }
 
 int	ft_printf(const char *str, ...)
 {
 	int			i;
+	int			count;
 	va_list		args;
 	t_flagmodes	flagmodes;
 
-	va_start(args, str);
 	i = 0;
-	set_flagmodes(&flagmodes);
-	//printf("left : %d\nprecision : %d\nmin : %d\nmax : %d\n", flagmodes.left, flagmodes.precision, flagmodes.min, flagmodes.max);
+	count = 0;
+	va_start(args, str);
 	if (!str)
 		return (i);
 	while (str[i])
 	{
 		if (str[i] == '%')
 		{
-			i += get_format((char*)str + i, &flagmodes, args);
+			set_flagmodes(&flagmodes);
+			i += get_format((char*)str + i, &flagmodes, args, &count);
 		}
-		ft_putchar_fd(str[i++], 1);
+		else
+		{
+			count++;
+			ft_putchar_fd(str[i++], 1);
+		}
 	}
-	return (i);
+	return (count);
 }
 
 int	main(void)
 {
 	char	str[] = "ouuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuui";
 
-	ft_printf("allo%-10.i%ca\n");
-	printf("a%-*.2skb", -18, str);
+	(void)str;
+	ft_printf("allo%s%%ca\n", str);
+	printf("a%100.skb", str);
 }
