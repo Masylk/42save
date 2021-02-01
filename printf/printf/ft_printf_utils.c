@@ -50,9 +50,6 @@ int	set_flag(int *flag)
 
 int	set_size(int *width, char *str)
 {
-	int	i;
-
-	i = 0;
 	*width = ft_atoi(str);
 	return (ft_nblen(*width));
 }

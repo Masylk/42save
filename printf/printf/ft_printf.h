@@ -14,7 +14,7 @@
 # define FT_PRINTF_H
 
 # include <stdarg.h>
-# include "libft.h"
+# include "../libft.h"
 # include <stdio.h>
 
 typedef	struct	s_flagmodes
@@ -27,14 +27,14 @@ typedef	struct	s_flagmodes
 	int	zero;
 }				t_flagmodes;
 
-int	ft_getpos(char c, char *str);
-int	ft_nblen(int nb);
-int	set_flag(int *flag);
-int	set_size(int *width, char *str);
-int	set_zero(t_flagmodes *s, va_list arg);
-int	set_precision(t_flagmodes *s, va_list arg);
-int	set_fill(t_flagmodes *s, va_list arg);
-int	set_left(t_flagmodes *s, va_list arg);
-int	(**set_flagsetters(void))(t_flagmodes *, va_list);
+int		ft_getpos(char c, char *str);
+int		ft_nblen(int nb);
+int		set_flag(int *flag);
+int		set_size(int *width, char *str);
+int		set_zero(t_flagmodes *s, va_list arg);
+int		set_precision(t_flagmodes *s, va_list arg);
+int		set_fill(t_flagmodes *s, va_list arg);
+int		set_left(t_flagmodes *s, va_list arg);
+void	*set_flagsetters(int (***f)(t_flagmodes *, va_list));
 
 #endif

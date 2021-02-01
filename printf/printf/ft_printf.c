@@ -12,15 +12,18 @@
 
 #include "ft_printf.h"
 
-int	get_flags(t_flagmodes *flagmodes, char *str, va_list arg, int (**f)(t_flagmodes *, va_list))
+int	get_flags(t_flagmodes *flagmodes, char *str, va_list arg)
 {
 	char	*flags;
 	int		i;
+	int			(**flagsetters)(t_flagmodes *s, va_list a);
 
+	if (!set_flagsetters(&flagsetters))
+		return (-1);
 	flags = "-.*0";
 	i = ft_getpos(str[0], flags);
 	if (i >= 0)
-		return ((*f[i])(flagmodes, arg));
+		return ((*flagsetters[i])(flagmodes, arg));
 	else if (ft_isdigit(str[0]))
 	{
 		if (flagmodes->precision && flagmodes->max < 0)
@@ -48,8 +51,6 @@ int	conv_s(va_list args, t_flagmodes *s, int *count)
 
 void	*set_converters(int (***f)(va_list, t_flagmodes *, int *))
 {
-	//int			(**converters)(va_list a, t_flagmodes *s, int o);
-
 	*f = malloc(sizeof(**f) * 8);
 	if (!(*f))
 		return (NULL);
@@ -62,26 +63,25 @@ int	get_format(char *str, t_flagmodes *flagmodes, va_list args, int *count)
 	int			i;
 	int			format;
 	int			flag;
-	int			(**flagsetters)(t_flagmodes *s, va_list a);
 	int			(**converters)(va_list a, t_flagmodes *s, int *c);
 
+	if (!set_converters(&converters))
+		return (-1);
 	i = 1;
-	flagsetters = set_flagsetters();
-	set_converters(&converters);
 	format = -1;
-	flag = 0;
-	while (str[i] && flag >= 0 && format < 0)
+	flag = 1;
+	while (str[i] && flag >= 0 && format < 0 && !(flag == 0 && format < 0))
 	{
-		flag = get_flags(flagmodes, str + i, args, flagsetters); 
+		flag = get_flags(flagmodes, str + i, args); 
 		if (flag > 0)
 			i += flag;
 		else if (flag == 0)
 			format = ft_getpos(str[i], "cspdiuxX");
-		if (flag >= 0 && format >= 0)
+		if (flag >= 0 && format >= 0 && i++)
 			(*converters[format])(args, flagmodes, count);
 	}
 	if (str[i] && (format < 0 || flag < 0))
-		ft_putchar_fd(1, str[i++]);
+		ft_putchar_fd(str[i++], 1);
 	return (i);
 }
 
@@ -102,6 +102,7 @@ int	ft_printf(const char *str, ...)
 	int			count;
 	va_list		args;
 	t_flagmodes	flagmodes;
+	int			ret;
 
 	i = 0;
 	count = 0;
@@ -113,13 +114,13 @@ int	ft_printf(const char *str, ...)
 		if (str[i] == '%')
 		{
 			set_flagmodes(&flagmodes);
-			i += get_format((char*)str + i, &flagmodes, args, &count);
+			ret = get_format((char*)str + i, &flagmodes, args, &count);
+			if (ret < 0)
+				return (-1);
+			i += ret;
 		}
-		else
-		{
-			count++;
+		else if (count++)
 			ft_putchar_fd(str[i++], 1);
-		}
 	}
 	return (count);
 }
@@ -129,6 +130,6 @@ int	main(void)
 	char	*str = "ouuuui";
 
 	(void)str;
-	ft_printf("allo%s%%\n", str);
-	printf("a%100.skb", str);
+	ft_printf("allo%10s%%%.za\n", str);
+	printf("allo%10s%%%.za", str);
 }

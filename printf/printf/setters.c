@@ -28,7 +28,7 @@ int	set_left(t_flagmodes *s, va_list arg)
 {
 	(void)arg;
 	if (!(s->left) && !(s->precision))
-			return (set_flag(&(s->left)));
+		return (set_flag(&(s->left)));
 	return (-1);
 }
 
@@ -69,16 +69,14 @@ int	set_zero(t_flagmodes *s, va_list arg)
 	return (1);
 }
 
-int	(**set_flagsetters(void))(t_flagmodes *, va_list)
+void	*set_flagsetters(int (***f)(t_flagmodes *, va_list))
 {
-	int			(**flagsetters)(t_flagmodes *s, va_list a);
-
-	flagsetters = malloc(sizeof(*flagsetters) * 4);
-	if (!flagsetters)
+	*f = malloc(sizeof(**f) * 5);
+	if (!(*f))
 		return (NULL);
-	flagsetters[0] = &set_left;
-	flagsetters[1] = &set_precision;
-	flagsetters[2] = &set_fill;
-	flagsetters[3] = &set_zero;
-	return (flagsetters);
+	(*f)[0] = &set_left;
+	(*f)[1] = &set_precision;
+	(*f)[2] = &set_fill;
+	(*f)[3] = &set_zero;
+	return (*f);
 }
