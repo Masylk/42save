@@ -20,9 +20,12 @@ RM=rm -f
 
 INC=ft_printf.h
 
-SRC=../ft_atoi.c \
-../ft_isdigit.c \
+SRC=../ft_atoi.c ../ft_itoa.c ../ft_utoa.c \
+../ft_itoa_base.c ../ft_utoa_base.c ../ft_ultoa_base.c \
+../ft_strlen.c ../ft_strlcpy.c ../ft_strlcat.c ../ft_strjoin.c \
+../ft_isdigit.c ../ft_calloc.c ../ft_bzero.c \
 ../ft_putchar_fd.c \
+conv_utils.c conv_s.c conv_c.c conv_d.c conv_x.c conv_u.c conv_p.c \
 ft_printf.c setters.c ft_printf_utils.c
 
 OBJ=$(SRC:.c=.o)

@@ -12,11 +12,11 @@
 
 #include "ft_printf.h"
 
-int	get_flags(t_flagmodes *flagmodes, char *str, va_list arg)
+int	get_flags(t_flagmodes *flagmodes, char *str, va_list *arg)
 {
 	char	*flags;
 	int		i;
-	int			(**flagsetters)(t_flagmodes *s, va_list a);
+	int			(**flagsetters)(t_flagmodes *s, va_list *a);
 
 	if (!set_flagsetters(&flagsetters))
 		return (-1);
@@ -26,44 +26,38 @@ int	get_flags(t_flagmodes *flagmodes, char *str, va_list arg)
 		return ((*flagsetters[i])(flagmodes, arg));
 	else if (ft_isdigit(str[0]))
 	{
-		if (flagmodes->precision && flagmodes->max < 0)
+		if (flagmodes->precision && flagmodes->max <= 0)
 			return (set_size(&(flagmodes->max), str));
 		else if (!(flagmodes->min))
 			return (set_size(&(flagmodes->min), str));
 		return (-1);
 	}
+	free(flagsetters);
 	return (0);
 }
 
-int	conv_s(va_list args, t_flagmodes *s, int *count)
-{
-	char	*str;
-	int		i;
-
-	(void)s;
-	(void)count;
-	i = 0;
-	str = (char *)va_arg(args, char *);
-	while (str && str[i])
-		ft_putchar_fd(str[i++], 1);
-	return (1);
-}
-
-void	*set_converters(int (***f)(va_list, t_flagmodes *, int *))
+void	*set_converters(int (***f)(va_list *, t_flagmodes *, int *))
 {
 	*f = malloc(sizeof(**f) * 8);
 	if (!(*f))
 		return (NULL);
+	(*f)[0] = &conv_c;
 	(*f)[1] = &conv_s;
+	(*f)[2] = &conv_p;
+	(*f)[3] = &conv_d;
+	(*f)[4] = &conv_d;
+	(*f)[5] = &conv_u;
+	(*f)[6] = &conv_x_lower;
+	(*f)[7] = &conv_x_upper;
 	return (*f);
 }
 
-int	get_format(char *str, t_flagmodes *flagmodes, va_list args, int *count)
+int	get_format(char *str, t_flagmodes *flagmodes, va_list *args, int *count)
 {
 	int			i;
 	int			format;
 	int			flag;
-	int			(**converters)(va_list a, t_flagmodes *s, int *c);
+	int			(**converters)(va_list *a, t_flagmodes *s, int *c);
 
 	if (!set_converters(&converters))
 		return (-1);
@@ -80,8 +74,9 @@ int	get_format(char *str, t_flagmodes *flagmodes, va_list args, int *count)
 		if (flag >= 0 && format >= 0 && i++)
 			(*converters[format])(args, flagmodes, count);
 	}
-	if (str[i] && (format < 0 || flag < 0))
+	if (str[i] && (format < 0 || flag < 0) && ++(*count))
 		ft_putchar_fd(str[i++], 1);
+	free(converters);
 	return (i);
 }
 
@@ -114,22 +109,50 @@ int	ft_printf(const char *str, ...)
 		if (str[i] == '%')
 		{
 			set_flagmodes(&flagmodes);
-			ret = get_format((char*)str + i, &flagmodes, args, &count);
+			ret = get_format((char*)str + i, &flagmodes, &args, &count);
 			if (ret < 0)
 				return (-1);
 			i += ret;
 		}
-		else if (count++)
+		else if (++count)
 			ft_putchar_fd(str[i++], 1);
 	}
 	return (count);
 }
 
-int	main(void)
+/*int	main(void)
 {
-	char	*str = "ouuuui";
+	char	*str = "ou\\0uuui";
+	char	*str2 = "oudaz\\0uuui";
+	int		ret;
 
 	(void)str;
-	ft_printf("allo%10s%%%.za\n", str);
-	printf("allo%10s%%%.za", str);
-}
+	ret = ft_printf("1 : allo%15.9dza\n", -0x12);
+	printf("ret 1 : %d\n", ret);
+	ret = printf("2 : allo%15.9dza\n", -0x12);
+	printf("ret 2 : %d\n", ret);
+	ret = ft_printf("1 : allo%019.*i.za\n", -10, -0x12);
+	printf("ret 1 : %d\n", ret);
+	ret = printf("2 : allo%019.*i.za\n", -10, -0x12);
+	printf("ret 2 : %d\n", ret);
+	ret = ft_printf("1 : allo%019.*s.za\n", 1, NULL);
+	printf("ret 1 : %d\n", ret);
+	ret = printf("2 : allo%019.*s.za\n", 1, NULL);
+	printf("ret 2 : %d\n", ret);
+	ret = ft_printf("1 : allo%-10.*X%za\n", -1, 2);
+	printf("ret 1 : %d\n", ret);
+	ret = printf("2 : allo%-10.*X%za\n", -1, 2);
+	printf("ret 2 : %d\n", ret);
+	ret = ft_printf("1 : allo%-010.u%za\n", 200);
+	printf("ret 1 : %d\n", ret);
+	ret = printf("2 : allo%-010.u%za\n", 200);
+	printf("ret 2 : %d\n", ret);
+	ret = ft_printf("1 : %10.6d\n", 6);
+	printf("ret 1 : %d\n", ret);
+	ret = printf("2 : %10.6d\n", 6);
+	printf("ret 2 : %d\n", ret);
+	ret = ft_printf("1 : %-010p\n", str2);
+	printf("ret 1 : %d\n", ret);
+	ret = printf("2 : %-010p\n", str2);
+	printf("ret 2 : %d\n", ret);
+}*/
