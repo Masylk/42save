@@ -6,7 +6,7 @@
 #    By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/22 10:33:24 by mtogbe            #+#    #+#              #
-#    Updated: 2021/01/22 16:07:56 by mtogbe           ###   ########.fr        #
+#    Updated: 2021/02/03 15:35:35 by mtogbe           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ CFLAGS=-Wall -Wextra
 
 RM=rm -f
 
-INC=ft_printf.h
+INC=-I./ft_printf.h
 
 SRC=../ft_atoi.c ../ft_itoa.c ../ft_utoa.c \
 ../ft_itoa_base.c ../ft_utoa_base.c ../ft_ultoa_base.c \

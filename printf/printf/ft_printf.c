@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 16:05:39 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/31 17:18:11 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/02/03 17:08:19 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ int	get_format(char *str, t_flagmodes *flagmodes, va_list *args, int *count)
 		if (flag >= 0 && format >= 0 && i++)
 			(*converters[format])(args, flagmodes, count);
 	}
-	if (str[i] && (format < 0 || flag < 0) && ++(*count))
-		ft_putchar_fd(str[i++], 1);
+	if (str[i] && (format < 0 || flag < 0))
+		print_conv_char(str[i++], flagmodes, count);
 	free(converters);
 	return (i);
 }
@@ -122,37 +122,24 @@ int	ft_printf(const char *str, ...)
 
 /*int	main(void)
 {
-	char	*str = "ou\\0uuui";
-	char	*str2 = "oudaz\\0uuui";
+	//char	*str = "ou\\0uuui";
+//	char	*str2 = "oudaz\\0uuui";
 	int		ret;
 
-	(void)str;
-	ret = ft_printf("1 : allo%15.9dza\n", -0x12);
+	ret = ft_printf("1 : %05%\n");
 	printf("ret 1 : %d\n", ret);
-	ret = printf("2 : allo%15.9dza\n", -0x12);
+	ret = printf("2 : %05%\n");
 	printf("ret 2 : %d\n", ret);
-	ret = ft_printf("1 : allo%019.*i.za\n", -10, -0x12);
+	ret = ft_printf("1 : %-05%\n");
 	printf("ret 1 : %d\n", ret);
-	ret = printf("2 : allo%019.*i.za\n", -10, -0x12);
+	ret = printf("2 : %-05%\n");
 	printf("ret 2 : %d\n", ret);
-	ret = ft_printf("1 : allo%019.*s.za\n", 1, NULL);
+	ret = ft_printf("1 : %5%\n");
 	printf("ret 1 : %d\n", ret);
-	ret = printf("2 : allo%019.*s.za\n", 1, NULL);
+	ret = printf("2 : %5%\n");
 	printf("ret 2 : %d\n", ret);
-	ret = ft_printf("1 : allo%-10.*X%za\n", -1, 2);
+	ret = ft_printf("1 : %-5%\n");
 	printf("ret 1 : %d\n", ret);
-	ret = printf("2 : allo%-10.*X%za\n", -1, 2);
-	printf("ret 2 : %d\n", ret);
-	ret = ft_printf("1 : allo%-010.u%za\n", 200);
-	printf("ret 1 : %d\n", ret);
-	ret = printf("2 : allo%-010.u%za\n", 200);
-	printf("ret 2 : %d\n", ret);
-	ret = ft_printf("1 : %10.6d\n", 6);
-	printf("ret 1 : %d\n", ret);
-	ret = printf("2 : %10.6d\n", 6);
-	printf("ret 2 : %d\n", ret);
-	ret = ft_printf("1 : %-010p\n", str2);
-	printf("ret 1 : %d\n", ret);
-	ret = printf("2 : %-010p\n", str2);
+	ret = printf("2 : %-5%\n");
 	printf("ret 2 : %d\n", ret);
 }*/

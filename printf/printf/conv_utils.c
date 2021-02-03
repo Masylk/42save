@@ -19,10 +19,10 @@ void	print_conv_int(t_flagmodes *s, char *str, int *count, int len)
 	int     i;
 
 	i = 0;
-	if (str[0] == '-' && !(s->precision) && ++(*count))
-        ft_putchar_fd(str[i++], 1);
 	if (s->precision)
 		s->zero = 0;
+	if (str[0] == '-' && (s->zero) && ++(*count))
+		ft_putchar_fd(str[i++], 1);
 	s->max = ft_max(len, s->max);
 	if(str[0] == '-')
 		s->min -= 1;

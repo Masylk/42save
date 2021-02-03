@@ -5,7 +5,7 @@ char    *set_prefix(char *str)
     char    *tmp;
 
     tmp = str;
-    str = ft_strjoin("00", tmp);
+    str = ft_strjoin("0x", tmp);
     free(tmp);
     if (!str)
         return (NULL);
@@ -17,7 +17,7 @@ int     conv_p(va_list *args, t_flagmodes *s, int *count)
 	char	*str;
     int     len;
 
-	str = ft_ultoa_base((unsigned long)va_arg(*args, void *), "0123456789ABCDEF");
+	str = ft_ultoa_base((unsigned long)va_arg(*args, void *), "0123456789abcdef");
 	if (!str)
 		return (-1);
     str = set_prefix(str);

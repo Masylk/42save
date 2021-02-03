@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_itoa_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:41:34 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/20 16:34:11 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/02/03 17:00:04 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int		get_nb_size(int base, long long n)
 
 static void		getnb(char **result, char *base, long long n, int pos)
 {
-	if (n < ft_strlen(base))
+	if (n < (long long)ft_strlen(base))
 		(*result)[pos] = base[n % ft_strlen(base)];
 	else
 	{

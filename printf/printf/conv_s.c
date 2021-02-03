@@ -1,14 +1,11 @@
 #include "ft_printf.h"
 
-int	conv_s(va_list *args, t_flagmodes *s, int *count)
+void print_conv_string(va_list *args, t_flagmodes *s, int *count, char *str)
 {
-	char	*str;
-	int		i;
+	int	i;
 
+	(void)args;
 	i = 0;
-	str = (char *)va_arg(*args, char *);
-	if (!str)
-		str = "(null)";
 	if (s->precision)
 		s->max = ft_min(ft_strlen(str), s->max);
 	else
@@ -19,5 +16,15 @@ int	conv_s(va_list *args, t_flagmodes *s, int *count)
 		ft_putchar_fd(str[i++], 1);
 	if (s->min && s->left)
 		*count += ft_putfill(s->min - s->max, s);
+}
+
+int	conv_s(va_list *args, t_flagmodes *s, int *count)
+{
+	char	*str;
+
+	str = (char *)va_arg(*args, char *);
+	if (!str)
+		str = "(null)";
+	print_conv_string(args, s, count, str);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 14:53:07 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/31 16:52:27 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/02/03 16:18:32 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,9 @@ int	set_fill(t_flagmodes *s, va_list *arg)
 int	set_zero(t_flagmodes *s, va_list *arg)
 {
 	(void)arg;
-	if (!(s->left))
+	if (s->precision)
+		s->max = 0;
+	else if (!(s->left))
 		s->zero = 1;
 	return (1);
 }
