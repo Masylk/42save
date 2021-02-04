@@ -2,19 +2,19 @@
 
 int	conv_x_lower(va_list *args, t_flagmodes *s, int *count)
 {
-    return(conv_x(args, s, count, "0123456789abcdef"));
+	return (conv_x(args, s, count, "0123456789abcdef"));
 }
 
 int	conv_x_upper(va_list *args, t_flagmodes *s, int *count)
 {
-    return(conv_x(args, s, count, "0123456789ABCDEF"));
+	return (conv_x(args, s, count, "0123456789ABCDEF"));
 }
 
 int	conv_x(va_list *args, t_flagmodes *s, int *count, char *base)
 {
-	char    *str;
+	char	*str;
 	int		len;
-	
+
 	str = ft_utoa_base((unsigned int)va_arg(*args, unsigned int), base);
 	if (!str)
 		return (-1);
@@ -23,6 +23,6 @@ int	conv_x(va_list *args, t_flagmodes *s, int *count, char *base)
 		print_conv_string(args, s, count, str);
 	else
 		print_conv_int(s, str, count, len);
-    free(str);
+	free(str);
 	return (1);
 }

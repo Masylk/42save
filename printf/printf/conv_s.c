@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-void print_conv_string(va_list *args, t_flagmodes *s, int *count, char *str)
+void	print_conv_string(va_list *args, t_flagmodes *s, int *count, char *str)
 {
 	int	i;
 
@@ -18,7 +18,7 @@ void print_conv_string(va_list *args, t_flagmodes *s, int *count, char *str)
 		*count += ft_putfill(s->min - s->max, s);
 }
 
-int	conv_s(va_list *args, t_flagmodes *s, int *count)
+int		conv_s(va_list *args, t_flagmodes *s, int *count)
 {
 	char	*str;
 

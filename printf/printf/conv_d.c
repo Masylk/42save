@@ -2,8 +2,9 @@
 
 int	conv_d(va_list *args, t_flagmodes *s, int *count)
 {
-	char    *str;
+	char	*str;
 	int		len;
+
 	str = ft_itoa((int)va_arg(*args, int));
 	if (!str)
 		return (-1);
@@ -14,6 +15,6 @@ int	conv_d(va_list *args, t_flagmodes *s, int *count)
 		print_conv_string(args, s, count, str);
 	else
 		print_conv_int(s, str, count, len);
-    free(str);
+	free(str);
 	return (1);
 }

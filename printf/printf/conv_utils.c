@@ -1,13 +1,13 @@
 #include "ft_printf.h"
 
-int	ft_max(int a, int b)
+int		ft_max(int a, int b)
 {
 	if (a > b)
 		return (a);
 	return (b);
 }
 
-int	ft_min(int a, int b)
+int		ft_min(int a, int b)
 {
 	if (a < b)
 		return (a);
@@ -16,7 +16,7 @@ int	ft_min(int a, int b)
 
 void	print_conv_int(t_flagmodes *s, char *str, int *count, int len)
 {
-	int     i;
+	int	i;
 
 	i = 0;
 	if (s->precision)
@@ -24,7 +24,7 @@ void	print_conv_int(t_flagmodes *s, char *str, int *count, int len)
 	if (str[0] == '-' && (s->zero) && ++(*count))
 		ft_putchar_fd(str[i++], 1);
 	s->max = ft_max(len, s->max);
-	if(str[0] == '-')
+	if (str[0] == '-')
 		s->min -= 1;
 	if (!(s->left) && s->min)
 		*count += ft_putfill(s->min - s->max, s);
@@ -42,7 +42,7 @@ void	print_conv_int(t_flagmodes *s, char *str, int *count, int len)
 		*count += ft_putfill(s->min - s->max, s);
 }
 
-int	ft_putfill(int n, t_flagmodes *s)
+int		ft_putfill(int n, t_flagmodes *s)
 {
 	char	fill;
 	int		i;

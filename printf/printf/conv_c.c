@@ -14,7 +14,7 @@ void	print_conv_char(char c, t_flagmodes *s, int *count)
 		*count += ft_putfill(s->min - s->max, s);
 }
 
-int	conv_c(va_list *args, t_flagmodes *s, int *count)
+int		conv_c(va_list *args, t_flagmodes *s, int *count)
 {
 	char	c;
 

@@ -12,11 +12,11 @@
 
 #include "ft_printf.h"
 
-int	get_flags(t_flagmodes *flagmodes, char *str, va_list *arg)
+int		get_flags(t_flagmodes *flagmodes, char *str, va_list *arg)
 {
 	char	*flags;
 	int		i;
-	int			(**flagsetters)(t_flagmodes *s, va_list *a);
+	int		(**flagsetters)(t_flagmodes *s, va_list *a);
 
 	if (!set_flagsetters(&flagsetters))
 		return (-1);
@@ -66,7 +66,7 @@ int	get_format(char *str, t_flagmodes *flagmodes, va_list *args, int *count)
 	flag = 1;
 	while (str[i] && flag >= 0 && format < 0 && !(flag == 0 && format < 0))
 	{
-		flag = get_flags(flagmodes, str + i, args); 
+		flag = get_flags(flagmodes, str + i, args);
 		if (flag > 0)
 			i += flag;
 		else if (flag == 0)
@@ -120,7 +120,7 @@ int	ft_printf(const char *str, ...)
 	return (count);
 }
 
-/*int	main(void)
+int	main(void)
 {
 	//char	*str = "ou\\0uuui";
 //	char	*str2 = "oudaz\\0uuui";
@@ -142,4 +142,4 @@ int	ft_printf(const char *str, ...)
 	printf("ret 1 : %d\n", ret);
 	ret = printf("2 : %-5%\n");
 	printf("ret 2 : %d\n", ret);
-}*/
+}
