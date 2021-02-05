@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   conv_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/04 15:32:10 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/02/04 16:53:25 by mtogbe           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 int		ft_max(int a, int b)
@@ -19,7 +31,7 @@ void	print_conv_int(t_flagmodes *s, char *str, int *count, int len)
 	int	i;
 
 	i = 0;
-	if (s->precision)
+	if (s->precision || s->left)
 		s->zero = 0;
 	if (str[0] == '-' && (s->zero) && ++(*count))
 		ft_putchar_fd(str[i++], 1);

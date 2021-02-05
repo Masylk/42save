@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 14:53:07 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/02/03 16:18:32 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/02/04 16:51:12 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,10 @@ int		set_precision(t_flagmodes *s, va_list *arg)
 int		set_left(t_flagmodes *s, va_list *arg)
 {
 	(void)arg;
+	s->zero = 0;
 	if (!(s->left) && !(s->precision))
 		return (set_flag(&(s->left)));
-	return (-1);
+	return (1);
 }
 
 int		set_fill(t_flagmodes *s, va_list *arg)
@@ -39,6 +40,7 @@ int		set_fill(t_flagmodes *s, va_list *arg)
 		if (s->fill < 0)
 		{
 			s->left = 1;
+			s->zero = 0;
 			s->min = -(s->fill);
 		}
 		else
