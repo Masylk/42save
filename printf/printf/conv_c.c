@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   conv_c.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/04 15:31:55 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/02/04 15:32:20 by mtogbe           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 void	print_conv_char(char c, t_flagmodes *s, int *count)
@@ -14,7 +26,7 @@ void	print_conv_char(char c, t_flagmodes *s, int *count)
 		*count += ft_putfill(s->min - s->max, s);
 }
 
-int	conv_c(va_list *args, t_flagmodes *s, int *count)
+int		conv_c(va_list *args, t_flagmodes *s, int *count)
 {
 	char	c;
 

@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:43:41 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/27 12:08:05 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/02/04 16:49:37 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,7 @@ int	ft_nblen(int nb)
 
 int	set_flag(int *flag)
 {
-	if (!(*flag))
-		*flag = 1;
-	else
-		return (-1);
+	*flag = 1;
 	return (1);
 }
 
