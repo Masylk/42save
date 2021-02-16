@@ -15,7 +15,7 @@
 
 # include <stdlib.h>
 # include <unistd.h>
-
+# include "printf/ft_printf.h"
 typedef struct	s_list
 {
 	void			*content;
@@ -56,7 +56,9 @@ size_t			ft_strlcpy(char *dst, const char *src, size_t size);
 size_t			ft_strlcat(char *dst, const char *src, size_t size);
 char			*ft_strnstr(const char *s1, const char *s2, size_t len);
 int				ft_atoi(const char *nptr);
+double			ft_atod(const char *nptr);
 char			*ft_strdup(const char *s);
+int				ft_malloc(void **ptr, size_t size, int n);
 void			*ft_calloc(size_t nmemb, size_t size);
 void			ft_putchar_fd(char c, int fd);
 void			ft_putstr_fd(char *s, int fd);
@@ -77,5 +79,6 @@ void			ft_lstdelone(t_list *lst, void(*del)(void *));
 void			ft_lstclear(t_list **lst, void (*del)(void *));
 void			ft_lstiter(t_list *lst, void (*f)(void *));
 t_list			*ft_lstmap(t_list *lst, void *(*f)(void *), void(*del)(void *));
+int				get_next_line(int fd, char **line);
 
 #endif

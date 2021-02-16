@@ -49,5 +49,6 @@ int				conv_x_upper(va_list *args, t_flagmodes *s, int *count);
 int				conv_x_lower(va_list *args, t_flagmodes *s, int *count);
 int				conv_u(va_list *args, t_flagmodes *s, int *count);
 int				conv_p(va_list *args, t_flagmodes *s, int *count);
+int				ft_printf(const char *str, ...);
 
 #endif
