@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minirt.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/17 15:15:20 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/02/17 15:28:13 by mtogbe           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINIRT_H
 # define MINIRT_H
 
@@ -17,11 +29,11 @@ typedef struct	s_list
 
 typedef	struct	s_vector
 {
-	double	            x;
-	double	            y;
-	double	            z;
-	double              (*length)(struct s_vector a);
-    struct s_vector     (*normal)(struct s_vector a);
+	double			x;
+	double			y;
+	double			z;
+	double			(*length)(struct s_vector a);
+	struct s_vector	(*normal)(struct s_vector a);
 }				t_vector;
 
 typedef struct	s_matrices
@@ -101,10 +113,10 @@ typedef struct	s_data
 	t_list			planes;
 }				t_data;
 
-int		ft_tablen(char **tab);
-int		get_double(double *n, char *str);
-int		get_point(char *str, int *a, int *b, int *c);
-int		str_digit(char *str);
-void    freetab(char **tab);
+int				ft_tablen(char **tab);
+int				get_double(double *n, char *str);
+int				get_point(char *str, int *a, int *b, int *c);
+int				str_digit(char *str);
+void			freetab(char **tab);
 
 #endif
