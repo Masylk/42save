@@ -32,6 +32,7 @@ int	ft_tablen(char **tab)
 	i = 0;
 	while (tab[i])
 		i++;
+	return (i);
 }
 
 int	str_digit(char *str)
@@ -70,12 +71,11 @@ int	get_double(double *n, char *str)
 int	get_point(char *str, t_vector *v)
 {
 	char	**tab;
-	double	res;
 
 	tab = ft_split(str, ',');
 	if (!tab)
 		return (0);
-	if (ft_tablen != 3)
+	if (ft_tablen(tab) != 3)
 		return (freetab(tab, 0));
 	if (!(get_double(&(v->x), tab[0]))
 			|| !(get_double(&(v->y), tab[1]))

@@ -12,15 +12,15 @@
 
 #include "minirt.h"
 
-void			my_mlx_pixel_put(t_data *data, int x, int y, int color)
+/*void			my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
 	char	*dst;
 
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
-}
+}*/
 
-int				keypress(int keycode, t_vars *vars)
+/*int				keypress(int keycode, t_vars *vars)
 {
 	if (keycode == 53)
 	{
@@ -29,7 +29,7 @@ int				keypress(int keycode, t_vars *vars)
 	}
 	printf("%d\n", keycode);
 	return (0);
-}
+}*/
 
 int				keyrelease(int keycode, t_vars *vars)
 {
@@ -38,33 +38,39 @@ int				keyrelease(int keycode, t_vars *vars)
 	return (0);
 }
 
-int	parse_file()
+int	parse_file(char *str)
 {
 	int		fd;
 	int		ret;
 	char	*line;
 
 	ret = 1;
-	fd = open(av[1], O_RDONLY);
+	fd = open(str, O_RDONLY);
 	if (fd < 0)
 		return (0);
 	while(get_next_line(fd, &line) > 0 && ret > 0)
 	{
 		ret = get_flag(line);
+		free(line);
 	}
+	close(fd);
+	if (ret < 0)
+		return (-1);
+	return (1);
 }
 
 int	main(int ac, char **av)
 {
-	void	*mlx;
-	void	*mlx_win;
-	t_data	img;
-	t_vars	vars;
+	//void		*mlx;
+	//void		*mlx_win;
+	//t_mlxdata	img;
+	//t_vars		vars;
 
 	if (ac < 2)
 		return (0);
-
-	mlx = mlx_init();
+	if (parse_file(av[1]) < 0)
+		return (0);
+	/*mlx = mlx_init();
 	mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");
 	if (!mlx_win)
 		return (0);
@@ -76,5 +82,5 @@ int	main(int ac, char **av)
 	vars.win = mlx_win;
 	mlx_hook(vars.win, 2, 1L << 0, keypress, &vars);
 	mlx_hook(vars.win, 3, 1L << 1, keyrelease, &vars);
-	mlx_loop(mlx);
+	mlx_loop(mlx);*/
 }

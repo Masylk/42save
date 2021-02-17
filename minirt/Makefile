@@ -17,6 +17,7 @@ CC=gcc
 CFLAGS=-Wall -Wextra
 
 SRC=parse.c \
+	parse_settings.c parse_shapes.c parse_utils.c \
 	main.c
 
 RM=rm -f

@@ -17,6 +17,7 @@ int	parse_sphere(t_data *data, char *line)
 	t_sphere	sphere;
 	char		**tab;
 
+	(void)data;
 	tab = ft_split(line, ' ');
 	if (!tab)
 		return (0);
@@ -36,6 +37,7 @@ int	parse_square(t_data *data, char *line)
 	t_square	square;
 	char		**tab;
 
+	(void)data;
 	tab = ft_split(line, ' ');
 	if (ft_tablen(tab) != 5)
 		return (freetab(tab, 0));
@@ -55,6 +57,7 @@ int	parse_plane(t_data *data, char *line)
 	t_plane	plane;
 	char	**tab;
 
+	(void)data;
 	tab = ft_split(line, ' ');
 	if (ft_tablen(tab) != 4)
 		return (freetab(tab, 0));
@@ -62,7 +65,7 @@ int	parse_plane(t_data *data, char *line)
 		return (freetab(tab, 0));
 	if (!(get_point(tab[2], &(plane.v))))
 		return (freetab(tab, 0));
-	if (!(get_point(tab[3], &(square.colour))))
+	if (!(get_point(tab[3], &(plane.colour))))
 		return (freetab(tab, 0));
 	return (freetab(tab, 1));
 }
@@ -72,6 +75,7 @@ int	parse_cylindre(t_data *data, char *line)
 	t_cyl	cyl;
 	char	**tab;
 
+	(void)data;
 	tab = ft_split(line, ' ');
 	if (ft_tablen(tab) != 6)
 		return (freetab(tab, 0));
@@ -93,6 +97,7 @@ int	parse_triangle(t_data *data, char *line)
 	t_triangle	triangle;
 	char		**tab;
 
+	(void)data;
 	tab = ft_split(line, ' ');
 	if (ft_tablen(tab) != 5)
 		return (freetab(tab, 0));
@@ -102,7 +107,7 @@ int	parse_triangle(t_data *data, char *line)
 		return (freetab(tab, 0));
 	if (!(get_point(tab[3], &(triangle.coor_c))))
 		return (freetab(tab, 0));
-	if (!(get_point(tab[4], &(square.colour))))
+	if (!(get_point(tab[4], &(triangle.colour))))
 		return (freetab(tab, 0));
 	return (freetab(tab, 1));
 }

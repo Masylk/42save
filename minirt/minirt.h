@@ -18,6 +18,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+# include <stdio.h>
 # include "lib/libft.h"
 
 typedef struct	s_tlist
@@ -26,6 +27,19 @@ typedef struct	s_tlist
 	void			*content;
 	struct s_list	*next;
 }				t_tlist;
+
+typedef struct  s_mlxdata {
+    void        *img;
+    char        *addr;
+    int         bits_per_pixel;
+    int         line_length;
+    int         endian;
+}               t_mlxdata;
+
+typedef struct  s_vars {
+    void        *mlx;
+    void        *win;
+}               t_vars;
 
 typedef	struct	s_vector
 {
@@ -123,9 +137,9 @@ typedef struct	s_data
 
 int				ft_tablen(char **tab);
 int				get_double(double *n, char *str);
-int				get_point(char *str, int *a, int *b, int *c);
+int				get_point(char *str, t_vector *v);
 int				str_digit(char *str);
-void			freetab(char **tab);
+int				freetab(char **tab, int value);
 int				get_flag(char *str);
 int				parse_sphere(t_data *data, char *line);
 int				parse_square(t_data *data, char *line);
