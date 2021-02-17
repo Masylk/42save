@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 15:12:51 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/02/15 15:32:58 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/02/17 17:06:02 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,23 @@ int	get_pos(char *str, char **flags)
 	return (-1);
 }
 
+int	set_parsers(int (***f)(t_data *d, char *s))
+{
+	*f = malloc ((sizeof(*f)) * 9);
+	if (!(*f))
+		return (0);
+	(*f)[0] = parse_res;
+	(*f)[1] = parse_alight;
+	(*f)[2] = parse_camera;
+	(*f)[3] = parse_light;
+	(*f)[4] = parse_plane;
+	(*f)[5] = parse_sphere;
+	(*f)[6] = parse_square;
+	(*f)[7] = parse_cylindre;
+	(*f)[8] = parse_triangle;
+	return (1);
+}
+
 int	get_flag(char *str)
 {
 	char	**flags;
@@ -47,5 +64,6 @@ int	get_flag(char *str)
 	flags[7] = "cy";
 	flags[8] = "tr";
 	flags[9] = NULL;
+	free(flags);
 	return (get_pos(str, flags));
 }

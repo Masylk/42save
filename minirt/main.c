@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:25:58 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/02/17 15:28:28 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/02/17 16:59:34 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,31 @@ int				keyrelease(int keycode, t_vars *vars)
 	return (0);
 }
 
-int	main(void)
+int	parse_file()
+{
+	int		fd;
+	int		ret;
+	char	*line;
+
+	ret = 1;
+	fd = open(av[1], O_RDONLY);
+	if (fd < 0)
+		return (0);
+	while(get_next_line(fd, &line) > 0 && ret > 0)
+	{
+		ret = get_flag(line);
+	}
+}
+
+int	main(int ac, char **av)
 {
 	void	*mlx;
 	void	*mlx_win;
 	t_data	img;
 	t_vars	vars;
+
+	if (ac < 2)
+		return (0);
 
 	mlx = mlx_init();
 	mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");

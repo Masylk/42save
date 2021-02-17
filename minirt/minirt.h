@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:15:20 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/02/17 15:28:13 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/02/17 17:06:31 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@
 # include <fcntl.h>
 # include "lib/libft.h"
 
-typedef struct	s_list
+typedef struct	s_tlist
 {
 	char			*tag;
 	void			*content;
 	struct s_list	*next;
-}				t_list;
+}				t_tlist;
 
 typedef	struct	s_vector
 {
@@ -49,9 +49,17 @@ typedef struct	s_resolution
 	unsigned int	height;
 }				t_resolution;
 
-typedef struct	s_light
+typedef struct	s_alight
 {
 	t_vector		colour;
+	unsigned int	ratio;
+}				t_alight;
+
+typedef struct	s_light
+{
+
+	t_vector		colour;
+	t_vector		coor;
 	unsigned int	ratio;
 }				t_light;
 
@@ -105,12 +113,12 @@ typedef struct	s_data
 {
 	t_resolution	resolution;
 	t_light			light;
-	t_list			cameras;
-	t_list			spheres;
-	t_list			squares;
-	t_list			triangles;
-	t_list			cylindres;
-	t_list			planes;
+	t_tlist			cameras;
+	t_tlist			spheres;
+	t_tlist			squares;
+	t_tlist			triangles;
+	t_tlist			cylindres;
+	t_tlist			planes;
 }				t_data;
 
 int				ft_tablen(char **tab);
@@ -118,5 +126,15 @@ int				get_double(double *n, char *str);
 int				get_point(char *str, int *a, int *b, int *c);
 int				str_digit(char *str);
 void			freetab(char **tab);
+int				get_flag(char *str);
+int				parse_sphere(t_data *data, char *line);
+int				parse_square(t_data *data, char *line);
+int				parse_cylindre(t_data *data, char *line);
+int				parse_plane(t_data *data, char *line);
+int				parse_triangle(t_data *data, char *line);
+int				parse_camera(t_data *data, char *line);
+int				parse_light(t_data *data, char *line);
+int				parse_res(t_data *data, char *line);
+int				parse_alight(t_data *data, char *line);
 
 #endif
