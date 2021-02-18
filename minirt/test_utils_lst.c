@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*   test_utils_lst.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/07 15:52:44 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/02/18 17:02:08 by mtogbe           ###   ########.fr       */
+/*   Created: 2021/02/18 16:21:11 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/02/18 17:11:02 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minirt.h"
 
-void	ft_lstadd_front(t_list **alst, t_list *new)
+void	printlights(t_light *list)
 {
-	if (!new || !alst)
-		return ;
-	new->next = *alst;
-	*alst = new;
+	t_light	light;
+
+	while (list)
+	{
+		light.coor = list->coor;
+		light.colour = list->colour;
+		light.ratio = list->ratio;
+		printlight(light);
+		list = list->next;
+	}
 }

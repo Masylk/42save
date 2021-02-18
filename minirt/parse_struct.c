@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*   parse_struct.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/07 15:52:44 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/02/18 17:02:08 by mtogbe           ###   ########.fr       */
+/*   Created: 2021/02/18 12:04:07 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/02/18 17:02:18 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minirt.h"
 
-void	ft_lstadd_front(t_list **alst, t_list *new)
+int	setdata_lists(t_data *data)
 {
-	if (!new || !alst)
-		return ;
-	new->next = *alst;
-	*alst = new;
+	data->cameras = NULL;
+	data->lights = NULL;
+	data->spheres = NULL;
+	data->squares = NULL;
+	data->triangles = NULL;
+	data->cylindres = NULL;
+	data->planes = NULL;
+	return (1);
 }

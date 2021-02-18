@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:16:35 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/02/17 15:20:57 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/02/18 17:22:26 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	ft_tablen(char **tab)
 	int	i;
 
 	i = 0;
+	if (!tab)
+		return (i);
 	while (tab[i])
 		i++;
 	return (i);
@@ -80,6 +82,7 @@ int	get_point(char *str, t_vector *v)
 	if (!(get_double(&(v->x), tab[0]))
 			|| !(get_double(&(v->y), tab[1]))
 			|| !(get_double(&(v->z), tab[2])))
-		return (freetab(tab, 0));
+		return (freetab(tab, 0));	
+	printf("len ok");
 	return (freetab(tab, 1));
 }

@@ -6,7 +6,7 @@
 #    By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/15 11:23:31 by mtogbe            #+#    #+#              #
-#    Updated: 2021/02/17 15:14:21 by mtogbe           ###   ########.fr        #
+#    Updated: 2021/02/18 16:35:59 by mtogbe           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,8 @@ CC=gcc
 
 CFLAGS=-Wall -Wextra
 
-SRC=parse.c \
-	parse_settings.c parse_shapes.c parse_utils.c \
+SRC=parse.c test_utils.c test_utils_lst.c \
+	parse_struct.c parse_settings.c parse_shapes.c parse_utils.c \
 	main.c
 
 RM=rm -f

@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:15:20 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/02/17 17:06:31 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/02/18 17:06:15 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ typedef struct	s_resolution
 
 typedef struct	s_alight
 {
-	t_vector		colour;
-	unsigned int	ratio;
+	t_vector	colour;
+	double		ratio;
 }				t_alight;
 
 typedef struct	s_light
@@ -74,65 +74,73 @@ typedef struct	s_light
 
 	t_vector		colour;
 	t_vector		coor;
-	unsigned int	ratio;
+	double			ratio;
+	struct s_light	*next;
 }				t_light;
 
 typedef struct	s_camera
 {
-	t_vector	coor;
-	t_vector	v;
-	double		width;
+	t_vector		coor;
+	t_vector		v;
+	double			fov;
+	struct s_camera	*next;
 }				t_camera;
 
 typedef struct	s_sphere
 {
-	t_vector	coor;
-	t_vector	colour;
-	double		width;
+	t_vector		coor;
+	t_vector		colour;
+	double			width;
+	struct s_sphere	*next;
 }				t_sphere;
 
 typedef struct	s_plane
 {
-	t_vector	coor;
-	t_vector	v;
-	t_vector	colour;
+	t_vector		coor;
+	t_vector		v;
+	t_vector		colour;
+	struct s_plane	*next;
 }				t_plane;
 
 typedef struct	s_square
 {
-	t_vector	coor;
-	t_vector	v;
-	t_vector	colour;
-	double		width;
+	t_vector		coor;
+	t_vector		v;
+	t_vector		colour;
+	double			width;
+	struct s_square	*next;
 }				t_square;
 
 typedef struct	s_cyl
 {
-	t_vector	coor;
-	t_vector	v;
-	t_vector	colour;
-	double		width;
-	double		height;
+	t_vector		coor;
+	t_vector		v;
+	t_vector		colour;
+	double			width;
+	double			height;
+	struct s_cyl	*next;
 }				t_cyl;
 
 typedef struct	s_triangle
 {
-	t_vector	coor_a;
-	t_vector	coor_b;
-	t_vector	coor_c;
-	t_vector	colour;
+	t_vector			coor_a;
+	t_vector			coor_b;
+	t_vector			coor_c;
+	t_vector			colour;
+	struct s_triangle	*next;
 }				t_triangle;
 
 typedef struct	s_data
 {
 	t_resolution	resolution;
-	t_light			light;
-	t_tlist			cameras;
-	t_tlist			spheres;
-	t_tlist			squares;
-	t_tlist			triangles;
-	t_tlist			cylindres;
-	t_tlist			planes;
+	t_alight		alight;
+	t_light			*lights;
+	t_camera		*cameras;
+	t_sphere		*spheres;
+	t_square		*squares;
+	t_triangle		*triangles;
+	t_cyl			*cylindres;
+	t_plane			*planes;
 }				t_data;
 
 int				ft_tablen(char **tab);
@@ -141,6 +149,7 @@ int				get_point(char *str, t_vector *v);
 int				str_digit(char *str);
 int				freetab(char **tab, int value);
 int				get_flag(char *str);
+int				set_parsers(int (***f)(t_data *d, char *s));
 int				parse_sphere(t_data *data, char *line);
 int				parse_square(t_data *data, char *line);
 int				parse_cylindre(t_data *data, char *line);
@@ -150,5 +159,15 @@ int				parse_camera(t_data *data, char *line);
 int				parse_light(t_data *data, char *line);
 int				parse_res(t_data *data, char *line);
 int				parse_alight(t_data *data, char *line);
-
+int				setdata_lists(t_data *data);
+void			printsphere(t_sphere sphere);
+void			printsquare(t_square square);
+void			printplane(t_plane plane);
+void			printcyl(t_cyl);
+void			printtriangle(t_triangle triangle);
+void			printlight(t_light light);
+void			printalight(t_alight alight);
+void			printres(t_resolution res);
+void			printcamera(t_camera camera);
+void			printlights(t_light *list);
 #endif

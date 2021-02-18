@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 15:12:51 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/02/17 17:06:02 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/02/18 14:57:31 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	set_parsers(int (***f)(t_data *d, char *s))
 int	get_flag(char *str)
 {
 	char	**flags;
+	int		pos;
 
 	flags = malloc(sizeof(char *) * 10);
 	if (!flags)
@@ -64,6 +65,7 @@ int	get_flag(char *str)
 	flags[7] = "cy";
 	flags[8] = "tr";
 	flags[9] = NULL;
+	pos = get_pos(str, flags);
 	free(flags);
-	return (get_pos(str, flags));
+	return (pos);
 }
