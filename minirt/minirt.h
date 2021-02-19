@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:15:20 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/02/18 17:06:15 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/02/19 16:53:36 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,11 +163,20 @@ int				setdata_lists(t_data *data);
 void			printsphere(t_sphere sphere);
 void			printsquare(t_square square);
 void			printplane(t_plane plane);
-void			printcyl(t_cyl);
+void			printcyl(t_cyl cyl);
 void			printtriangle(t_triangle triangle);
 void			printlight(t_light light);
 void			printalight(t_alight alight);
 void			printres(t_resolution res);
 void			printcamera(t_camera camera);
 void			printlights(t_light *list);
+void			printspheres(t_sphere *list);
+void			printsquares(t_square *list);
+void			printplanes(t_plane *list);
+void			printcylindres(t_cyl *list);
+void			printtriangles(t_triangle *list);
+void			printlights(t_light *list);
+void			printcameras(t_camera *list);
+void			print_data(t_data *data);
+void			destroydata(t_data *data);
 #endif

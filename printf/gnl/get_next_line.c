@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 15:50:39 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/29 15:23:32 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/02/19 12:08:19 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ int		get_next_line(int fd, char **line)
 		ret = read_line(fd, line, &previous_buffer);
 		if (ret <= 0)
 		{
-			free(previous_buffer);
 			if (ret == 0)
 				return (0);
 			else if (ret < 0)

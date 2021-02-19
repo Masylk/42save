@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:25:58 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/02/18 17:15:29 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/02/19 16:36:25 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,20 @@ int	parse_file(char *str, t_data *data)
 		return (-1);
 	if (!(set_parsers(&parsers)))
 		return (-1);
+	print_data(data);
 	while(get_next_line(fd, &line) > 0 && ret >= 0)
 	{
 		ret = get_flag(line);
 		if (ret >= 0)
-			(*parsers[ret])(data, line);
+		{
+			if (!(*parsers[ret])(data, line))
+				return (0);
+		}
 		free(line);
 	}
+	print_data(data);
+	destroydata(data);
+	print_data(data);
 	close(fd);
 	if (ret < 0)
 		return (-1);
@@ -74,6 +81,7 @@ int	main(int ac, char **av)
 
 	if (ac < 2)
 		return (0);
+	setdata_lists(&data);
 	if (parse_file(av[1], &data) < 0)
 		return (0);
 	/*mlx = mlx_init();

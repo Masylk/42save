@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_atod.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 14:02:56 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/23 12:57:46 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/02/19 12:24:55 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,17 @@ int		convert_nb(const char *nb, double *result, double *div)
 		i++;
 		return (1);
 	}
+	i = 0;
+	isdec = 0;
 	return (0);
 }
 
-double		ft_atod(const char *nptr)
+double	ft_atod(const char *nptr)
 {
 	double	sign;
 	double	result;
 	double	div;
-	int 	isdecimal;
+	int		isdecimal;
 
 	sign = 1;
 	div = 1;
