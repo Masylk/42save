@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:04:07 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/02/19 16:51:10 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/02/20 15:20:03 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	destroydata_next(t_data *data)
 	destroydata_end(data);
 }
 
-void	destroydata(t_data *data)
+int		destroydata(t_data *data)
 {
 	void	*ptr;
 
@@ -96,4 +96,5 @@ void	destroydata(t_data *data)
 		free((t_triangle *)ptr);
 	}
 	destroydata_next(data);
+	return (0);
 }

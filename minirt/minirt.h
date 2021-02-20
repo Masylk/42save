@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:15:20 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/02/19 16:53:36 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/02/20 16:36:15 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,25 @@
 # include <stdio.h>
 # include "lib/libft.h"
 
-typedef struct	s_tlist
-{
-	char			*tag;
-	void			*content;
-	struct s_list	*next;
-}				t_tlist;
-
-typedef struct  s_mlxdata {
+typedef struct  s_img {
     void        *img;
     char        *addr;
     int         bits_per_pixel;
     int         line_length;
     int         endian;
-}               t_mlxdata;
+}               t_img;
 
 typedef struct  s_vars {
     void        *mlx;
     void        *win;
 }               t_vars;
+
+typedef struct	s_mlxdata
+{
+	t_img		curr_image;
+	void		*mlx;
+	void		*win;
+}				t_mlxdata;
 
 typedef	struct	s_vector
 {
@@ -132,6 +132,7 @@ typedef struct	s_triangle
 
 typedef struct	s_data
 {
+	t_mlxdata		mlxdata;
 	t_resolution	resolution;
 	t_alight		alight;
 	t_light			*lights;
@@ -178,5 +179,8 @@ void			printtriangles(t_triangle *list);
 void			printlights(t_light *list);
 void			printcameras(t_camera *list);
 void			print_data(t_data *data);
-void			destroydata(t_data *data);
+int				destroydata(t_data *data);
+int				init_window(t_mlxdata *data);
+int				keypress(int keycode, t_data *data);
+int				keyrelease(int keycode, t_data *data);
 #endif

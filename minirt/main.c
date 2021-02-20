@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:25:58 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/02/19 16:36:25 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/02/20 16:36:02 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,21 +73,16 @@ int	parse_file(char *str, t_data *data)
 
 int	main(int ac, char **av)
 {
-	//void		*mlx;
-	//void		*mlx_win;
-	//t_mlxdata	img;
-	//t_vars		vars;
-	t_data	data;
+	t_data		data;
 
 	if (ac < 2)
 		return (0);
 	setdata_lists(&data);
 	if (parse_file(av[1], &data) < 0)
 		return (0);
-	/*mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");
-	if (!mlx_win)
-		return (0);
+	if (init_window(&data) < 0)
+		return (destroydata(&data));
+	/*
 	img.img = mlx_new_image(mlx, 1920, 1080);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 			&img.endian);
