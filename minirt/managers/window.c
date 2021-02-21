@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 15:03:53 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/02/21 12:20:04 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/02/21 14:51:23 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	set_hooks(t_data *data)
 {
 	mlx_hook(data->mlxdata.win, 2, 1L << 0, keypress, data);
 	mlx_hook(data->mlxdata.win, 3, 1L << 1, keyrelease, data);
+	mlx_hook(data->mlxdata.win, 17, 1L << 17, quit_process, data);
 	return (1);
 }
 

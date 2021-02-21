@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:15:20 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/02/21 12:19:17 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/02/21 14:51:20 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,6 @@ typedef struct  s_img {
     int         line_length;
     int         endian;
 }               t_img;
-
-typedef struct  s_vars {
-    void        *mlx;
-    void        *win;
-}               t_vars;
 
 typedef struct	s_mlxdata
 {
@@ -181,7 +176,10 @@ void			printlights(t_light *list);
 void			printcameras(t_camera *list);
 void			print_data(t_data *data);
 int				destroydata(t_data *data);
+int				clear_mlxdata(t_mlxdata *mlxdata);
 int				init_window(t_data *data);
+int				set_hooks(t_data *data);
 int				keypress(int keycode, t_data *data);
 int				keyrelease(int keycode, t_data *data);
+int				quit_process(t_data *data);
 #endif

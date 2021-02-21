@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:25:58 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/02/21 12:39:48 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/02/21 14:46:46 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int	parse_file(char *str, t_data *data)
 		return (-1);
 	if (!(set_parsers(&parsers)))
 		return (-1);
-	print_data(data);
 	while(get_next_line(fd, &line) > 0 && ret >= 0)
 	{
 		ret = get_flag(line);
@@ -69,6 +68,7 @@ int	main(int ac, char **av)
 	setdata_lists(&data);
 	if (parse_file(av[1], &data) < 0)
 		return (0);
+	print_data(&data);
 	if (init_window(&data) < 0)
 		return (destroydata(&data));
 	/*
@@ -81,4 +81,6 @@ int	main(int ac, char **av)
 	mlx_hook(vars.win, 2, 1L << 0, keypress, &vars);
 	mlx_hook(vars.win, 3, 1L << 1, keyrelease, &vars);
 	mlx_loop(mlx);*/
+	set_hooks(&data);
+	mlx_loop(data.mlxdata.mlx);
 }
