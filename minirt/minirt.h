@@ -32,7 +32,6 @@ typedef struct  s_img {
 
 typedef struct	s_mlxdata
 {
-	t_img		curr_image;
 	void		*mlx;
 	void		*win;
 }				t_mlxdata;
@@ -52,6 +51,12 @@ typedef struct	s_matrices
 	int	row;
 	int	**mat;
 }				t_matrices;
+
+typedef struct s_ray
+{
+	t_vector	origin;
+	t_vector	direction;
+}				t_ray;
 
 typedef struct	s_resolution
 {
@@ -129,6 +134,7 @@ typedef struct	s_triangle
 typedef struct	s_data
 {
 	t_mlxdata		mlxdata;
+	t_img			curr_image;
 	t_resolution	resolution;
 	t_alight		alight;
 	t_light			*lights;
