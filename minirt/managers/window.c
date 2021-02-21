@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 15:03:53 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/02/20 16:35:12 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/02/21 12:20:04 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int	init_window(t_data *data)
 	data->mlxdata.mlx = mlx_init();
 	if (!(data->mlxdata.mlx))
 		return (-1);
-	if (data->resolution.width > x)
+	if ((int)data->resolution.width > x)
 		x = data->resolution.width;
-	if (data->resolution.height > y)
+	if ((int)data->resolution.height > y)
 		y = data->resolution.height;
 	data->mlxdata.win = mlx_new_window(data->mlxdata.mlx, x, y, "Namae");
 	if (!(data->mlxdata.win))
@@ -43,9 +43,11 @@ int	set_hooks(t_data *data)
 {
 	mlx_hook(data->mlxdata.win, 2, 1L << 0, keypress, data);
 	mlx_hook(data->mlxdata.win, 3, 1L << 1, keyrelease, data);
+	return (1);
 }
 
 int	create_image(t_data *data)
 {
+	(void)data;
 	return (1);
 }
