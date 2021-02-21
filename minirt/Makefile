@@ -24,11 +24,11 @@ RM=rm -f
 
 INC=-I.
 
-OBJ=$(SRC:.c=.o)
+OBJDIR = obj
 
-BONUS_OBJ= $(BON:.c=.o)
+OBJ=$(SRC:.c=$(OBJDIR)/.o)
 
-%.o: %.c
+$(OBJDIR)%.o: %.c | $(OBJDIR)
 	$(CC) -Wall -Wextra -Werror -I. -I/usr/local/include -c $< -o $@
 
 $(NAME): $(OBJ)
@@ -36,14 +36,11 @@ $(NAME): $(OBJ)
 
 all: $(NAME)
 
-bonus:
-	@make	all	OBJ="$(OBJ) $(BONUS_OBJ)"
-
 clean:
-	$(RM) $(OBJ) $(BONUS_OBJ)
+	$(RM) $(OBJ)
 
 fclean: clean
-	$(RM) $(NAME)
+	$(RM) $(NAME) $(OBJDIR)
 
 re: fclean all
 
