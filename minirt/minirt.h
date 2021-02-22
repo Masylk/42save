@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:15:20 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/02/21 14:51:20 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/02/22 16:47:12 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@
 # include <stdio.h>
 # include "lib/libft.h"
 
-typedef struct  s_img {
-    void        *img;
-    char        *addr;
-    int         bits_per_pixel;
-    int         line_length;
-    int         endian;
-}               t_img;
+typedef struct	s_img {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_img;
 
 typedef struct	s_mlxdata
 {
@@ -41,9 +41,13 @@ typedef	struct	s_vector
 	double			x;
 	double			y;
 	double			z;
-	double			(*length)(struct s_vector a);
-	struct s_vector	(*normal)(struct s_vector a);
 }				t_vector;
+
+typedef struct	s_ray
+{
+	t_vector	origin;
+	t_vector	direction;
+}				t_ray;
 
 typedef struct	s_matrices
 {
@@ -51,12 +55,6 @@ typedef struct	s_matrices
 	int	row;
 	int	**mat;
 }				t_matrices;
-
-typedef struct s_ray
-{
-	t_vector	origin;
-	t_vector	direction;
-}				t_ray;
 
 typedef struct	s_resolution
 {
@@ -188,4 +186,13 @@ int				set_hooks(t_data *data);
 int				keypress(int keycode, t_data *data);
 int				keyrelease(int keycode, t_data *data);
 int				quit_process(t_data *data);
+double			dot_product(t_vector i, t_vector j);
+double			get_length(t_vector v);
+t_vector		normalize(t_vector v);
+void			my_mlx_pixel_put(t_data *data, int x, int y);
+t_vector		mat_to_vector(int **m, t_vector src);
+t_vector		cross_product(t_vector i, t_vector j);
+t_vector		add(t_vector a, t_vector b);
+t_vector		sub(t_vector a, t_vector b);
+t_vector		mul(t_vector a, t_vector b);
 #endif

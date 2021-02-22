@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:25:58 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/02/21 14:46:46 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/02/22 16:00:39 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,14 @@ int	main(int ac, char **av)
 		return (0);
 	print_data(&data);
 	if (init_window(&data) < 0)
-		return (destroydata(&data));
+		return (destroydata(&data));	
+	my_mlx_pixel_put(&data, data.resolution.width, data.resolution.height);
+	mlx_put_image_to_window(data.mlxdata.mlx, data.mlxdata.win, data.curr_image.img, 0, 0);
 	/*
 	img.img = mlx_new_image(mlx, 1920, 1080);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 			&img.endian);
 	my_mlx_pixel_put(&img, 5, 5, 0x00FFFF00);
-	mlx_put_image_to_window(mlx, mlx_win, data.curr_image.img, 0, 0);
 	*/
 	set_hooks(&data);
 	mlx_loop(data.mlxdata.mlx);
