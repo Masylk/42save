@@ -4,9 +4,9 @@ void	set_ray(t_ray *ray, int x, int y, t_data *data)
 {
 	double	fov;
 
-	ray->origin.x = data->cameras->coor.x;
-	ray->origin.y = data->cameras->coor.y;
-	ray->origin.z = data->cameras->coor.z;
+	ray->origin.x = 0;
+	ray->origin.y = 0;
+	ray->origin.z = 0;
 	fov = data->cameras->fov * (M_PI / 180);
 	ray->direction.x = x - data->resolution.width / 2;
 	ray->direction.y = y - data->resolution.height / 2;
@@ -56,6 +56,7 @@ void	manage_pixels(t_data *data, int x, int y)
 				*(unsigned int*)dst = 0x00FFFFFF;
 				j++;
 			}
+			else
 				*(unsigned int*)dst = 0x00FFFF00;
 		}
 		i++;
@@ -64,13 +65,11 @@ void	manage_pixels(t_data *data, int x, int y)
 
 void	my_mlx_pixel_put(t_data *data, int x, int y)
 {
-	char	*dst;
 	t_img	image;
 
 	image.img = mlx_new_image(data->mlxdata.mlx, x, y);
 	image.addr = mlx_get_data_addr(image.img, &image.bits_per_pixel, &image.line_length,
 			&image.endian);
-	dst = image.addr + (5 * image.line_length + 5 * (image.bits_per_pixel / 8));
 	data->curr_image = image;
 	manage_pixels(data, data->resolution.width, data->resolution.height);
 }

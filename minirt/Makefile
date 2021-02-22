@@ -26,6 +26,21 @@ SRC=parsing/parse.c testing/test_utils.c testing/test_utils_lst.c \
 	rendering/renderer.c \
 	tests.c main.c
 
+INCFLAGS=-I.
+
+LFLAGS=-Llib -lft
+
+ENV:= $(shell uname -s)
+
+ifeq ($(ENV), Linux)
+	INCFLAGS += -I/usr/include -I./lib/mlx_linux -O3
+	LFLAGS += -L./lib/mlx_linux -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz
+endif
+ifeq ($(ENV), Darwin)
+	INCFLAGS += -I/usr/local/include
+	LFLAGS = -L/usr/local/lib -lmlx -framework OpenGL -framework -AppKit
+endif
+
 RM=rm -rf
 
 INC=-I.
@@ -33,10 +48,10 @@ INC=-I.
 OBJ=$(SRC:%.c=$(OBJDIR)/%.o)
 
 $(OBJDIR)/%.o: %.c | $(OBJDIR)
-	$(CC) $(CFLAGS) -I. -I/usr/local/include -c $< -o $@
+	$(CC) $(CFLAGS) $(INCFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) -o $@ $^ -L /usr/local/lib -lmlx -Llib -lft -framework OpenGL -framework AppKit
+	$(CC) $(CFLAGS) -o $@ $^ $(LFLAGS)
 
 $(OBJDIR) :
 	mkdir $(OBJDIR) $(PATHS)
