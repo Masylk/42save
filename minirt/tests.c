@@ -35,6 +35,14 @@ t_vector	mul(t_vector a, t_vector b)
 	return (a);
 }
 
+t_vector	mul_n(t_vector v, double n)
+{
+	v.x *= n;
+	v.y *= n;
+	v.z *= n;
+	return (v);
+}
+
 /*
    int		**mat_mul(int **a, int **b, int size)
    {

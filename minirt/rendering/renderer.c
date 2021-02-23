@@ -4,32 +4,47 @@ void	set_ray(t_ray *ray, int x, int y, t_data *data)
 {
 	double	fov;
 
-	ray->origin.x = 0;
-	ray->origin.y = 0;
-	ray->origin.z = 0;
+	ray->origin.x = data->cameras->coor.x;
+	ray->origin.y = data->cameras->coor.y;
+	ray->origin.z = data->cameras->coor.z;
 	fov = data->cameras->fov * (M_PI / 180);
-	ray->direction.x = x - data->resolution.width / 2;
-	ray->direction.y = y - data->resolution.height / 2;
-	ray->direction.z = -data->resolution.width / (2 * tan(fov / 2));
+	ray->direction.x = x - (data->resolution.width * 0.5);
+	ray->direction.y = y - (data->resolution.height * 0.5);
+	ray->direction.z = -((data->resolution.width) / (2 * tan(fov / 2)));
 	ray->direction = normalize(ray->direction);
 }
 
-int		check_spheres(t_data *data, t_ray ray)
+/*int		check_spheres(t_data *data, t_ray ray)
 {
 	double	a;
 	double	b;
 	double	c;
 	double	r;
 	double	delta;
-
+	t_vector	d;
+	
+	d = sub(ray.origin, data->spheres->coor);
 	r = data->spheres->width / 2;
-	a = 1;
-	b = 2 * dot_product(ray.direction, sub(ray.origin, data->spheres->coor));
-	c = get_length(sub(ray.origin, data->spheres->coor)) - r * r;
+	a = dot_product(ray.direction, ray.direction);
+	b = 2 * dot_product(ray.direction, d);
+	c = dot_product(d, d) - r * r;
 	delta =  b * b - 4 * a * c;
 	if (delta < 0)
 		return (0);
-	if (((-b + sqrt(delta)) / (2 * a)) > 0)
+	delta = sqrt(delta);
+	a = 2 * a;
+	if (((-b + delta) / a) > 0)
+		return (1);
+	if (((-b - delta) / a) > 0)
+		return (1);
+	return (1);
+}*/
+
+int	check_shapes(t_data *data, t_ray ray)
+{
+	if (check_spheres(data, ray))
+		return (1);
+	if (check_squares(data, ray))
 		return (1);
 	return (0);
 }
@@ -50,14 +65,11 @@ void	manage_pixels(t_data *data, int x, int y)
 			set_ray(&ray, j, i, data);
 			dst = data->curr_image.addr +
 					(i * data->curr_image.line_length + j * (data->curr_image.bits_per_pixel / 8));
-			if (check_spheres(data, ray))
+			if (check_shapes(data, ray))
 			{
-				//printf()
 				*(unsigned int*)dst = 0x00FFFFFF;
-				j++;
 			}
-			else
-				*(unsigned int*)dst = 0x00FFFF00;
+			j++;
 		}
 		i++;
 	}

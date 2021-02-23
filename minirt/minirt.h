@@ -195,4 +195,8 @@ t_vector		cross_product(t_vector i, t_vector j);
 t_vector		add(t_vector a, t_vector b);
 t_vector		sub(t_vector a, t_vector b);
 t_vector		mul(t_vector a, t_vector b);
+t_vector		mul_n(t_vector v, double n);
+int			check_sphere(t_sphere *sphere, t_ray ray);
+int			check_spheres(t_data *data, t_ray ray);
+int			check_squares(t_data *data, t_ray ray);
 #endif
