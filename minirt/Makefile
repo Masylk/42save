@@ -6,7 +6,7 @@
 #    By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/15 11:23:31 by mtogbe            #+#    #+#              #
-#    Updated: 2021/02/22 14:42:29 by mtogbe           ###   ########.fr        #
+#    Updated: 2021/02/24 14:36:25 by mtogbe           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,17 +18,18 @@ OBJDIR = obj
 
 CFLAGS=-Wall -Wextra -Werror
 
-PATHS= $(OBJDIR)/parsing $(OBJDIR)/testing $(OBJDIR)/managers $(OBJDIR)/rendering
+PATHS= $(OBJDIR)/parsing $(OBJDIR)/testing $(OBJDIR)/managers $(OBJDIR)/rendering $(OBJDIR)/maths
 
 SRC=parsing/parse.c testing/test_utils.c testing/test_utils_lst.c \
 	parsing/parse_struct.c parsing/parse_settings.c parsing/parse_shapes.c parsing/parse_utils.c \
 	managers/window.c managers/hooks.c \
 	rendering/renderer.c rendering/sphere.c rendering/square.c rendering/triangle.c \
-	tests.c main.c
+	maths/vec_op.c \
+	main.c
 
-INCFLAGS=-I.
+INCFLAGS=-I. -I./lib
 
-LFLAGS=-Llib -lft
+LFLAGS=-L./lib -lft
 
 ENV:= $(shell uname -s)
 
@@ -38,7 +39,7 @@ ifeq ($(ENV), Linux)
 endif
 ifeq ($(ENV), Darwin)
 	INCFLAGS += -I/usr/local/include
-	LFLAGS = -L/usr/local/lib -lmlx -framework OpenGL -framework -AppKit
+	LFLAGS += -L/usr/local/lib -lmlx -framework OpenGL -framework AppKit
 endif
 
 RM=rm -rf

@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:15:20 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/02/22 16:47:12 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/02/24 14:28:59 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <stdio.h>
-# include "lib/libft.h"
+# include "libft.h"
 
 typedef struct	s_img {
 	void	*img;
