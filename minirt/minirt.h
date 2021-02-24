@@ -199,4 +199,5 @@ t_vector		mul_n(t_vector v, double n);
 int			check_sphere(t_sphere *sphere, t_ray ray);
 int			check_spheres(t_data *data, t_ray ray);
 int			check_squares(t_data *data, t_ray ray);
+int			check_triangles(t_data *data, t_ray ray);
 #endif

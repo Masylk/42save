@@ -23,7 +23,7 @@ PATHS= $(OBJDIR)/parsing $(OBJDIR)/testing $(OBJDIR)/managers $(OBJDIR)/renderin
 SRC=parsing/parse.c testing/test_utils.c testing/test_utils_lst.c \
 	parsing/parse_struct.c parsing/parse_settings.c parsing/parse_shapes.c parsing/parse_utils.c \
 	managers/window.c managers/hooks.c \
-	rendering/renderer.c rendering/sphere.c rendering/square.c \
+	rendering/renderer.c rendering/sphere.c rendering/square.c rendering/triangle.c \
 	tests.c main.c
 
 INCFLAGS=-I.
