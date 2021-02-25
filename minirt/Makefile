@@ -24,12 +24,14 @@ SRC=parsing/parse.c testing/test_utils.c testing/test_utils_lst.c \
 	parsing/parse_struct.c parsing/parse_settings.c parsing/parse_shapes.c parsing/parse_utils.c \
 	managers/window.c managers/hooks.c \
 	rendering/renderer.c rendering/sphere.c rendering/square.c rendering/triangle.c \
+	rendering/plane.c rendering/cylinder.c \
 	maths/vec_op.c \
 	main.c
 
-INCFLAGS=-I. -I./lib
+INCFLAGS=-I.
 
-LFLAGS=-L./lib -lft
+LFLAGS=-Llib -lft
+
 
 ENV:= $(shell uname -s)
 

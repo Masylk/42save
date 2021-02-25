@@ -14,32 +14,6 @@ void	set_ray(t_ray *ray, int x, int y, t_data *data)
 	ray->direction = normalize(ray->direction);
 }
 
-/*int		check_spheres(t_data *data, t_ray ray)
-{
-	double	a;
-	double	b;
-	double	c;
-	double	r;
-	double	delta;
-	t_vector	d;
-	
-	d = sub(ray.origin, data->spheres->coor);
-	r = data->spheres->width / 2;
-	a = dot_product(ray.direction, ray.direction);
-	b = 2 * dot_product(ray.direction, d);
-	c = dot_product(d, d) - r * r;
-	delta =  b * b - 4 * a * c;
-	if (delta < 0)
-		return (0);
-	delta = sqrt(delta);
-	a = 2 * a;
-	if (((-b + delta) / a) > 0)
-		return (1);
-	if (((-b - delta) / a) > 0)
-		return (1);
-	return (1);
-}*/
-
 int	check_shapes(t_data *data, t_ray ray)
 {
 	if (check_spheres(data, ray))
@@ -47,6 +21,10 @@ int	check_shapes(t_data *data, t_ray ray)
 	if (check_squares(data, ray))
 		return (1);
 	if (check_triangles(data, ray))
+		return (1);
+	if (check_planes(data, ray))
+		return (1);
+	if (check_cylinders(data, ray))
 		return (1);
 	return (0);
 }

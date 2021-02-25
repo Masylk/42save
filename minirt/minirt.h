@@ -20,7 +20,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <stdio.h>
-# include "libft.h"
+# include "lib/libft.h"
 
 typedef struct	s_img {
 	void	*img;
@@ -200,4 +200,6 @@ int			check_sphere(t_sphere *sphere, t_ray ray);
 int			check_spheres(t_data *data, t_ray ray);
 int			check_squares(t_data *data, t_ray ray);
 int			check_triangles(t_data *data, t_ray ray);
+int			check_planes(t_data *data, t_ray ray);
+int			check_cylinders(t_data *data, t_ray ray);
 #endif
