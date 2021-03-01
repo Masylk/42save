@@ -24,7 +24,7 @@ int	check_sphere(t_sphere *sphere, t_ray ray)
         t_vector        d;
         
         d = sub(ray.origin, sphere->coor);
-        r = sphere->width / 2;
+        r = sphere->width * 0.5;
         a = dot_product(ray.direction, ray.direction);
         b = 2 * dot_product(ray.direction, d);
         c = dot_product(d, d) - r * r;
