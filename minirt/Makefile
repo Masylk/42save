@@ -6,7 +6,7 @@
 #    By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/15 11:23:31 by mtogbe            #+#    #+#              #
-#    Updated: 2021/02/24 14:36:25 by mtogbe           ###   ########.fr        #
+#    Updated: 2021/03/01 14:50:29 by mtogbe           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,18 +30,18 @@ SRC=parsing/parse.c testing/test_utils.c testing/test_utils_lst.c \
 
 INCFLAGS=-I.
 
-LFLAGS=-Llib -lft
+LFLAGS= -Llib -lft
 
 
 ENV:= $(shell uname -s)
 
 ifeq ($(ENV), Linux)
 	INCFLAGS += -I/usr/include -I./lib/mlx_linux -O3
-	LFLAGS += -L./lib/mlx_linux -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz
+	LFLAGS = -Llib/linux -lft -L./lib/mlx_linux -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz
 endif
 ifeq ($(ENV), Darwin)
 	INCFLAGS += -I/usr/local/include
-	LFLAGS += -L/usr/local/lib -lmlx -framework OpenGL -framework AppKit
+	LFLAGS = -Llib/mac -lft -L/usr/local/lib -lmlx -framework OpenGL -framework AppKit
 endif
 
 RM=rm -rf
