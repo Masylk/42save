@@ -186,6 +186,7 @@ int				set_hooks(t_data *data);
 int				keypress(int keycode, t_data *data);
 int				keyrelease(int keycode, t_data *data);
 int				quit_process(t_data *data);
+double			min_d(double a, double b);
 double			dot_product(t_vector i, t_vector j);
 double			get_length(t_vector v);
 t_vector		normalize(t_vector v);

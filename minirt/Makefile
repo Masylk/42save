@@ -25,7 +25,7 @@ SRC=parsing/parse.c testing/test_utils.c testing/test_utils_lst.c \
 	managers/window.c managers/hooks.c \
 	rendering/renderer.c rendering/sphere.c rendering/square.c rendering/triangle.c \
 	rendering/plane.c rendering/cylinder.c \
-	maths/vec_op.c \
+	maths/vec_op.c maths/math_utils.c \
 	main.c
 
 INCFLAGS=-I.

@@ -22,10 +22,10 @@ int	check_shapes(t_data *data, t_ray ray)
 		return (1);
 	if (check_triangles(data, ray))
 		return (1);
-	if (check_planes(data, ray))
-		return (1);
-	if (check_cylinders(data, ray))
-		return (1);
+//	if (check_planes(data, ray))
+//		return (1);
+//	if (check_cylinders(data, ray))
+//		return (1);
 	return (0);
 }
 
