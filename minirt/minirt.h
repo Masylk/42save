@@ -129,6 +129,19 @@ typedef struct	s_triangle
 	struct s_triangle	*next;
 }				t_triangle;
 
+typedef struct	s_tools
+{
+	double		a;
+	double		b;
+	double		c;
+	double		d;
+	double		t;
+	double		t_one;
+	double		t_two;
+	t_vector	v;
+	t_vectort	dist;
+}		t_tools;
+
 typedef struct	s_data
 {
 	t_mlxdata		mlxdata;
