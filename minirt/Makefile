@@ -6,7 +6,7 @@
 #    By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/15 11:23:31 by mtogbe            #+#    #+#              #
-#    Updated: 2021/03/01 14:50:29 by mtogbe           ###   ########.fr        #
+#    Updated: 2021/03/03 15:20:32 by mtogbe           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ SRC=parsing/parse.c testing/test_utils.c testing/test_utils_lst.c \
 	parsing/parse_struct.c parsing/parse_settings.c parsing/parse_shapes.c parsing/parse_utils.c \
 	managers/window.c managers/hooks.c \
 	rendering/renderer.c rendering/sphere.c rendering/square.c rendering/triangle.c \
-	rendering/plane.c rendering/cylinder.c \
+	rendering/plane.c rendering/cylinder.c rendering/cylinder_next.c \
 	maths/vec_op.c maths/math_utils.c \
 	main.c
 

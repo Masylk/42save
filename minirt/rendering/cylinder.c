@@ -1,31 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cylinder.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/03 12:10:49 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/03/03 15:44:27 by mtogbe           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
-
-double	check_caps(double t_one, t_ray ray, t_cyl *cyl)
-{
-	t_vector	q;
-	double		denom;
-	double		t;
-	t_vector	top;
-	t_vector	bottom;
-
-	top = add(cyl->coor, mul_n(cyl->v, cyl->height * 0.5));
-	bottom = sub(cyl->coor, mul_n(cyl->v, cyl->height * 0.5));
-	denom = dot_product(ray.direction, cyl->v);
-	if (denom == 0)
-		return (t_one);
-	t = dot_product(sub(ray.origin, bottom), cyl->v) / denom;
-	q = sub(add(ray.origin, mul_n(ray.direction, t)), bottom);
-	if (t <= 0 || dot_product(q, q)
-			>= ((cyl->width * 0.5) * (cyl->width * 0.5)))
-		t = t_one;
-	t_one = dot_product(sub(ray.origin, top), cyl->v) / denom;
-	q = sub(add(ray.origin, mul_n(ray.direction, t_one)), top);
-	if (t_one > 0 && dot_product(q, q)
-			< ((cyl->width * 0.5) * (cyl->width * 0.5)))
-		if (t > t_one && t_one > 0)
-			t = t_one;
-	return (t);
-}
 
 double	is_inplanes(double t_one, double t_two, t_ray ray, t_cyl *cyl)
 {
@@ -56,28 +41,6 @@ double	is_inplanes(double t_one, double t_two, t_ray ray, t_cyl *cyl)
 	return (t);
 }
 
-double  check_tops(t_ray ray, t_cyl *cyl)
-{
-	double          a;
-	double          b;
-	double          c;
-	t_vector        dist;
-	double          area;
-
-	a = dot_product(sub(ray.origin, cyl->coor), cyl->v);
-	b = dot_product(ray.direction, cyl->v);
-	if (b == 0 || (a > 0 && b > 0) || (a < 0 && b < 0))
-		return (0);
-	c = -(a / b);
-	area = (cyl->width * 0.5 * cyl->width * 0.5) * (M_PI / 180);
-	dist = sub(add(mul_n(ray.direction, c), ray.origin), cyl->coor);
-	if (fabs(dist.x) > area || fabs(dist.y) > area)
-		return (0);
-	if (c > 0)
-		return (1);
-	return (0);
-}
-
 double	check_circle(t_ray ray, t_cyl *cyl)
 {
 	t_vector	point;
@@ -97,73 +60,62 @@ double	check_circle(t_ray ray, t_cyl *cyl)
 		return (c);
 }
 
-double	check_disc(double d, t_ray ray, t_cyl *cyl, double a, double b)
+double	check_disc(double d, t_ray ray, t_cyl *cyl, t_tools ts)
 {
+	t_tools		k;
 	double		sq;
-	double		t_one;
-	double		t_two;
-	double		t;
 
 	sq = sqrt(d);
-	a = 2.0 * a;
-	t_one = (-b + sq) / a;
-	t_two = (-b - sq) / a;
-	if (t_one <= 0 && t_two <= 0)
+	ts.a = 2.0 * ts.a;
+	k.t_one = (-ts.b + sq) / ts.a;
+	k.t_two = (-ts.b - sq) / ts.a;
+	if (k.t_one <= 0 && k.t_two <= 0)
 		return (-1);
-	t_one = is_inplanes(t_one, t_two, ray, cyl);
-	if (t_one < 0)
+	k.t_one = is_inplanes(k.t_one, k.t_two, ray, cyl);
+	if (k.t_one < 0)
 		return (-1);
-	return (t_one);
-	t = check_tops(ray, cyl);
-	if ((t > t_one && t_one > 0) || (t <= 0))
-		t = t_one;
-	return (t);
-	//return (check_caps(t_one, ray, cyl));
+	return (k.t_one);
 }
-//faire une structure t_tools pour les variables des équations
-// a,b,c,d
-// t,q,p, t_one, t_two
-// v, r
 
-int	check_cylinder(t_cyl *cyl, t_ray ray)
+int		check_cylinder(t_cyl *cyl, t_ray ray)
 {
-	double		a;
-	double		b;
-	double		c;
-	t_vector	d;
-	t_vector	v;
+	t_tools		k;
 	double		res;
 
-	v = sub(ray.direction,
+	k.v = sub(ray.direction,
 			mul_n(cyl->v, dot_product(ray.direction, cyl->v)));
-	d = sub(ray.origin, cyl->coor);
-	a = dot_product(v, v);
-	b = 2.0 * dot_product(v,
-			sub(d, mul_n(cyl->v, dot_product(d, cyl->v))));
-	v = sub(d, mul_n(cyl->v, dot_product(d, cyl->v)));
-	c = dot_product(v, v) - ((cyl->width * 0.5) * (cyl->width * 0.5));
-	c = (b * b) - (4 * a * c);
+	k.d = sub(ray.origin, cyl->coor);
+	k.a = dot_product(k.v, k.v);
+	k.b = 2.0 * dot_product(k.v,
+			sub(k.d, mul_n(cyl->v, dot_product(k.d, cyl->v))));
+	k.v = sub(k.d, mul_n(cyl->v, dot_product(k.d, cyl->v)));
+	k.c = dot_product(k.v, k.v) - ((cyl->width * 0.5) * (cyl->width * 0.5));
+	k.c = (k.b * k.b) - (4 * k.a * k.c);
 	res = -1;
-	if (c >= 0)
-		res = check_disc(c, ray, cyl, a, b);
+	if (k.c >= 0)
+		res = check_disc(k.c, ray, cyl, k);
 	if (res <= 0)
-		res = check_circle(ray, cyl);
+		res = check_caps(ray, cyl);
 	if (res <= 0)
 		return (0);
-	return (1);
+	return (res);
 }
 
-int	check_cylinders(t_data *data, t_ray ray)
+int		check_cylinders(t_data *data, t_ray ray)
 {
 	t_cyl	*tmp;
+	double	t;
 
 	tmp = data->cylindres;
-	while(tmp)
+	while (tmp)
 	{
-		if (check_cylinder(tmp, ray))
-			return (1);
+		t = check_cylinder(tmp, ray);
+		if (t > 0 && (data->elem.pos > t || data->elem.pos < 0))
+		{
+			data->elem.pos = t;
+			data->elem.colour = tmp->colour;
+		}
 		tmp = tmp->next;
 	}
-	return (0);
+	return (1);
 }
-

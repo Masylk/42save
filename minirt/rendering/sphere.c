@@ -1,39 +1,55 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sphere.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/03 12:03:02 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/03/03 14:28:02 by mtogbe           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
-int	check_spheres(t_data *data, t_ray ray)
+int		check_spheres(t_data *data, t_ray ray)
 {
 	t_sphere	*tmp;
+	double		t;
 
 	tmp = data->spheres;
 	while (tmp)
 	{
-		if (check_sphere(tmp, ray))
-			return (1);
+		t = check_sphere(tmp, ray);
+		if (t > 0 && (data->elem.pos > t || data->elem.pos < 0))	
+		{
+			data->elem.pos = t;
+			data->elem.colour = tmp->colour;
+			data->elem.coor = tmp->coor;
+		}
 		tmp = tmp->next;
 	}
-	return (0);
+	return (t);
 }
 
-int	check_sphere(t_sphere *sphere, t_ray ray)
+double	check_sphere(t_sphere *sphere, t_ray ray)
 {
-	double		a;
-	double		b;
-	double		c;
+	t_tools		k;
 	double		r;
 	double		delta;
-	t_vector	d;
 
-	d = sub(ray.origin, sphere->coor);
+	k.d = sub(ray.origin, sphere->coor);
 	r = sphere->width * 0.5;
-	a = dot_product(ray.direction, ray.direction);
-	b = 2 * dot_product(ray.direction, d);
-	c = dot_product(d, d) - r * r;
-	delta =  b * b - 4 * a * c;
+	k.a = dot_product(ray.direction, ray.direction);
+	k.b = 2 * dot_product(ray.direction, k.d);
+	k.c = dot_product(k.d, k.d) - r * r;
+	delta = k.b * k.b - 4 * k.a * k.c;
 	if (delta < 0)
-		return (0);
+		return (-1);
 	delta = sqrt(delta);
-	a = 2 * a;
-	if (((-b + delta) / a) > 0)
-		return (1);
-	return (0);
+	k.a = 2 * k.a;
+	k.t = (-k.b + delta) / k.a;
+	if (k.t > 0)
+		return (k.t);
+	return (-1);
 }

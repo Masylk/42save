@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   square.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/03 12:05:16 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/03/03 14:32:34 by mtogbe           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 int	check_square(t_square *square, t_ray ray)
@@ -11,27 +23,33 @@ int	check_square(t_square *square, t_ray ray)
 	a = dot_product(sub(ray.origin, square->coor), square->v);
 	b = dot_product(ray.direction, square->v);
 	if (b == 0 || (a > 0 && b > 0) || (a < 0 && b < 0))
-		return (0);
+		return (-1);
 	c = -(a / b);
 	area = square->width * 0.5;
 	dist = sub(add(mul_n(ray.direction, c), ray.origin), square->coor);
 	if (fabs(dist.x) > area || fabs(dist.y) > area || fabs(dist.z) > area)
-		return (0);
+		return (-1);
 	if (c > 0)
-		return (1);
-	return (0);
+		return (c);
+	return (-1);
 }
 
-int	check_squares(t_data * data, t_ray ray)
+int	check_squares(t_data *data, t_ray ray)
 {
 	t_square	*tmp;
+	double		t;
 
 	tmp = data->squares;
 	while (tmp)
 	{
-		if (check_square(tmp, ray))
-			return (1);
+		t = check_square(tmp, ray);
+		if (t > 0 && (data->elem.pos > t || data->elem.pos < 0))
+		{
+			data->elem.pos = t;
+			data->elem.colour = tmp->colour;
+			data->elem.coor = tmp->coor;
+		}
 		tmp = tmp->next;
 	}
-	return (0);
+	return (1);
 }

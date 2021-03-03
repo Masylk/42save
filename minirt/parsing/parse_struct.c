@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:04:07 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/02/20 15:20:03 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/03 14:08:46 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int		setdata_lists(t_data *data)
 {
+	data->elem.pos = -1;
 	data->resolution.width = 0;
 	data->resolution.height = 0;
 	data->alight.colour.x = 0;
@@ -46,6 +47,7 @@ void	destroydata_end(t_data *data)
 	data->alight.colour.y = 0;
 	data->alight.colour.z = 0;
 	data->alight.ratio = 0;
+	data->elem.pos = -1;
 }
 
 void	destroydata_next(t_data *data)

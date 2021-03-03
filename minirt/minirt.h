@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:15:20 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/02/24 14:28:59 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/03 15:20:10 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,17 +129,24 @@ typedef struct	s_triangle
 	struct s_triangle	*next;
 }				t_triangle;
 
+typedef struct	s_elem
+{
+	double		pos;
+	t_vector	colour;
+	t_vector	coor;
+}				t_elem;
+
 typedef struct	s_tools
 {
 	double		a;
 	double		b;
 	double		c;
-	double		d;
+	t_vector	d;
 	double		t;
 	double		t_one;
 	double		t_two;
 	t_vector	v;
-	t_vectort	dist;
+	t_vector	dist;
 }		t_tools;
 
 typedef struct	s_data
@@ -155,6 +162,7 @@ typedef struct	s_data
 	t_triangle		*triangles;
 	t_cyl			*cylindres;
 	t_plane			*planes;
+	t_elem			elem;
 }				t_data;
 
 int				ft_tablen(char **tab);
@@ -210,10 +218,12 @@ t_vector		add(t_vector a, t_vector b);
 t_vector		sub(t_vector a, t_vector b);
 t_vector		mul(t_vector a, t_vector b);
 t_vector		mul_n(t_vector v, double n);
-int			check_sphere(t_sphere *sphere, t_ray ray);
-int			check_spheres(t_data *data, t_ray ray);
-int			check_squares(t_data *data, t_ray ray);
-int			check_triangles(t_data *data, t_ray ray);
-int			check_planes(t_data *data, t_ray ray);
-int			check_cylinders(t_data *data, t_ray ray);
+double			check_sphere(t_sphere *sphere, t_ray ray);
+int				check_spheres(t_data *data, t_ray ray);
+int				check_squares(t_data *data, t_ray ray);
+int				check_triangles(t_data *data, t_ray ray);
+int				check_planes(t_data *data, t_ray ray);
+int				check_cylinders(t_data *data, t_ray ray);
+double			check_caps(t_ray ray, t_cyl *cyl);
+double			check_circle(t_ray ray, t_cyl *cyl);
 #endif
