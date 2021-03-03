@@ -32,7 +32,7 @@ int		check_shapes(t_data *data, t_ray ray)
 	check_spheres(data, ray);
 	check_squares(data, ray);
 	check_triangles(data, ray);
-	//check_planes(data, ray);
+	check_planes(data, ray);
 	check_cylinders(data, ray);
 	if (data->elem.pos >= 0)
 		return (1);
@@ -42,17 +42,16 @@ int		check_shapes(t_data *data, t_ray ray)
 char	*compose_colour(t_data *data, char *dst)
 {
 	t_vector	pixel_colour;
-	t_vector	normale;
-
-	//point = add(ray.origin, mul_n(ray.direction, data->elem.pos))
-	//normale = normalize(point - coor)
-	//lightvalue = lightratio *dot_product(normalize(sub(poslum, point)), normale)
-	//                 / dot_product(sub(poslum, point), sub(poslum, point))
-	//pixel_colour = mul_n(data->elem.colour, lightvalue)
-	pixel_colour = mul_n(data->elem.colour, 1);
-	dst[0] = pixel_colour.x;
-	dst[1] = pixel_colour.y;
-	dst[2] = pixel_colour.z;
+	t_vector	dist;
+	double		lightvalue;
+	
+	dist = sub(data->lights->coor, data->elem.point);
+	lightvalue = (data->lights->ratio * 10000 * dot_product(normalize(dist),
+				data->elem.normale)) / dot_product(dist, dist);
+	pixel_colour = mul_n(data->elem.colour, lightvalue);
+	dst[0] = min_d(255, max_d(0, pixel_colour.x));
+	dst[1] = min_d(255, max_d(0, pixel_colour.y));
+	dst[2] = min_d(255, max_d(0, pixel_colour.z));
 	return (dst);
 }
 
@@ -81,6 +80,7 @@ void	manage_pixels(t_data *data, int x, int y)
 		}
 		i++;
 	}
+	printf("rendering done\n");
 }
 
 void	my_mlx_pixel_put(t_data *data, int x, int y)

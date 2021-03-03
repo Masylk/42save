@@ -17,6 +17,7 @@ int		check_spheres(t_data *data, t_ray ray)
 	t_sphere	*tmp;
 	double		t;
 
+	t = -1;
 	tmp = data->spheres;
 	while (tmp)
 	{
@@ -25,7 +26,10 @@ int		check_spheres(t_data *data, t_ray ray)
 		{
 			data->elem.pos = t;
 			data->elem.colour = tmp->colour;
-			data->elem.coor = tmp->coor;
+			data->elem.point = add(ray.origin,
+					mul_n(ray.direction, t));
+			data->elem.normale = sub(data->elem.point, 
+				tmp->coor);
 		}
 		tmp = tmp->next;
 	}

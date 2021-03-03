@@ -51,7 +51,7 @@ double	check_circle(t_ray ray, t_cyl *cyl)
 	a = dot_product(sub(ray.origin, cyl->coor), cyl->v);
 	b = dot_product(ray.direction, cyl->v);
 	if (b == 0 || (a > 0 && b > 0) || (a < 0 && b < 0))
-		return (0);
+		return (-1);
 	c = -(a / b);
 	point = sub(add(ray.origin, mul_n(ray.direction, c)), cyl->coor);
 	if (dot_product(point, point) > cyl->width * 0.5 * cyl->width * 0.5)
@@ -105,16 +105,22 @@ int		check_cylinders(t_data *data, t_ray ray)
 {
 	t_cyl	*tmp;
 	double	t;
+	t_cyl	tmp_t;
 
 	tmp = data->cylindres;
 	while (tmp)
 	{
+		tmp_t.coor = tmp->coor;
 		t = check_cylinder(tmp, ray);
 		if (t > 0 && (data->elem.pos > t || data->elem.pos < 0))
 		{
 			data->elem.pos = t;
 			data->elem.colour = tmp->colour;
+			data->elem.point = add(ray.origin,
+					mul_n(ray.direction, t));
+			data->elem.normale = tmp->v;
 		}
+		tmp->coor = tmp_t.coor;
 		tmp = tmp->next;
 	}
 	return (1);

@@ -133,7 +133,8 @@ typedef struct	s_elem
 {
 	double		pos;
 	t_vector	colour;
-	t_vector	coor;
+	t_vector	normale;
+	t_vector	point;
 }				t_elem;
 
 typedef struct	s_tools
@@ -208,6 +209,7 @@ int				keypress(int keycode, t_data *data);
 int				keyrelease(int keycode, t_data *data);
 int				quit_process(t_data *data);
 double			min_d(double a, double b);
+double			max_d(double a, double b);
 double			dot_product(t_vector i, t_vector j);
 double			get_length(t_vector v);
 t_vector		normalize(t_vector v);
