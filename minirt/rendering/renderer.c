@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:07:26 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/03 16:09:53 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/03 17:13:26 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,21 @@ int		check_shapes(t_data *data, t_ray ray)
 	return (0);
 }
 
-char	*compose_colour(t_vector colour)
+char	*compose_colour(t_data *data, char *dst)
 {
-	char	*result;
+	t_vector	pixel_colour;
+	t_vector	normale;
 
-	return (result);
+	//point = add(ray.origin, mul_n(ray.direction, data->elem.pos))
+	//normale = normalize(point - coor)
+	//lightvalue = lightratio *dot_product(normalize(sub(poslum, point)), normale)
+	//                 / dot_product(sub(poslum, point), sub(poslum, point))
+	//pixel_colour = mul_n(data->elem.colour, lightvalue)
+	pixel_colour = mul_n(data->elem.colour, 1);
+	dst[0] = pixel_colour.x;
+	dst[1] = pixel_colour.y;
+	dst[2] = pixel_colour.z;
+	return (dst);
 }
 
 void	manage_pixels(t_data *data, int x, int y)
@@ -65,7 +75,7 @@ void	manage_pixels(t_data *data, int x, int y)
 					+ j * (data->curr_image.bits_per_pixel / 8));
 			if (check_shapes(data, ray))
 			{
-				*(unsigned int*)dst = ;
+				dst = compose_colour(data, dst);
 			}
 			j++;
 		}
