@@ -29,11 +29,11 @@ void	set_ray(t_ray *ray, int x, int y, t_data *data)
 int		check_shapes(t_data *data, t_ray ray)
 {
 	data->elem.pos = -1;
+	check_cylinders(data, ray);
 	check_spheres(data, ray);
 	check_squares(data, ray);
 	check_triangles(data, ray);
 	check_planes(data, ray);
-	check_cylinders(data, ray);
 	if (data->elem.pos >= 0)
 		return (1);
 	return (0);

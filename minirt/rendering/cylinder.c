@@ -54,7 +54,10 @@ double	check_circle(t_ray ray, t_cyl *cyl)
 		return (-1);
 	c = -(a / b);
 	point = sub(add(ray.origin, mul_n(ray.direction, c)), cyl->coor);
-	if (dot_product(point, point) > cyl->width * 0.5 * cyl->width * 0.5)
+	if ((int)dot_product(cyl->v, point) != 0)
+		return (-1);
+	if (dot_product(point, point) >=
+			cyl->width * 0.5 * cyl->width * 0.5)
 		return (-1);
 	else
 		return (c);
@@ -77,7 +80,7 @@ double	check_disc(double d, t_ray ray, t_cyl *cyl, t_tools ts)
 	return (k.t_one);
 }
 
-int		check_cylinder(t_cyl *cyl, t_ray ray)
+int		check_cylinder(t_cyl *cyl, t_ray ray, t_data *data)
 {
 	t_tools		k;
 	double		res;
@@ -94,8 +97,15 @@ int		check_cylinder(t_cyl *cyl, t_ray ray)
 	res = -1;
 	if (k.c >= 0)
 		res = check_disc(k.c, ray, cyl, k);
+	if (res > 0)
+	{
+		k.d = add(ray.origin, mul_n(ray.direction, res));
+		k.n = dot_product(sub(k.d, cyl->coor), cyl->v);
+		data->elem.normale = normalize(sub(k.d,
+					add(cyl->coor, mul_n(cyl->v, k.n))));
+	}
 	if (res <= 0)
-		res = check_caps(ray, cyl);
+		res = check_caps(ray, cyl, data);
 	if (res <= 0)
 		return (0);
 	return (res);
@@ -111,14 +121,13 @@ int		check_cylinders(t_data *data, t_ray ray)
 	while (tmp)
 	{
 		tmp_t.coor = tmp->coor;
-		t = check_cylinder(tmp, ray);
+		t = check_cylinder(tmp, ray, data);
 		if (t > 0 && (data->elem.pos > t || data->elem.pos < 0))
 		{
 			data->elem.pos = t;
 			data->elem.colour = tmp->colour;
 			data->elem.point = add(ray.origin,
 					mul_n(ray.direction, t));
-			data->elem.normale = tmp->v;
 		}
 		tmp->coor = tmp_t.coor;
 		tmp = tmp->next;

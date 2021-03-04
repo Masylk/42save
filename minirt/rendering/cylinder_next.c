@@ -21,7 +21,7 @@ void	copy_cyl(t_cyl *cyl, t_cyl *tmp)
 	tmp->colour = cyl->colour;
 }
 
-double	check_caps(t_ray ray, t_cyl *cyl)
+double	check_caps(t_ray ray, t_cyl *cyl, t_data *data)
 {
 	double		t;
 	double		t_one;
@@ -36,11 +36,15 @@ double	check_caps(t_ray ray, t_cyl *cyl)
 	top = sub(cyl->coor, mul_n(cyl->v, cyl->height * 0.5));
 	tmp.coor = top;
 	t_one = check_circle(ray, &tmp);
-	if (t < t_one && t_one > 0)
+	if (t < t_one && t_one > 0 && t > 0)
 	{
-		cyl->coor = top;
+		data->elem.normale = mul_n(cyl->v, 1);
+		cyl->coor = bottom;
 		return (t_one);
 	}
-	cyl->coor = bottom;
+	if (t_one > 0 || t > 0)
+		data->elem.normale = mul_n(cyl->v, 1);
+	if (t > 0)
+		cyl->coor = top;
 	return (t);
 }

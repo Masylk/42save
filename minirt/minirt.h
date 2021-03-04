@@ -146,6 +146,7 @@ typedef struct	s_tools
 	double		t;
 	double		t_one;
 	double		t_two;
+	double		n;
 	t_vector	v;
 	t_vector	dist;
 }		t_tools;
@@ -227,6 +228,6 @@ int				check_squares(t_data *data, t_ray ray);
 int				check_triangles(t_data *data, t_ray ray);
 int				check_planes(t_data *data, t_ray ray);
 int				check_cylinders(t_data *data, t_ray ray);
-double			check_caps(t_ray ray, t_cyl *cyl);
+double			check_caps(t_ray ray, t_cyl *cyl, t_data *data);
 double			check_circle(t_ray ray, t_cyl *cyl);
 #endif
