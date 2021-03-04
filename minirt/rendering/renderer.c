@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:07:26 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/04 12:03:43 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/04 15:24:00 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ char	*compose_colour(t_data *data, char *dst)
 	double		lightvalue;
 	
 	dist = sub(data->lights->coor, data->elem.point);
-	lightvalue = (data->lights->ratio * 10000 * dot_product(normalize(dist),
-				data->elem.normale)) / dot_product(dist, dist);
+	lightvalue = (data->lights->ratio * 20000 * dot_product(normalize(dist),
+				normalize(data->elem.normale))) / dot_product(dist, dist);
 	pixel_colour = mul_n(data->elem.colour, lightvalue);
 	dst[0] = min_d(255, max_d(0, pixel_colour.x));
 	dst[1] = min_d(255, max_d(0, pixel_colour.y));
