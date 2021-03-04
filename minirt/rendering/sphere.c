@@ -53,7 +53,10 @@ double	check_sphere(t_sphere *sphere, t_ray ray)
 	delta = sqrt(delta);
 	k.a = 2 * k.a;
 	k.t = (-k.b + delta) / k.a;
-	if (k.t > 0)
-		return (k.t);
-	return (-1);
+	k.t_one = (-k.b - delta) / k.a;
+	if (k.t <= 0)
+		return (-1);
+	if (k.t > k.t_one && k.t_one > 0)
+		return (k.t_one);
+	return (k.t);
 }

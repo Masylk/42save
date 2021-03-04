@@ -32,7 +32,7 @@ int		check_shapes(t_data *data, t_ray ray)
 	check_spheres(data, ray);
 	check_squares(data, ray);
 	check_triangles(data, ray);
-//	check_planes(data, ray);
+	check_planes(data, ray);
 	check_cylinders(data, ray);
 	if (data->elem.pos >= 0)
 		return (1);
@@ -46,8 +46,8 @@ char	*compose_colour(t_data *data, char *dst)
 	double		lightvalue;
 	
 	dist = sub(data->lights->coor, data->elem.point);
-	lightvalue = (data->lights->ratio * 20000 * dot_product(normalize(dist),
-				normalize(data->elem.normale))) / dot_product(dist, dist);
+	lightvalue = (data->lights->ratio * 10000 * max_d(0, dot_product(normalize(dist),
+				normalize(data->elem.normale)))) / dot_product(dist, dist);
 	pixel_colour = mul_n(data->elem.colour, lightvalue);
 	dst[0] = min_d(255, max_d(0, pixel_colour.x));
 	dst[1] = min_d(255, max_d(0, pixel_colour.y));
