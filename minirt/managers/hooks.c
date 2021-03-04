@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 16:35:21 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/02/21 14:52:34 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/04 13:13:34 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,19 @@ int	quit_process(t_data *data)
 
 int	keypress(int keycode, t_data *data)
 {
-	if (keycode == 53)
-		quit_process(data);
+	if(keycode != data->key)
+	{
+		printf("key\n");
+		data->key = keycode;
+		if (keycode == 53)
+			quit_process(data);
+	}
 	return (1);
 }
 
 int	keyrelease(int keycode, t_data *data)
 {
 	(void)keycode;
-	(void)data;
+	data->key = -1;
 	return (1);
 }

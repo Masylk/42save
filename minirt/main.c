@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:25:58 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/03 14:04:35 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/04 12:36:30 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,13 @@ int	parse_file(char *str, t_data *data)
 		return (-1);
 	while(get_next_line(fd, &line) > 0 && ret >= 0)
 	{
+		if (!ft_strlen(line))
+			continue ;
 		ret = get_flag(line);
 		if (ret >= 0)
 		{
 			if (!(*parsers[ret])(data, line))
-				return (0);
+				return (-11);
 		}
 		free(line);
 	}

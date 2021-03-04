@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:28:52 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/02/19 16:50:16 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/04 12:18:10 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 int	get_res(unsigned int *n, char *str)
 {
 	*n = ft_atoi(str);
+	if (*n <= 0)
+		return (0);
 	if (ft_nblen(*n) != (int)ft_strlen(str))
 		return (0);
 	return (1);
@@ -25,7 +27,6 @@ int	parse_camera(t_data *data, char *line)
 	t_camera	*camera;
 	char		**tab;
 
-	(void)data;
 	tab = ft_split(line, ' ');
 	camera = malloc(sizeof(t_camera));
 	if (!camera)
@@ -48,7 +49,8 @@ int	parse_alight(t_data *data, char *line)
 	t_alight	alight;
 	char		**tab;
 
-	(void)data;
+	if (data->alight.ratio != -1)
+		return (0);
 	tab = ft_split(line, ' ');
 	if (ft_tablen(tab) != 3)
 		return (freetab(tab, 0));
@@ -56,6 +58,7 @@ int	parse_alight(t_data *data, char *line)
 		return (freetab(tab, 0));
 	if (!(get_double(&(alight.ratio), tab[1])))
 		return (freetab(tab, 0));
+	data->alight = alight;
 	return (freetab(tab, 1));
 }
 
@@ -64,6 +67,8 @@ int	parse_res(t_data *data, char *line)
 	t_resolution	res;
 	char			**tab;
 
+	if (data->resolution.width != 0)
+		return (0);
 	tab = ft_split(line, ' ');
 	if (ft_tablen(tab) != 3)
 		return (freetab(tab, 0));

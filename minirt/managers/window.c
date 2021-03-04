@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 15:03:53 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/02/21 14:51:23 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/04 12:24:49 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int	init_window(t_data *data)
 	int	x;
 	int	y;
 
-	x = 1920;
-	y = 1080;
+	x = max_d(1920, (double)data->resolution.width);
+	y = max_d(1080, (double)data->resolution.height);
 	data->mlxdata.mlx = mlx_init();
 	if (!(data->mlxdata.mlx))
 		return (-1);

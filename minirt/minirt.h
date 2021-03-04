@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:15:20 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/03 15:20:10 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/04 13:03:05 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@ typedef struct	s_data
 	t_cyl			*cylindres;
 	t_plane			*planes;
 	t_elem			elem;
+	int				key;
 }				t_data;
 
 int				ft_tablen(char **tab);

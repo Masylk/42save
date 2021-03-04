@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:07:26 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/03 17:13:26 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/04 12:03:43 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		check_shapes(t_data *data, t_ray ray)
 	check_spheres(data, ray);
 	check_squares(data, ray);
 	check_triangles(data, ray);
-	check_planes(data, ray);
+//	check_planes(data, ray);
 	check_cylinders(data, ray);
 	if (data->elem.pos >= 0)
 		return (1);
