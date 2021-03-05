@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:05:16 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/03 14:32:34 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/05 17:17:42 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	check_square(t_square *square, t_ray ray)
 
 	a = dot_product(sub(ray.origin, square->coor), square->v);
 	b = dot_product(ray.direction, square->v);
-	if (b == 0 || (a > 0 && b > 0) || (a < 0 && b < 0))
+	if (b == 0.0 || (a > 0 && b > 0) || (a < 0 && b < 0))
 		return (-1);
 	c = -(a / b);
 	area = square->width * 0.5;

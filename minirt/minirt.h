@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:15:20 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/04 13:03:05 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/05 16:07:26 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,6 +228,6 @@ int				check_squares(t_data *data, t_ray ray);
 int				check_triangles(t_data *data, t_ray ray);
 int				check_planes(t_data *data, t_ray ray);
 int				check_cylinders(t_data *data, t_ray ray);
-double			check_caps(t_ray ray, t_cyl *cyl, t_data *data);
+double			check_caps(t_ray ray, t_cyl *cyl, t_data *data, double res);
 double			check_circle(t_ray ray, t_cyl *cyl);
 #endif

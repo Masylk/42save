@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:10:49 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/04 15:26:35 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/05 17:04:29 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ double	is_inplanes(double t_one, double t_two, t_ray ray, t_cyl *cyl)
 	if (t_two > 0)
 	{
 		q = add(ray.origin, mul_n(ray.direction, t_two));
-		if (dot_product(cyl->v, sub(q, p_one)) <= 0
-				|| dot_product(cyl->v, sub(q, p_two)) >= 0)
+		if (dot_product(cyl->v, sub(q, p_one)) < 0
+				|| dot_product(cyl->v, sub(q, p_two)) > 0)
 			return (t);
 		if (t > t_two || t < 0)
 			t = t_two;
@@ -50,7 +50,7 @@ double	check_circle(t_ray ray, t_cyl *cyl)
 
 	a = dot_product(sub(ray.origin, cyl->coor), cyl->v);
 	b = dot_product(ray.direction, cyl->v);
-	if (b == 0 || (a > 0 && b > 0) || (a < 0 && b < 0))
+	if (b == 0.0 || (a > 0 && b > 0) || (a < 0 && b < 0))
 		return (-1);
 	c = -(a / b);
 	point = sub(add(ray.origin, mul_n(ray.direction, c)), cyl->coor);
@@ -95,18 +95,17 @@ int		check_cylinder(t_cyl *cyl, t_ray ray, t_data *data)
 	k.c = dot_product(k.v, k.v) - ((cyl->width * 0.5) * (cyl->width * 0.5));
 	k.c = (k.b * k.b) - (4 * k.a * k.c);
 	res = -1;
-	if (k.c >= 0)
+	if (k.c >= 0.0)
 		res = check_disc(k.c, ray, cyl, k);
-	if (res > 0)
+	if (res > 0.0)
 	{
 		k.d = add(ray.origin, mul_n(ray.direction, res));
 		k.n = dot_product(sub(k.d, cyl->coor), cyl->v);
 		data->elem.normale = normalize(sub(k.d,
 					add(cyl->coor, mul_n(cyl->v, k.n))));
 	}
-	if (res <= 0)
-		res = check_caps(ray, cyl, data);
-	if (res <= 0)
+	res = check_caps(ray, cyl, data, res);
+	if (res <= 0.0)
 		return (0);
 	return (res);
 }
@@ -115,12 +114,10 @@ int		check_cylinders(t_data *data, t_ray ray)
 {
 	t_cyl	*tmp;
 	double	t;
-	t_cyl	tmp_t;
 
 	tmp = data->cylindres;
 	while (tmp)
 	{
-		tmp_t.coor = tmp->coor;
 		t = check_cylinder(tmp, ray, data);
 		if (t > 0 && (data->elem.pos > t || data->elem.pos < 0))
 		{
@@ -129,7 +126,6 @@ int		check_cylinders(t_data *data, t_ray ray)
 			data->elem.point = add(ray.origin,
 					mul_n(ray.direction, t));
 		}
-		tmp->coor = tmp_t.coor;
 		tmp = tmp->next;
 	}
 	return (1);

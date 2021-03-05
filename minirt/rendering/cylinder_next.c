@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 15:13:47 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/03 15:27:25 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/05 17:16:05 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	copy_cyl(t_cyl *cyl, t_cyl *tmp)
 	tmp->colour = cyl->colour;
 }
 
-double	check_caps(t_ray ray, t_cyl *cyl, t_data *data)
+double	check_caps(t_ray ray, t_cyl *cyl, t_data *data, double res)
 {
 	double		t;
 	double		t_one;
@@ -36,15 +36,15 @@ double	check_caps(t_ray ray, t_cyl *cyl, t_data *data)
 	top = sub(cyl->coor, mul_n(cyl->v, cyl->height * 0.5));
 	tmp.coor = top;
 	t_one = check_circle(ray, &tmp);
-	if (t < t_one && t_one > 0 && t > 0)
+	if ((t > t_one || t < 0.0) && t_one > 0.0 && res > t_one)
 	{
-		data->elem.normale = mul_n(cyl->v, 1);
-		cyl->coor = bottom;
+		data->elem.normale = mul_n(cyl->v, -1);
 		return (t_one);
 	}
-	if (t_one > 0 || t > 0)
-		data->elem.normale = mul_n(cyl->v, 1);
-	if (t > 0)
-		cyl->coor = top;
-	return (t);
+	else if ((res > t || res < 0.0) && t > 0.0)
+	{
+		data->elem.normale = cyl->v;
+		return (t);
+	}
+	return (res);
 }
