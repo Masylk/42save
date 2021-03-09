@@ -23,8 +23,7 @@ int	rotate_ray(t_data *data, t_ray *ray)
 	t_vector	up;
 	t_vector	tmp;
 
-	forward = normalize(sub(data->cameras->coor,
-				normalize(data->cameras->v)));
+	forward = normalize(data->cameras->v);
 	tmp.x = forward.y;
 	tmp.y = forward.z;
 	tmp.z = forward.x;
@@ -33,10 +32,10 @@ int	rotate_ray(t_data *data, t_ray *ray)
 	ray->direction.x = ray->direction.x * right.x
 		+ ray->direction.y * up.x
 		+ ray->direction.z * forward.x;
-	ray->direction.x = ray->direction.x * right.y
+	ray->direction.y = ray->direction.x * right.y
 		+ ray->direction.y * up.y
 		+ ray->direction.z * forward.y;
-	ray->direction.x = ray->direction.x * right.z
+	ray->direction.z = ray->direction.x * right.z
 		+ ray->direction.y * up.z
 		+ ray->direction.z * forward.z;
 	return (1);
