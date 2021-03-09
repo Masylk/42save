@@ -51,6 +51,7 @@ int	parse_square(t_data *data, char *line)
 		return (freetab(tab, 0));
 	if (!(get_point(tab[2], &(square->v))))
 		return (freetab(tab, 0));
+	square->v = normalize(square->v);
 	if (!(get_double(&(square->width), tab[3])))
 		return (freetab(tab, 0));
 	if (!(get_point(tab[4], &(square->colour))))
@@ -76,6 +77,7 @@ int	parse_plane(t_data *data, char *line)
 		return (freetab(tab, 0));
 	if (!(get_point(tab[2], &(plane->v))))
 		return (freetab(tab, 0));
+	plane->v = normalize(plane->v);
 	if (!(get_point(tab[3], &(plane->colour))))
 		return (freetab(tab, 0));
 	plane->next = data->planes;
@@ -99,6 +101,7 @@ int	parse_cylindre(t_data *data, char *line)
 		return (freetab(tab, 0));
 	if (!(get_point(tab[2], &(cyl->v))))
 		return (freetab(tab, 0));
+	cyl->v = normalize(cyl->v);
 	if (!(get_double(&(cyl->width), tab[3])))
 		return (freetab(tab, 0));
 	if (!(get_double(&(cyl->height), tab[4])))

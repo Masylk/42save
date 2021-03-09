@@ -20,7 +20,10 @@ int	quit_process(t_data *data)
 	exit (0);
 	return (1);
 }
-
+//mettre des pointeurs sur fonction dans data qui pointent vers ces fonctions
+//quand une fonction qui demande un long chargement est appelé
+//mettre le pointeur sur fonction à Null pour empêcher l'exécution multiple
+//de la fonction
 int	keypress(int keycode, t_data *data)
 {
 	if(keycode != data->key)

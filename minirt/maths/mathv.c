@@ -23,7 +23,7 @@ void	*freemat(float **mat, int size)
 
 //can obtain inverse on square matrix to get back from point B to A
 //multiply a matrix by its inverse gives the identity matrix
-float	**transpose(float ***mat, int size)
+/*float	**transpose(float ***mat, int size)
 {
 	float	**transmat;
 	int		i;
@@ -115,4 +115,4 @@ float	get_phi_spher(t_vector v)
 	if (p < 0)
 		p = p + 2 * M_PI;
 	return (p);
-}
+}*/

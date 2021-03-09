@@ -165,6 +165,7 @@ typedef struct	s_data
 	t_cyl			*cylindres;
 	t_plane			*planes;
 	t_elem			elem;
+	double			**cam_mat;
 	int				key;
 }				t_data;
 
@@ -230,4 +231,7 @@ int				check_planes(t_data *data, t_ray ray);
 int				check_cylinders(t_data *data, t_ray ray);
 double			check_caps(t_ray ray, t_cyl *cyl, t_data *data, double res);
 double			check_circle(t_ray ray, t_cyl *cyl);
+int			rotate_ray(t_data *data, t_ray *ray);
+int			rotate(t_data *data, t_ray *ray);
+void			*freemat(float **mat, int size);
 #endif

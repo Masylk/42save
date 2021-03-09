@@ -23,6 +23,7 @@ void	set_ray(t_ray *ray, int x, int y, t_data *data)
 	ray->direction.x = (x - (data->resolution.width * 0.5));
 	ray->direction.y = -(y - (data->resolution.height * 0.5));
 	ray->direction.z = -((data->resolution.width) / (2 * tan(fov / 2)));
+//	rotate_ray(data, ray);
 	ray->direction = normalize(ray->direction);
 }
 

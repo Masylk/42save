@@ -22,14 +22,16 @@ int	check_square(t_square *square, t_ray ray)
 
 	a = dot_product(sub(ray.origin, square->coor), square->v);
 	b = dot_product(ray.direction, square->v);
-	if (b == 0.0 || (a > 0 && b > 0) || (a < 0 && b < 0))
+	if (b == 0.0)
 		return (-1);
 	c = -(a / b);
 	area = square->width * 0.5;
 	dist = sub(add(mul_n(ray.direction, c), ray.origin), square->coor);
 	if (fabs(dist.x) > area || fabs(dist.y) > area || fabs(dist.z) > area)
 		return (-1);
-	if (c > 0)
+	//if (dot_product(dist, square->v) > area)
+	//	return (-1);
+	if (c >= 0)
 		return (c);
 	return (-1);
 }
@@ -47,7 +49,7 @@ int	check_squares(t_data *data, t_ray ray)
 		{
 			data->elem.pos = t;
 			data->elem.colour = tmp->colour;
-			data->elem.normale = tmp->v;
+			data->elem.normale = normalize(tmp->v);
 			data->elem.point = add(ray.origin,
 					mul_n(ray.direction, t));
 		}
