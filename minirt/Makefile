@@ -25,6 +25,7 @@ SRC=parsing/parse.c testing/test_utils.c testing/test_utils_lst.c \
 	managers/window.c managers/hooks.c managers/camera.c managers/altcameras.c \
 	rendering/renderer.c rendering/sphere.c rendering/square.c rendering/triangle.c \
 	rendering/plane.c rendering/cylinder.c rendering/cylinder_next.c \
+	rendering/shadows.c \
 	maths/vec_op.c maths/math_utils.c \
 	main.c
 

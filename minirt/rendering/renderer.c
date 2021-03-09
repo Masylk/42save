@@ -40,22 +40,6 @@ int		check_shapes(t_data *data, t_ray ray)
 	return (0);
 }
 
-char	*compose_colour(t_data *data, char *dst)
-{
-	t_vector	pixel_colour;
-	t_vector	dist;
-	double		lightvalue;
-	
-	dist = normalize(sub(data->lights->coor, data->elem.point));
-	lightvalue = (data->lights->ratio * 1.300 * max_d(0.0, dot_product(dist,
-				normalize(data->elem.normale)))) / (dot_product(dist, dist) * (1/2.2));
-	pixel_colour = mul_n(data->elem.colour, lightvalue);
-	dst[0] = min_d(255, max_d(0, pixel_colour.z)) * (1/2.2);
-	dst[1] = min_d(255, max_d(0, pixel_colour.y) * (1/2.2));
-	dst[2] = min_d(255, max_d(0, pixel_colour.x) * (1/2.2));
-	return (dst);
-}
-
 void	manage_pixels(t_data *data, int x, int y)
 {
 	int				i;
@@ -71,17 +55,17 @@ void	manage_pixels(t_data *data, int x, int y)
 		{
 			set_ray(&ray, j, i, data);
 			dst = data->curr_image.addr +
-					(i * data->curr_image.line_length
-					+ j * (data->curr_image.bits_per_pixel / 8));
+				(i * data->curr_image.line_length
+				 + j * (data->curr_image.bits_per_pixel / 8));
+			dst[0] = 0;
+			dst[1] = 0;
+			dst[2] = 0;
 			if (check_shapes(data, ray))
-			{
-				dst = compose_colour(data, dst);
-			}
+				check_lights(data, ray, dst);
 			j++;
 		}
 		i++;
 	}
-	printf("rendering done\n");
 }
 
 void	my_mlx_pixel_put(t_data *data, int x, int y)

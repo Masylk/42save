@@ -234,4 +234,7 @@ double			check_circle(t_ray ray, t_cyl *cyl);
 int			rotate_ray(t_data *data, t_ray *ray);
 int			rotate(t_data *data, t_ray *ray);
 void			*freemat(float **mat, int size);
+int			check_shadow(t_data *data, t_ray ray);
+int			check_lights(t_data *data, t_ray ray, char *dst);
+int			compose_colour(t_data *data, char *dst);
 #endif
