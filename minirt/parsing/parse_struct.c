@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:04:07 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/04 13:08:17 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/10 16:42:02 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int		setdata_lists(t_data *data)
 	data->triangles = NULL;
 	data->cylindres = NULL;
 	data->planes = NULL;
+	data->fpress = &keypress;
+	data->frelease = &keyrelease;
 	return (1);
 }
 

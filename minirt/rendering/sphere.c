@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:03:02 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/03 14:28:02 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/10 13:46:46 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ int		check_spheres(t_data *data, t_ray ray)
 	while (tmp)
 	{
 		t = check_sphere(tmp, ray);
-		if (t > 0 && (data->elem.pos > t || data->elem.pos < 0))	
+		if (t > 0 && (data->elem.pos > t || data->elem.pos < 0))
 		{
 			data->elem.pos = t;
 			data->elem.colour = tmp->colour;
 			data->elem.point = add(ray.origin,
 					mul_n(ray.direction, t));
-			data->elem.normale = sub(data->elem.point, 
+			data->elem.normale = sub(data->elem.point,
 				tmp->coor);
 		}
 		tmp = tmp->next;

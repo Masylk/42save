@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 15:13:47 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/05 17:16:05 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/10 13:45:20 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ double	check_caps(t_ray ray, t_cyl *cyl, t_data *data, double res)
 	t_cyl		tmp;
 	t_vector	bottom;
 	t_vector	top;
-	
+
 	copy_cyl(cyl, &tmp);
 	bottom = add(cyl->coor, mul_n(cyl->v, cyl->height * 0.5));
 	tmp.coor = bottom;

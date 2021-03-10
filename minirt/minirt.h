@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:15:20 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/05 16:07:26 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/10 16:38:40 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,30 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include "lib/libft.h"
+
+# ifdef __linux__
+# define ESC 53
+# define RIGHT 124
+# define LEFT 123
+# define UP 126
+# define DOWN 125
+# define A 0
+# define S 1
+# define D 2
+# define W 13
+# define SPACE 49
+# elif __APPLE__
+# define ESC 53
+# define RIGHT 124
+# define LEFT 123
+# define UP 126
+# define DOWN 125
+# define A 0
+# define S 1
+# define D 2
+# define W 13
+# define SPACE 49
+# endif
 
 typedef struct	s_img {
 	void	*img;
@@ -165,8 +189,9 @@ typedef struct	s_data
 	t_cyl			*cylindres;
 	t_plane			*planes;
 	t_elem			elem;
-	double			**cam_mat;
 	int				key;
+	int				(*fpress)(int k, struct s_data *d);
+	int				(*frelease)(int k, struct s_data *d);
 }				t_data;
 
 int				ft_tablen(char **tab);

@@ -1,22 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   altcameras.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/10 13:56:11 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/03/10 13:57:40 by mtogbe           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
-void	set_mat(t_data *data, t_vector f, t_vector r, t_vector u)
-{
-	data->cam_mat[0][0] = r.x;
-	data->cam_mat[0][1] = r.y;
-	data->cam_mat[0][2] = r.z;
-	data->cam_mat[1][0] = u.x;
-	data->cam_mat[1][1] = u.y;
-	data->cam_mat[1][2] = u.z;
-	data->cam_mat[2][0] = f.x;
-	data->cam_mat[2][1] = f.y;
-	data->cam_mat[2][2] = f.z;
-	data->cam_mat[3][0] = data->cameras->coor.x;
-	data->cam_mat[3][1] = data->cameras->coor.y;
-	data->cam_mat[3][2] = data->cameras->coor.z;
-}
-
-int	rotate_ray(t_data *data, t_ray *ray)
+int		rotate_ray(t_data *data, t_ray *ray)
 {
 	t_vector	forward;
 	t_vector	right;

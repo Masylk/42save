@@ -1,11 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   camera.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/10 13:54:22 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/03/10 13:56:01 by mtogbe           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
-t_vector        rotate_z(t_vector direction, t_vector v, t_vector axis)
+t_vector	rotate_z(t_vector direction, t_vector v, t_vector axis)
 {
 	axis.y = 0;
 	axis.x = 1;
 	axis.z = 0;
-
 	if (direction.z != 0.0)
 		v = add(add(mul_n(v, cos(M_PI * direction.z)),
 			mul_n(axis, (1 - cos(M_PI * direction.z)) *
@@ -15,13 +26,11 @@ t_vector        rotate_z(t_vector direction, t_vector v, t_vector axis)
 	return (v);
 }
 
-
 t_vector	rotate_y(t_vector direction, t_vector v, t_vector axis)
 {
 	axis.y = 0;
 	axis.x = 0;
 	axis.z = 1;
-
 	if (direction.y != 0.0)
 		v = add(add(mul_n(v, cos(M_PI * direction.y)),
 			mul_n(axis, (1 - cos(M_PI * direction.y)) *
@@ -32,7 +41,7 @@ t_vector	rotate_y(t_vector direction, t_vector v, t_vector axis)
 	return (v);
 }
 
-int	rotate(t_data *data, t_ray *ray)
+int			rotate(t_data *data, t_ray *ray)
 {
 	t_vector	direction;
 	t_vector	v;

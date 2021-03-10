@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:07:26 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/05 17:12:54 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/10 17:18:57 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	manage_pixels(t_data *data, int x, int y)
 			set_ray(&ray, j, i, data);
 			dst = data->curr_image.addr +
 				(i * data->curr_image.line_length
-				 + j * (data->curr_image.bits_per_pixel / 8));
+				+ j * (data->curr_image.bits_per_pixel / 8));
 			dst[0] = 0;
 			dst[1] = 0;
 			dst[2] = 0;
@@ -72,6 +72,8 @@ void	my_mlx_pixel_put(t_data *data, int x, int y)
 {
 	t_img	image;
 
+	if (data->curr_image.img)
+		mlx_destroy_image(data->mlxdata.mlx, data->curr_image.img);
 	image.img = mlx_new_image(data->mlxdata.mlx, x, y);
 	image.addr = mlx_get_data_addr(image.img, &image.bits_per_pixel,
 			&image.line_length, &image.endian);

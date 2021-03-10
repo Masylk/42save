@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:02:49 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/03 15:45:26 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/10 13:45:43 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ double	check_plane(t_plane *plane, t_ray ray)
 	return (dist);
 }
 
-int	check_planes(t_data *data, t_ray ray)
+int		check_planes(t_data *data, t_ray ray)
 {
 	t_plane	*tmp;
 	double	t;

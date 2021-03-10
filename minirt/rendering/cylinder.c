@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:10:49 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/05 17:04:29 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/10 13:51:41 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,6 @@ int		check_cylinder(t_cyl *cyl, t_ray ray, t_data *data)
 					add(cyl->coor, mul_n(cyl->v, k.n))));
 	}
 	res = check_caps(ray, cyl, data, res);
-	if (res <= 0.0)
-		return (0);
 	return (res);
 }
 

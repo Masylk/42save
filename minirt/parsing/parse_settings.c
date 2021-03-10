@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:28:52 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/04 12:18:10 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/10 16:10:03 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int	parse_camera(t_data *data, char *line)
 	if (!(get_double(&(camera->fov), tab[3])))
 		return (freetab(tab, 0));
 	camera->next = data->cameras;
+	if (data->cameras)
+		data->cameras->next = camera;
 	data->cameras = camera;
 	return (freetab(tab, 1));
 }
