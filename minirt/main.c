@@ -32,9 +32,13 @@ int	parse_file(char *str, t_data *data)
 		ret = get_flag(line);
 		if (ret >= 0)
 			if (!(*parsers[ret])(data, line))
+			{
+				free(parsers);
 				return (-1);
+			}
 		free(line);
 	}
+	free(parsers);
 	free(line);
 	close(fd);
 	return (ret);
@@ -56,10 +60,16 @@ int	main(int ac, char **av)
 	t_data		data;
 
 	if (ac < 2)
+	{
+		printf("Error\n");
 		return (0);
+	}
 	setdata_lists(&data);
 	if (parse_file(av[1], &data) < 0)
-		return (0);
+	{
+		printf("Error\n");
+		return (destroydata(&data));
+	}
 	print_data(&data);
 	if (init_window(&data) < 0)
 		return (destroydata(&data));

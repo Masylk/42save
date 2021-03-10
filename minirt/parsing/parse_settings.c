@@ -26,7 +26,10 @@ int	parse_camera(t_data *data, char *line)
 {
 	t_camera	*camera;
 	char		**tab;
+	int		i;
+	t_camera	*tmp;
 
+	i = 0;
 	tab = ft_split(line, ' ');
 	camera = malloc(sizeof(t_camera));
 	if (!camera)
@@ -39,9 +42,19 @@ int	parse_camera(t_data *data, char *line)
 		return (freetab(tab, 0));
 	if (!(get_double(&(camera->fov), tab[3])))
 		return (freetab(tab, 0));
-	camera->next = data->cameras;
 	if (data->cameras)
+	{
+		camera->next = data->cameras;
+		tmp = data->cameras;
+		while(!(tmp->next == data->cameras))
+		{
+			data->cameras = data->cameras->next;
+			i++;
+		}
 		data->cameras->next = camera;
+	}
+	else
+		camera->next = camera;
 	data->cameras = camera;
 	return (freetab(tab, 1));
 }

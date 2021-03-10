@@ -12,6 +12,14 @@
 
 #include "minirt.h"
 
+void		change_camera(t_data *data)
+{
+	data->cameras = data->cameras->next;
+	mlx_hook(data->mlxdata.win, 2, 1L << 0, keyvoid, data);
+	create_new_image(data);
+	mlx_hook(data->mlxdata.win, 2, 1L << 0, keypress, data);
+}
+
 int		rotate_ray(t_data *data, t_ray *ray)
 {
 	t_vector	forward;

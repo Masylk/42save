@@ -69,17 +69,19 @@ void	printcameras(t_camera *list)
 {
 	t_camera	camera;
 	int			i;
+	t_camera	*tmp;
 
 	i = 1;
+	tmp = list;
 	printf("    Cameras : \n");
-	while (list)
+	while (!(list == tmp && i != 1))
 	{
 		printf("---%d---\n", i++);
-		camera.coor = list->coor;
-		camera.v = list->v;
-		camera.fov = list->fov;
+		camera.coor = tmp->coor;
+		camera.v = tmp->v;
+		camera.fov = tmp->fov;
 		printcamera(camera);
-		list = list->next;
+		tmp = tmp->next;
 	}
 	printf("\n");
 }

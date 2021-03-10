@@ -16,7 +16,7 @@ CC=gcc
 
 OBJDIR = obj
 
-CFLAGS=-Wall -Wextra -Werror
+CFLAGS=-Wall -Wextra -Werror -O3
 
 PATHS= $(OBJDIR)/parsing $(OBJDIR)/testing $(OBJDIR)/managers $(OBJDIR)/rendering $(OBJDIR)/maths
 

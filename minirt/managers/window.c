@@ -41,8 +41,8 @@ int	clear_mlxdata(t_mlxdata *mlxdata)
 
 int	set_hooks(t_data *data)
 {
-	mlx_hook(data->mlxdata.win, 2, 1L << 0, data->fpress, data);
-	mlx_hook(data->mlxdata.win, 3, 1L << 1, data->frelease, data);
+	mlx_hook(data->mlxdata.win, 2, 1L << 0, keypress, data);
+	mlx_hook(data->mlxdata.win, 3, 1L << 1, keyrelease, data);
 	mlx_hook(data->mlxdata.win, 17, 1L << 17, quit_process, data);
 	return (1);
 }

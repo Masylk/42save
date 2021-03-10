@@ -23,16 +23,16 @@
 # include "lib/libft.h"
 
 # ifdef __linux__
-# define ESC 53
-# define RIGHT 124
-# define LEFT 123
-# define UP 126
-# define DOWN 125
-# define A 0
-# define S 1
-# define D 2
-# define W 13
-# define SPACE 49
+# define ESC 65307
+# define RIGHT 65363
+# define LEFT 65361
+# define UP 65362
+# define DOWN 65364
+# define A 97
+# define S 115
+# define D 100
+# define W 119
+# define SPACE 32
 # elif __APPLE__
 # define ESC 53
 # define RIGHT 124
@@ -190,8 +190,6 @@ typedef struct	s_data
 	t_plane			*planes;
 	t_elem			elem;
 	int				key;
-	int				(*fpress)(int k, struct s_data *d);
-	int				(*frelease)(int k, struct s_data *d);
 }				t_data;
 
 int				ft_tablen(char **tab);
@@ -235,6 +233,7 @@ int				init_window(t_data *data);
 int				set_hooks(t_data *data);
 int				keypress(int keycode, t_data *data);
 int				keyrelease(int keycode, t_data *data);
+int				keyvoid(int keycode, t_data *data);
 int				quit_process(t_data *data);
 double			min_d(double a, double b);
 double			max_d(double a, double b);
@@ -262,4 +261,6 @@ void			*freemat(float **mat, int size);
 int			check_shadow(t_data *data, t_ray ray);
 int			check_lights(t_data *data, t_ray ray, char *dst);
 int			compose_colour(t_data *data, char *dst);
+int			create_new_image(t_data *data);
+void			change_camera(t_data *data);
 #endif

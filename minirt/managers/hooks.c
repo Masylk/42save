@@ -15,6 +15,7 @@
 int	quit_process(t_data *data)
 {
 	printf("EXIT");
+	mlx_destroy_image(data->mlxdata.mlx, data->curr_image.img);
 	mlx_destroy_window(data->mlxdata.mlx, data->mlxdata.win);
 	destroydata(data);
 	exit(0);
@@ -30,19 +31,18 @@ int	keyvoid(int keycode, t_data *data)
 {
 	(void)keycode;
 	(void)data;
-	printf("void");
 	return (1);
 }
 
 int	keypress(int keycode, t_data *data)
 {
-	data->fpress = &keyvoid;
-	mlx_hook(data->mlxdata.win, 2, 1L << 0, data->fpress, data);
 	if (keycode != data->key)
 	{
 		data->key = keycode;
 		if (keycode == ESC)
 			quit_process(data);
+		if (keycode == SPACE)
+			change_camera(data);
 	}
 	return (1);
 }
@@ -51,6 +51,5 @@ int	keyrelease(int keycode, t_data *data)
 {
 	if (data->key == keycode)
 		data->key = -1;
-	data->fpress = &keyvoid;
 	return (1);
 }

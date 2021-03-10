@@ -29,20 +29,23 @@ int		setdata_lists(t_data *data)
 	data->triangles = NULL;
 	data->cylindres = NULL;
 	data->planes = NULL;
-	data->fpress = &keypress;
-	data->frelease = &keyrelease;
 	return (1);
 }
 
 void	destroydata_end(t_data *data)
 {
-	void	*ptr;
+	void		*ptr;
+	t_camera	*tmp;
+	int		i;
 
-	while (data->cameras)
+	i = 0;
+	tmp = data->cameras;
+	while (!(data->cameras == tmp && i != 0))
 	{
-		ptr = (void *)data->cameras;
-		data->cameras = data->cameras->next;
+		ptr = (void *)tmp;
+		tmp = tmp->next;
 		free((t_camera *)ptr);
+		i++;
 	}
 	data->resolution.width = 0;
 	data->resolution.height = 0;

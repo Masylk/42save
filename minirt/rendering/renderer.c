@@ -60,8 +60,11 @@ void	manage_pixels(t_data *data, int x, int y)
 			dst[0] = 0;
 			dst[1] = 0;
 			dst[2] = 0;
-			if (check_shapes(data, ray))
-				check_lights(data, ray, dst);
+//			if (check_shapes(data, ray))
+//				check_lights(data, ray, dst);
+			(void)data;
+			(void)dst;
+			(void)ray;
 			j++;
 		}
 		i++;
@@ -72,8 +75,8 @@ void	my_mlx_pixel_put(t_data *data, int x, int y)
 {
 	t_img	image;
 
-	if (data->curr_image.img)
-		mlx_destroy_image(data->mlxdata.mlx, data->curr_image.img);
+//	if (data->curr_image.img)
+//		mlx_destroy_image(data->mlxdata.mlx, data->curr_image.img);
 	image.img = mlx_new_image(data->mlxdata.mlx, x, y);
 	image.addr = mlx_get_data_addr(image.img, &image.bits_per_pixel,
 			&image.line_length, &image.endian);
