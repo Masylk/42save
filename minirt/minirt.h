@@ -286,7 +286,7 @@ int			rotate_ray(t_data *data, t_ray *ray);
 int			rotate(t_data *data, t_ray *ray);
 void			*freemat(float **mat, int size);
 int			check_lights(t_data *data, t_ray ray, char *dst);
-int			compose_colour(t_data *data, char *dst);
+int			compose_colour(t_data *data, char *dst, t_light *light);
 int			create_new_image(t_data *data);
 void			change_camera(t_data *data);
 #endif

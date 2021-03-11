@@ -39,14 +39,14 @@ void	check_movement(int keycode, t_data *data)
 	}
 	else if (keycode == W)
 	{
-		data->cameras->coor = add(data->cameras->coor,
+		data->cameras->coor = sub(data->cameras->coor,
 				mul_n(data->cameras->forward, MOVESPEED));
 		create_new_image(data);
 		create_new_image(data);
 	}
 	else if (keycode == S)
 	{
-		data->cameras->coor = sub(data->cameras->coor,
+		data->cameras->coor = add(data->cameras->coor,
 				mul_n(data->cameras->forward, MOVESPEED));
 		create_new_image(data);
 		create_new_image(data);
