@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 13:48:15 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/10 13:48:17 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/11 13:57:20 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int		compose_colour(t_data *data, char *dst)
 	dist = data->elem.point;
 	pixel = data->elem;
 	set_rayshadow(data, &rayshadow);
-	ret = check_shadow(data, rayshadow);
+	ret = check_shapes(data, rayshadow);
 	if (ret && (data->elem.pos * data->elem.pos) < dot_product(dist, dist))
 		return (0);
 	colour_pixel(data, dst, pixel);
@@ -60,15 +60,3 @@ int		check_lights(t_data *data, t_ray ray, char *dst)
 	return (1);
 }
 
-int		check_shadow(t_data *data, t_ray ray)
-{
-	data->elem.pos = -1;
-	check_cylinders(data, ray);
-	check_spheres(data, ray);
-	check_squares(data, ray);
-	check_triangles(data, ray);
-	check_planes(data, ray);
-	if (data->elem.pos >= 0)
-		return (1);
-	return (0);
-}

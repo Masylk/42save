@@ -6,7 +6,7 @@
 #    By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/15 11:23:31 by mtogbe            #+#    #+#              #
-#    Updated: 2021/03/03 15:20:32 by mtogbe           ###   ########.fr        #
+#    Updated: 2021/03/11 14:00:36 by mtogbe           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ $(OBJDIR)/%.o: %.c | $(OBJDIR)
 	$(CC) $(CFLAGS) $(INCFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) -o $@ $^ $(LFLAGS)
+	$(CC) $(CFLAGS) -o $@ $^ $(LFLAGS) -lpthread
 
 $(OBJDIR) :
 	mkdir $(OBJDIR) $(PATHS)

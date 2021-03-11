@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:15:20 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/11 13:32:51 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/11 13:58:08 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <stdio.h>
+# include <pthread.h>
 # include "lib/libft.h"
 
 # define ROTSPEED 0.01
@@ -180,6 +181,19 @@ typedef struct	s_tools
 	t_vector	dist;
 }		t_tools;
 
+typedef struct	s_threadids
+{
+	pthread_t	id0;
+	pthread_t	id1;
+	pthread_t	id2;
+	pthread_t	id3;
+	pthread_t	id4;
+	pthread_t	id5;
+	pthread_t	id6;
+	pthread_t	id7;
+	pthread_t	id8;
+}				t_threadids;
+
 typedef struct	s_data
 {
 	t_mlxdata		mlxdata;
@@ -196,6 +210,12 @@ typedef struct	s_data
 	t_elem			elem;
 	int				key;
 }				t_data;
+
+typedef struct s_args
+{
+	t_data		*data;
+	t_ray		ray;
+}				t_args;
 
 int				ft_tablen(char **tab);
 int				get_double(double *n, char *str);
@@ -252,18 +272,18 @@ t_vector		add(t_vector a, t_vector b);
 t_vector		sub(t_vector a, t_vector b);
 t_vector		mul(t_vector a, t_vector b);
 t_vector		mul_n(t_vector v, double n);
+int				check_shapes(t_data *data, t_ray ray);
 double			check_sphere(t_sphere *sphere, t_ray ray);
 int				check_spheres(t_data *data, t_ray ray);
 int				check_squares(t_data *data, t_ray ray);
 int				check_triangles(t_data *data, t_ray ray);
 int				check_planes(t_data *data, t_ray ray);
-int				check_cylinders(t_data *data, t_ray ray);
+void			*check_cylinders(void *args);
 double			check_caps(t_ray ray, t_cyl *cyl, t_data *data, double res);
 double			check_circle(t_ray ray, t_cyl *cyl);
 int			rotate_ray(t_data *data, t_ray *ray);
 int			rotate(t_data *data, t_ray *ray);
 void			*freemat(float **mat, int size);
-int			check_shadow(t_data *data, t_ray ray);
 int			check_lights(t_data *data, t_ray ray, char *dst);
 int			compose_colour(t_data *data, char *dst);
 int			create_new_image(t_data *data);

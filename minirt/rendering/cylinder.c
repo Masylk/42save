@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:10:49 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/10 13:51:41 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/11 13:56:27 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,11 +108,15 @@ int		check_cylinder(t_cyl *cyl, t_ray ray, t_data *data)
 	return (res);
 }
 
-int		check_cylinders(t_data *data, t_ray ray)
+void	*check_cylinders(void *args)
 {
 	t_cyl	*tmp;
 	double	t;
+	t_data	*data;
+	t_ray	ray;
 
+	data = ((t_args *)args)->data;
+	ray = ((t_args *)args)->ray;
 	tmp = data->cylindres;
 	while (tmp)
 	{
@@ -126,5 +130,5 @@ int		check_cylinders(t_data *data, t_ray ray)
 		}
 		tmp = tmp->next;
 	}
-	return (1);
+	return (NULL);
 }
