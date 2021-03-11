@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 13:56:11 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/11 12:47:54 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/11 13:31:18 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,8 @@ int		rotate_ray(t_data *data, t_ray *ray)
 	ray->direction.z = ray->direction.x * right.z
 		+ ray->direction.y * up.z
 		+ ray->direction.z * forward.z;
+	data->cameras->forward = forward;
+	data->cameras->right = right;
+	data->cameras->up = up;
 	return (1);
 }

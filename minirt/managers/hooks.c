@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 16:35:21 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/11 13:13:32 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/11 13:31:16 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,29 @@ void	check_movement(int keycode, t_data *data)
 {
 	if (keycode == D)
 	{
+		data->cameras->coor = add(data->cameras->coor,
+				mul_n(data->cameras->right, MOVESPEED));
 		create_new_image(data);
 	}
 	else if (keycode == A)
 	{
+		data->cameras->coor = sub(data->cameras->coor,
+				mul_n(data->cameras->right, MOVESPEED));
+		create_new_image(data);
 		create_new_image(data);
 	}
 	else if (keycode == W)
 	{
+		data->cameras->coor = add(data->cameras->coor,
+				mul_n(data->cameras->forward, MOVESPEED));
+		create_new_image(data);
 		create_new_image(data);
 	}
 	else if (keycode == S)
 	{
+		data->cameras->coor = sub(data->cameras->coor,
+				mul_n(data->cameras->forward, MOVESPEED));
+		create_new_image(data);
 		create_new_image(data);
 	}
 }

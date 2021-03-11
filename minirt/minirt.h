@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:15:20 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/11 13:03:00 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/11 13:32:51 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include "lib/libft.h"
 
 # define ROTSPEED 0.01
-# define MOVESPEED 10
+# define MOVESPEED 20
 # ifdef __linux__
 # define ESC 65307
 # define RIGHT 65363
@@ -107,6 +107,9 @@ typedef struct	s_camera
 {
 	t_vector		coor;
 	t_vector		v;
+	t_vector		forward;
+	t_vector		right;
+	t_vector		up;
 	double			fov;
 	struct s_camera	*next;
 }				t_camera;
