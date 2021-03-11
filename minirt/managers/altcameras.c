@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 13:56:11 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/10 13:57:40 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/11 12:47:54 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 void		change_camera(t_data *data)
 {
 	data->cameras = data->cameras->next;
-	mlx_hook(data->mlxdata.win, 2, 1L << 0, keyvoid, data);
 	create_new_image(data);
-	mlx_hook(data->mlxdata.win, 2, 1L << 0, keypress, data);
 }
 
 int		rotate_ray(t_data *data, t_ray *ray)

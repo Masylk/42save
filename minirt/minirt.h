@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:15:20 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/10 16:38:40 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/11 13:03:00 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <stdio.h>
 # include "lib/libft.h"
 
+# define ROTSPEED 0.01
+# define MOVESPEED 10
 # ifdef __linux__
 # define ESC 65307
 # define RIGHT 65363

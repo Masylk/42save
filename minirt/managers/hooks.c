@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 16:35:21 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/10 17:07:20 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/11 13:13:32 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,50 @@ int	quit_process(t_data *data)
 	return (1);
 }
 
-//mettre des pointeurs sur fonction dans data qui pointent vers ces fonctions
-//quand une fonction qui demande un long chargement est appelé
-//mettre le pointeur sur fonction à Null pour empêcher l'exécution multiple
-//de la fonction
-
-int	keyvoid(int keycode, t_data *data)
+void	check_movement(int keycode, t_data *data)
 {
-	(void)keycode;
-	(void)data;
-	return (1);
+	if (keycode == D)
+	{
+		create_new_image(data);
+	}
+	else if (keycode == A)
+	{
+		create_new_image(data);
+	}
+	else if (keycode == W)
+	{
+		create_new_image(data);
+	}
+	else if (keycode == S)
+	{
+		create_new_image(data);
+	}
+}
+
+void	check_look(int keycode, t_data *data)
+{
+	if (keycode == RIGHT)
+	{
+		data->cameras->v.x -= ROTSPEED;
+		create_new_image(data);
+	}
+	else if (keycode == LEFT)
+	{
+		data->cameras->v.x += ROTSPEED;
+		create_new_image(data);
+	}
+	else if (keycode == UP)
+	{
+		data->cameras->v.y -= ROTSPEED;
+		create_new_image(data);
+	}
+	else if (keycode == DOWN)
+	{
+		data->cameras->v.y += ROTSPEED;
+		create_new_image(data);
+	}
+	else
+		check_movement(keycode, data);
 }
 
 int	keypress(int keycode, t_data *data)
@@ -41,8 +75,10 @@ int	keypress(int keycode, t_data *data)
 		data->key = keycode;
 		if (keycode == ESC)
 			quit_process(data);
-		if (keycode == SPACE)
+		else if (keycode == SPACE)
 			change_camera(data);
+		else
+			check_look(keycode, data);
 	}
 	return (1);
 }
