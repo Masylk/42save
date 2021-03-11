@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:07:26 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/11 14:02:48 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/11 15:52:44 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,12 @@ void	set_ray(t_ray *ray, int x, int y, t_data *data)
 
 int		check_shapes(t_data *data, t_ray ray)
 {
-//	t_threadids ids;
-	t_args		*args;
-
-	args = malloc(sizeof(t_args));
-	args->data = data;
-	args->ray = ray;
 	data->elem.pos = -1;
-	// a verifier sur la vm
-	//	pthread_create(&ids.id0, NULL, check_cylinders, (void *)args);
-	//	pthread_exit(NULL);
+	check_cylinders(data, ray);
 	check_spheres(data, ray);
 	check_squares(data, ray);
 	check_triangles(data, ray);
 	check_planes(data, ray);
-	free(args);
 	if (data->elem.pos >= 0)
 		return (1);
 	return (0);
@@ -71,9 +62,6 @@ void	manage_pixels(t_data *data, int x, int y)
 			dst[2] = 0;
 			if (check_shapes(data, ray))
 				check_lights(data, ray, dst);
-			(void)data;
-			(void)dst;
-			(void)ray;
 			j++;
 		}
 		i++;
