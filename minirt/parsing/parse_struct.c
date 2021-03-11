@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:04:07 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/10 16:42:02 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/11 17:24:52 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	destroydata_end(t_data *data)
 
 	i = 0;
 	tmp = data->cameras;
-	while (!(data->cameras == tmp && i != 0))
+	while (tmp && !(data->cameras == tmp && i != 0))
 	{
 		ptr = (void *)tmp;
 		tmp = tmp->next;
@@ -63,19 +63,22 @@ void	destroydata_next(t_data *data)
 	while (data->cylindres)
 	{
 		ptr = (void *)data->cylindres;
-		data->cylindres = data->cylindres->next;
+		if (data->cylindres)
+			data->cylindres = data->cylindres->next;
 		free((t_cyl *)ptr);
 	}
 	while (data->planes)
 	{
 		ptr = (void *)data->planes;
-		data->planes = data->planes->next;
+		if (data->lights)
+			data->planes = data->planes->next;
 		free((t_plane *)ptr);
 	}
 	while (data->lights)
 	{
 		ptr = (void *)data->lights;
-		data->lights = data->lights->next;
+		if (data->lights)
+			data->lights = data->lights->next;
 		free((t_light *)ptr);
 	}
 	destroydata_end(data);
@@ -88,19 +91,22 @@ int		destroydata(t_data *data)
 	while (data->spheres)
 	{
 		ptr = (void *)data->spheres;
-		data->spheres = data->spheres->next;
+		if (data->spheres)
+			data->spheres = data->spheres->next;
 		free((t_sphere *)ptr);
 	}
 	while (data->squares)
 	{
 		ptr = (void *)data->squares;
-		data->squares = data->squares->next;
+		if (data->squares)
+			data->squares = data->squares->next;
 		free((t_square *)ptr);
 	}
 	while (data->triangles)
 	{
 		ptr = (void *)data->triangles;
-		data->triangles = data->triangles->next;
+		if (data->triangles)
+			data->triangles = data->triangles->next;
 		free((t_triangle *)ptr);
 	}
 	destroydata_next(data);

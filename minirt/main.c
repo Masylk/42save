@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:25:58 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/11 13:11:49 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/11 17:25:05 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,11 @@ int	main(int ac, char **av)
 		return (0);
 	}
 	setdata_lists(&data);
+	if (!check_ext(av[1]))
+	{
+		printf("Error\n");
+		return (0);
+	}
 	if (parse_file(av[1], &data) < 0)
 	{
 		printf("Error\n");

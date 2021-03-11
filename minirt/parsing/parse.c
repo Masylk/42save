@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 15:12:51 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/02/19 16:49:42 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/11 17:19:12 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,31 @@ int	get_pos(char *str, char **flags)
 		i++;
 	}
 	return (-1);
+}
+
+int	check_ext(char *str)
+{
+	int		i;
+	int		j;
+	char	*ext;
+
+	j = 0;
+	i = 0;
+	while(str && str[i])
+		i++;
+	i--;
+	ext = "tr.";
+	while (i >= 0 && ext[j])
+	{
+		if (ext[j] == str[i])
+		{
+			i--;
+			j++;
+		}
+		else
+			return (0);
+	}
+	return (1);
 }
 
 int	set_parsers(int (***f)(t_data *d, char *s))

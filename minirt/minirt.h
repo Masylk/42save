@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:15:20 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/11 15:53:17 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/11 17:12:33 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,6 +217,7 @@ typedef struct s_args
 	t_ray		ray;
 }				t_args;
 
+int				check_ext(char *str);
 int				ft_tablen(char **tab);
 int				get_double(double *n, char *str);
 int				get_point(char *str, t_vector *v);
