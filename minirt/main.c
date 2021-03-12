@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:25:58 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/11 17:25:05 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/12 15:04:16 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,30 @@ int	parse_file(char *str, t_data *data)
 	return (ret);
 }
 
+void	change_planes_normal(t_data *data)
+{
+	t_square	*square;
+	t_plane		*plane;
+
+	square = data->squares;
+	plane = data->planes;
+	while(square)
+	{
+		if (dot_product(square->v, data->cameras->v) > 0)
+			square->v = mul_n(square->v, -1);
+		square = square->next;
+	}
+	while(plane)
+	{
+		if (dot_product(plane->v, data->cameras->v) > 0)
+			plane->v = mul_n(plane->v, -1);
+		plane = plane->next;
+	}
+}
+
 int	create_new_image(t_data *data)
 {
+	change_planes_normal(data);
 	my_mlx_pixel_put(data, data->resolution.width, data->resolution.height);
 	mlx_clear_window(data->mlxdata.mlx, data->mlxdata.win);
 	mlx_put_image_to_window(data->mlxdata.mlx, data->mlxdata.win,

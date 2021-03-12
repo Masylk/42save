@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:07:26 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/11 15:52:44 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/12 13:37:49 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	set_ray(t_ray *ray, int x, int y, t_data *data)
 	fov = data->cameras->fov * (M_PI / 180);
 	ray->direction.x = (x - (data->resolution.width * 0.5));
 	ray->direction.y = -(y - (data->resolution.height * 0.5));
-	ray->direction.z = -((data->resolution.width) / (2 * tan(fov * 0.5)));
+	ray->direction.z = -((data->resolution.width) / (2.0 * tan(fov * 0.5)));
 	rotate_ray(data, ray);
 	ray->direction = normalize(ray->direction);
 }
@@ -44,7 +44,7 @@ void	manage_pixels(t_data *data, int x, int y)
 {
 	int				i;
 	int				j;
-	char			*dst;
+	unsigned char	*dst;
 	t_ray			ray;
 
 	i = 0;
@@ -54,12 +54,12 @@ void	manage_pixels(t_data *data, int x, int y)
 		while (j < x - 1)
 		{
 			set_ray(&ray, j, i, data);
-			dst = data->curr_image.addr +
+			dst = (unsigned char *)data->curr_image.addr +
 				(i * data->curr_image.line_length
 				+ j * (data->curr_image.bits_per_pixel / 8));
-			dst[0] = 0;
-			dst[1] = 0;
-			dst[2] = 0;
+			dst[0] = 0.0;
+			dst[1] = 0.0;
+			dst[2] = 0.0;
 			if (check_shapes(data, ray))
 				check_lights(data, ray, dst);
 			j++;

@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:03:02 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/10 13:46:46 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/12 14:42:27 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		check_spheres(t_data *data, t_ray ray)
 	while (tmp)
 	{
 		t = check_sphere(tmp, ray);
-		if (t > 0 && (data->elem.pos > t || data->elem.pos < 0))
+		if (t > 0.0 && (data->elem.pos > t || data->elem.pos < 0.0))
 		{
 			data->elem.pos = t;
 			data->elem.colour = tmp->colour;
@@ -45,18 +45,18 @@ double	check_sphere(t_sphere *sphere, t_ray ray)
 	k.d = sub(ray.origin, sphere->coor);
 	r = sphere->width * 0.5;
 	k.a = dot_product(ray.direction, ray.direction);
-	k.b = 2 * dot_product(ray.direction, k.d);
+	k.b = 2.0 * dot_product(ray.direction, k.d);
 	k.c = dot_product(k.d, k.d) - r * r;
-	delta = k.b * k.b - 4 * k.a * k.c;
-	if (delta < 0)
+	delta = k.b * k.b - 4.0 * k.a * k.c;
+	if (delta < 0.0)
 		return (-1);
 	delta = sqrt(delta);
 	k.a = 2 * k.a;
 	k.t = (-k.b + delta) / k.a;
 	k.t_one = (-k.b - delta) / k.a;
-	if (k.t <= 0)
+	if (k.t <= 0.0)
 		return (-1);
-	if (k.t > k.t_one && k.t_one > 0)
+	if (k.t > k.t_one && k.t_one > 0.0)
 		return (k.t_one);
 	return (k.t);
 }

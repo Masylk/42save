@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:10:49 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/11 15:54:28 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/12 13:34:47 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,20 @@ double	is_inplanes(double t_one, double t_two, t_ray ray, t_cyl *cyl)
 	t = -1;
 	p_one = sub(cyl->coor, mul_n(cyl->v, cyl->height * 0.5));
 	p_two = add(cyl->coor, mul_n(cyl->v, cyl->height * 0.5));
-	if (t_one > 0)
+	if (t_one > 0.0)
 	{
 		q = add(ray.origin, mul_n(ray.direction, t_one));
-		if (dot_product(cyl->v, sub(q, p_one)) > 0
-				&& dot_product(cyl->v, sub(q, p_two)) < 0)
+		if (dot_product(cyl->v, sub(q, p_one)) > 0.0
+				&& dot_product(cyl->v, sub(q, p_two)) < 0.0)
 			t = t_one;
 	}
-	if (t_two > 0)
+	if (t_two > 0.0)
 	{
 		q = add(ray.origin, mul_n(ray.direction, t_two));
-		if (dot_product(cyl->v, sub(q, p_one)) < 0
-				|| dot_product(cyl->v, sub(q, p_two)) > 0)
+		if (dot_product(cyl->v, sub(q, p_one)) < 0.0
+				|| dot_product(cyl->v, sub(q, p_two)) > 0.0)
 			return (t);
-		if (t > t_two || t < 0)
+		if (t > t_two || t < 0.0)
 			t = t_two;
 	}
 	return (t);
@@ -50,11 +50,11 @@ double	check_circle(t_ray ray, t_cyl *cyl)
 
 	a = dot_product(sub(ray.origin, cyl->coor), cyl->v);
 	b = dot_product(ray.direction, cyl->v);
-	if (b == 0.0 || (a > 0 && b > 0) || (a < 0 && b < 0))
+	if (b == 0.0 || (a > 0.0 && b > 0.0) || (a < 0.0 && b < 0.0))
 		return (-1);
 	c = -(a / b);
 	point = sub(add(ray.origin, mul_n(ray.direction, c)), cyl->coor);
-	if ((int)dot_product(cyl->v, point) != 0)
+	if ((int)dot_product(cyl->v, point) != 0.0)
 		return (-1);
 	if (dot_product(point, point) >=
 			cyl->width * 0.5 * cyl->width * 0.5)
@@ -72,10 +72,10 @@ double	check_disc(double d, t_ray ray, t_cyl *cyl, t_tools ts)
 	ts.a = 2.0 * ts.a;
 	k.t_one = (-ts.b + sq) / ts.a;
 	k.t_two = (-ts.b - sq) / ts.a;
-	if (k.t_one <= 0 && k.t_two <= 0)
+	if (k.t_one <= 0.0 && k.t_two <= 0.0)
 		return (-1);
 	k.t_one = is_inplanes(k.t_one, k.t_two, ray, cyl);
-	if (k.t_one < 0)
+	if (k.t_one < 0.0)
 		return (-1);
 	return (k.t_one);
 }

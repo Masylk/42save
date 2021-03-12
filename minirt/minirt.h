@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:15:20 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/11 17:12:33 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/12 14:09:42 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -285,8 +285,7 @@ double			check_circle(t_ray ray, t_cyl *cyl);
 int			rotate_ray(t_data *data, t_ray *ray);
 int			rotate(t_data *data, t_ray *ray);
 void			*freemat(float **mat, int size);
-int			check_lights(t_data *data, t_ray ray, char *dst);
-int			compose_colour(t_data *data, char *dst, t_light *light);
+int			check_lights(t_data *data, t_ray ray, unsigned char *dst);
 int			create_new_image(t_data *data);
 void			change_camera(t_data *data);
 #endif

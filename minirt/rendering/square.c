@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:05:16 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/10 13:46:06 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/12 13:35:44 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	check_square(t_square *square, t_ray ray)
 	dist = sub(add(mul_n(ray.direction, c), ray.origin), square->coor);
 	if (fabs(dist.x) > area || fabs(dist.y) > area || fabs(dist.z) > area)
 		return (-1);
-	if (c >= 0)
+	if (c >= 0.0)
 		return (c);
 	return (-1);
 }
@@ -43,7 +43,7 @@ int	check_squares(t_data *data, t_ray ray)
 	while (tmp)
 	{
 		t = check_square(tmp, ray);
-		if (t > 0 && (data->elem.pos > t || data->elem.pos < 0))
+		if (t > 0.0 && (data->elem.pos > t || data->elem.pos < 0.0))
 		{
 			data->elem.pos = t;
 			data->elem.colour = tmp->colour;
