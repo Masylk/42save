@@ -53,13 +53,13 @@ void	change_planes_normal(t_data *data)
 	plane = data->planes;
 	while(square)
 	{
-		if (dot_product(square->v, data->cameras->v) > 0)
+		if (dot_product(square->v, data->cameras->v) < 0)
 			square->v = mul_n(square->v, -1);
 		square = square->next;
 	}
 	while(plane)
 	{
-		if (dot_product(plane->v, data->cameras->v) > 0)
+		if (dot_product(plane->v, data->cameras->v) < 0)
 			plane->v = mul_n(plane->v, -1);
 		plane = plane->next;
 	}

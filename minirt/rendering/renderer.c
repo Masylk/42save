@@ -61,7 +61,7 @@ void	manage_pixels(t_data *data, int x, int y)
 			dst[1] = 0.0;
 			dst[2] = 0.0;
 			if (check_shapes(data, ray))
-				check_lights(data, ray, dst);
+				check_lights(data, dst);
 			j++;
 		}
 		i++;

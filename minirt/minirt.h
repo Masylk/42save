@@ -285,7 +285,7 @@ double			check_circle(t_ray ray, t_cyl *cyl);
 int			rotate_ray(t_data *data, t_ray *ray);
 int			rotate(t_data *data, t_ray *ray);
 void			*freemat(float **mat, int size);
-int			check_lights(t_data *data, t_ray ray, unsigned char *dst);
+int			check_lights(t_data *data, unsigned char *dst);
 int			create_new_image(t_data *data);
 void			change_camera(t_data *data);
 #endif
