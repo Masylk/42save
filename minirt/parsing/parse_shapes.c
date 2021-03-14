@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:28:34 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/12 15:02:08 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/14 15:40:05 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,9 @@ int	parse_triangle(t_data *data, char *line)
 		return (freetab(tab, 0));
 	if (!(get_point(tab[4], &(triangle->colour))))
 		return (freetab(tab, 0));
+	triangle->normale = normalize(cross_product(
+			sub(triangle->coor_b, triangle->coor_a),
+			sub(triangle->coor_c, triangle->coor_a)));
 	triangle->next = data->triangles;
 	data->triangles = triangle;
 	return (freetab(tab, 1));

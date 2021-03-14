@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:25:58 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/12 15:04:16 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/14 14:41:24 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,28 @@ void	change_planes_normal(t_data *data)
 {
 	t_square	*square;
 	t_plane		*plane;
+	t_triangle	*triangle;
 
 	square = data->squares;
 	plane = data->planes;
-	while(square)
+	triangle = data->triangles;
+	while (square)
 	{
-		if (dot_product(square->v, data->cameras->v) < 0)
+		if (dot_product(square->v, data->cameras->v) > 0)
 			square->v = mul_n(square->v, -1);
 		square = square->next;
 	}
-	while(plane)
+	while (plane)
 	{
 		if (dot_product(plane->v, data->cameras->v) < 0)
 			plane->v = mul_n(plane->v, -1);
 		plane = plane->next;
+	}
+	while (triangle)
+	{
+		if (dot_product(triangle->normale, data->cameras->v) > 0)
+			triangle->normale = mul_n(triangle->normale, -1);
+		triangle = triangle->next;
 	}
 }
 

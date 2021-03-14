@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:15:20 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/12 14:09:42 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/14 15:00:12 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,7 @@ typedef struct	s_triangle
 	t_vector			coor_b;
 	t_vector			coor_c;
 	t_vector			colour;
+	t_vector			normale;
 	struct s_triangle	*next;
 }				t_triangle;
 

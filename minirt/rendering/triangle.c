@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:07:08 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/12 13:33:37 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/14 14:45:46 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ int	check_triangle(t_triangle *triangle, t_ray ray)
 	double		dist;
 	double		t;
 
-	normale = cross_product(
+	normale = normalize(cross_product(
 			sub(triangle->coor_b, triangle->coor_a),
-			sub(triangle->coor_c, triangle->coor_a));
-	a = dot_product(normale, ray.direction);
+			sub(triangle->coor_c, triangle->coor_a)));
+	a = dot_product(ray.direction, normale);
 	if (a == 0.0)
 		return (-1);
 	dist = dot_product(normale, triangle->coor_a);
@@ -69,9 +69,7 @@ int	check_triangles(t_data *data, t_ray ray)
 		{
 			data->elem.pos = t;
 			data->elem.colour = tmp->colour;
-			data->elem.normale = cross_product(
-					sub(tmp->coor_b, tmp->coor_a),
-					sub(tmp->coor_c, tmp->coor_a));
+			data->elem.normale = normalize(tmp->normale);
 			data->elem.point = add(ray.origin,
 					mul_n(ray.direction, t));
 		}
