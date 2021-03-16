@@ -12,11 +12,13 @@
 
 #include "minirt.h"
 
-int	quit_process(t_data *data)
+int		quit_process(t_data *data)
 {
 	printf("EXIT");
 	mlx_destroy_image(data->mlxdata.mlx, data->curr_image.img);
 	mlx_destroy_window(data->mlxdata.mlx, data->mlxdata.win);
+	mlx_destroy_display(data->mlxdata.mlx);
+	clear_mlxdata(data->mlxdata);
 	destroydata(data);
 	exit(0);
 	return (1);
@@ -35,20 +37,17 @@ void	check_movement(int keycode, t_data *data)
 		data->cameras->coor = sub(data->cameras->coor,
 				mul_n(data->cameras->right, MOVESPEED));
 		create_new_image(data);
-		create_new_image(data);
 	}
 	else if (keycode == W)
 	{
 		data->cameras->coor = sub(data->cameras->coor,
 				mul_n(data->cameras->forward, MOVESPEED));
 		create_new_image(data);
-		create_new_image(data);
 	}
 	else if (keycode == S)
 	{
 		data->cameras->coor = add(data->cameras->coor,
 				mul_n(data->cameras->forward, MOVESPEED));
-		create_new_image(data);
 		create_new_image(data);
 	}
 }
@@ -79,7 +78,7 @@ void	check_look(int keycode, t_data *data)
 		check_movement(keycode, data);
 }
 
-int	keypress(int keycode, t_data *data)
+int		keypress(int keycode, t_data *data)
 {
 	if (keycode != data->key)
 	{
@@ -94,7 +93,7 @@ int	keypress(int keycode, t_data *data)
 	return (1);
 }
 
-int	keyrelease(int keycode, t_data *data)
+int		keyrelease(int keycode, t_data *data)
 {
 	if (data->key == keycode)
 		data->key = -1;

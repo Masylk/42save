@@ -36,7 +36,7 @@ void	destroydata_end(t_data *data)
 {
 	void		*ptr;
 	t_camera	*tmp;
-	int		i;
+	int			i;
 
 	i = 0;
 	tmp = data->cameras;
@@ -70,7 +70,7 @@ void	destroydata_next(t_data *data)
 	while (data->planes)
 	{
 		ptr = (void *)data->planes;
-		if (data->lights)
+		if (data->planes)
 			data->planes = data->planes->next;
 		free((t_plane *)ptr);
 	}

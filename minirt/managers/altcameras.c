@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-void		change_camera(t_data *data)
+void	change_camera(t_data *data)
 {
 	data->cameras = data->cameras->next;
 	create_new_image(data);

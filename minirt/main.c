@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-int	parse_file(char *str, t_data *data)
+int		parse_file(char *str, t_data *data)
 {
 	int		fd;
 	int		ret;
@@ -21,44 +21,30 @@ int	parse_file(char *str, t_data *data)
 
 	ret = 1;
 	fd = open(str, O_RDONLY);
-	if (fd < 0)
+	if (fd < 0 || !(set_parsers(&parsers)))
 		return (-1);
-	if (!(set_parsers(&parsers)))
-		return (-1);
-	while (get_next_line(fd, &line) > 0 && ret >= 0)
+	while (get_next_line(fd, &line) > 0)
 	{
-		if (!ft_strlen(line))
-			continue ;
-		ret = get_flag(line);
-		if (ret >= 0)
-			if (!(*parsers[ret])(data, line))
-			{
-				free(parsers);
-				return (-1);
-			}
+		if (ft_strlen(line) && ret >= 0)
+		{
+			ret = get_flag(line);
+			if (ret >= 0)
+				ret = (*parsers[ret])(data, line) - 1;
+		}
 		free(line);
 	}
 	free(parsers);
 	free(line);
-	close(fd);
-	return (ret);
+	return (close(fd) + ret);
 }
 
-void	change_planes_normal(t_data *data)
+void	change_planes_next(t_data *data)
 {
-	t_square	*square;
 	t_plane		*plane;
 	t_triangle	*triangle;
 
-	square = data->squares;
 	plane = data->planes;
 	triangle = data->triangles;
-	while (square)
-	{
-		if (dot_product(square->v, data->cameras->v) > 0)
-			square->v = mul_n(square->v, -1);
-		square = square->next;
-	}
 	while (plane)
 	{
 		if (dot_product(plane->v, data->cameras->v) < 0)
@@ -67,15 +53,29 @@ void	change_planes_normal(t_data *data)
 	}
 	while (triangle)
 	{
-		if (dot_product(triangle->normale, data->cameras->v) > 0)
-			triangle->normale = mul_n(triangle->normale, -1);
+		if (dot_product(triangle->normale, data->cameras->v) < 0)
+			triangle->normale = cross_product(sub(triangle->coor_c,
+			triangle->coor_a), sub(triangle->coor_b, triangle->coor_a));
 		triangle = triangle->next;
 	}
 }
 
-int	create_new_image(t_data *data)
+void	change_planes_normal(t_data *data)
 {
-	change_planes_normal(data);
+	t_square	*square;
+
+	square = data->squares;
+	while (square)
+	{
+		if (dot_product(square->v, data->cameras->v) < 0)
+			square->v = mul_n(square->v, -1);
+		square = square->next;
+	}
+	change_planes_next(data);
+}
+
+int		create_new_image(t_data *data)
+{
 	my_mlx_pixel_put(data, data->resolution.width, data->resolution.height);
 	mlx_clear_window(data->mlxdata.mlx, data->mlxdata.win);
 	mlx_put_image_to_window(data->mlxdata.mlx, data->mlxdata.win,
@@ -84,8 +84,7 @@ int	create_new_image(t_data *data)
 	return (1);
 }
 
-
-int	main(int ac, char **av)
+int		main(int ac, char **av)
 {
 	t_data		data;
 
@@ -100,12 +99,11 @@ int	main(int ac, char **av)
 		printf("Error\n");
 		return (0);
 	}
-	if (parse_file(av[1], &data) < 0)
+	if (parse_file(av[1], &data) < 0 || !(data.cameras))
 	{
 		printf("Error\n");
 		return (destroydata(&data));
 	}
-	print_data(&data);
 	if (init_window(&data) < 0)
 		return (destroydata(&data));
 	create_new_image(&data);

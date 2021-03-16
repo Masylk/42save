@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-void	*freemat(float **mat, int size)
+void		*freemat(float **mat, int size)
 {
 	int	i;
 
@@ -21,98 +21,40 @@ void	*freemat(float **mat, int size)
 	return (NULL);
 }
 
-//can obtain inverse on square matrix to get back from point B to A
-//multiply a matrix by its inverse gives the identity matrix
-/*float	**transpose(float ***mat, int size)
-{
-	float	**transmat;
-	int		i;
-	int		j;
-
-	i = 0;
-	transmat = malloc(sizeof(float *) * size);
-	if (!transmat)
-		return (NULL);
-	while (i < size)
-	{
-		j = 0;
-		while (j < size)
-		{
-			transmat[i] = malloc(sizeof(float) * size);
-			if (!(transmat[i]))
-				return (freemat(transmat, i));
-			transmat[i][j] = (*mat)[j++][i];
-		}
-		i++;
-	}
-	free(*mat);
-	*mat = transmat;
-	return (transmat);
-}
-
-float	get_radians(float angle)
-{
-	return ((M_PI / 180) * angle);
-}
-
-double	get_tan(double opp, double adj)
-{
-	return (opp / adj);
-}
-
-double	get_cos(double adj, double hyp)
-{
-	return (adj / hyp);
-}
-
-double	get_sin(double opp, double hyp)
-{
-	return (opp / hyp);
-}
-
-double	get_hyp(double adj, double opp)
-{
-	return (sqrt(adj) + sqrt(opp));
-}
-
-t_vector	spher_to_cart(t_vector v, float theta, float phi)
-{
-	t_vector	res;
-
-	res.x = cos(phi) * sin(theta);
-	res.y = sin(phi) * sin(theta);
-	res.z = cos(theta);
-	return (res);
-}
-
-float	get_phi_cart(t_vector v)
-{
-	return (atan2(v.y / v.x));
-}
-
-double	min(double a, double b)
-{
-	if (a > b)
-		return (b);
-	return (a);
-}
-
-double	max(double a, double b)
-{
-	if (a > b)
-		return (a);
-	return (b);
-}
-
-double	clamp(double n, double upper, double lower)
+double		clamp(double n, double upper, double lower)
 {
 	return (min(upper, max(x, lower)));
 }
 
-float	get_phi_spher(t_vector v)
+double		dot_product(t_vector i, t_vector j)
 {
-	p = atan2(v.y, v.x);
-	if (p < 0)
-		p = p + 2 * M_PI;
-	return (p);
-}*/
+	double	a;
+	double	b;
+	double	c;
+
+	a = i.x * j.x;
+	b = i.y * j.y;
+	c = i.z * j.z;
+	return (a + b + c);
+}
+
+double		get_length(t_vector v)
+{
+	return (sqrt(dot_product(v, v)));
+}
+
+t_vector	normalize(t_vector v)
+{
+	float	invlen;
+	float	len;
+
+	len = get_length(v);
+	if (len > 0)
+	{
+		invlen = 1 / len;
+		v.x *= invlen;
+		v.y *= invlen;
+		v.z *= invlen;
+	}
+	return (v);
+}

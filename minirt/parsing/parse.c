@@ -38,7 +38,7 @@ int	check_ext(char *str)
 
 	j = 0;
 	i = 0;
-	while(str && str[i])
+	while (str && str[i])
 		i++;
 	i--;
 	ext = "tr.";

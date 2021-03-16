@@ -26,27 +26,27 @@
 # define ROTSPEED 0.01
 # define MOVESPEED 20
 # ifdef __linux__
-# define ESC 65307
-# define RIGHT 65363
-# define LEFT 65361
-# define UP 65362
-# define DOWN 65364
-# define A 97
-# define S 115
-# define D 100
-# define W 119
-# define SPACE 32
+#  define ESC 65307
+#  define RIGHT 65363
+#  define LEFT 65361
+#  define UP 65362
+#  define DOWN 65364
+#  define A 97
+#  define S 115
+#  define D 100
+#  define W 119
+#  define SPACE 32
 # elif __APPLE__
-# define ESC 53
-# define RIGHT 124
-# define LEFT 123
-# define UP 126
-# define DOWN 125
-# define A 0
-# define S 1
-# define D 2
-# define W 13
-# define SPACE 49
+#  define ESC 53
+#  define RIGHT 124
+#  define LEFT 123
+#  define UP 126
+#  define DOWN 125
+#  define A 0
+#  define S 1
+#  define D 2
+#  define W 13
+#  define SPACE 49
 # endif
 
 typedef struct	s_img {
@@ -85,8 +85,8 @@ typedef struct	s_matrices
 
 typedef struct	s_resolution
 {
-	unsigned int	width;
-	unsigned int	height;
+	double	width;
+	double	height;
 }				t_resolution;
 
 typedef struct	s_alight
@@ -180,20 +180,7 @@ typedef struct	s_tools
 	double		n;
 	t_vector	v;
 	t_vector	dist;
-}		t_tools;
-
-typedef struct	s_threadids
-{
-	pthread_t	id0;
-	pthread_t	id1;
-	pthread_t	id2;
-	pthread_t	id3;
-	pthread_t	id4;
-	pthread_t	id5;
-	pthread_t	id6;
-	pthread_t	id7;
-	pthread_t	id8;
-}				t_threadids;
+}				t_tools;
 
 typedef struct	s_data
 {
@@ -212,7 +199,7 @@ typedef struct	s_data
 	int				key;
 }				t_data;
 
-typedef struct s_args
+typedef struct	s_args
 {
 	t_data		*data;
 	t_ray		ray;
@@ -255,13 +242,16 @@ void			printlights(t_light *list);
 void			printcameras(t_camera *list);
 void			print_data(t_data *data);
 int				destroydata(t_data *data);
-int				clear_mlxdata(t_mlxdata *mlxdata);
+int				clear_mlxdata(t_mlxdata mlxdata);
 int				init_window(t_data *data);
 int				set_hooks(t_data *data);
 int				keypress(int keycode, t_data *data);
 int				keyrelease(int keycode, t_data *data);
 int				keyvoid(int keycode, t_data *data);
 int				quit_process(t_data *data);
+int				lim(double n, double min, double max);
+int				limvec(t_vector v, double min, double max);
+int				limcyl(t_cyl *cyl);
 double			min_d(double a, double b);
 double			max_d(double a, double b);
 double			dot_product(t_vector i, t_vector j);
@@ -289,4 +279,5 @@ void			*freemat(float **mat, int size);
 int			check_lights(t_data *data, unsigned char *dst);
 int			create_new_image(t_data *data);
 void			change_camera(t_data *data);
+void			add_camera(t_camera *camera, t_data *data);
 #endif

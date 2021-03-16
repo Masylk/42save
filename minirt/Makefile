@@ -20,7 +20,7 @@ CFLAGS=-Wall -Wextra -Werror -O3
 
 PATHS= $(OBJDIR)/parsing $(OBJDIR)/testing $(OBJDIR)/managers $(OBJDIR)/rendering $(OBJDIR)/maths
 
-SRC=parsing/parse.c testing/test_utils.c testing/test_utils_lst.c \
+SRC=parsing/parse.c parsing/add_camera.c parsing/limit.c \
 	parsing/parse_struct.c parsing/parse_settings.c parsing/parse_shapes.c parsing/parse_utils.c \
 	managers/window.c managers/hooks.c managers/camera.c managers/altcameras.c \
 	rendering/renderer.c rendering/sphere.c rendering/square.c rendering/triangle.c \

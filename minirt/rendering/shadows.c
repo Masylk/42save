@@ -12,39 +12,43 @@
 
 #include "minirt.h"
 
-void	set_rayshadow(t_data *data, t_ray *ray, t_light *light)
+void	set_rayshadow(t_elem pixel, t_ray *ray, t_light *light)
 {
 	ray->direction = normalize(sub(light->coor,
-				data->elem.point));
-	ray->origin = add(data->elem.point, mul_n(ray->direction, 0.1));
+				pixel.point));
+	ray->origin = add(pixel.point, mul_n(ray->direction, 0.2));
 }
 
-void	colour_pixel(unsigned char *dst, t_elem pixel, double lightvalue, t_vector lights)
+void	colour_pixel(unsigned char *d, t_elem pixel, double l, t_vector lights)
 {
 	t_vector	pixel_colour;
 
-	pixel_colour.x = min_d(255, max_d(pixel.colour.x, (lights.x + pixel.colour.x) / 2));
-	pixel_colour.y = min_d(255, max_d(pixel.colour.y, (lights.y + pixel.colour.y) / 2));
-	pixel_colour.z = min_d(255, max_d(pixel.colour.z,  (lights.z + pixel.colour.z) / 2));
-	pixel_colour = mul_n(pixel_colour, lightvalue);
-	dst[0] = min_d(255, max_d(0.0, pixel_colour.z) );//* (1.0 / 2.2));
-	dst[1] = min_d(255, max_d(0.0, pixel_colour.y) );//* (1.0 / 2.2));
-	dst[2] = min_d(255, max_d(0.0, pixel_colour.x) );//* (1.0 / 2.2));
+	pixel_colour.x = min_d(255, max_d(pixel.colour.x,
+				(lights.x + pixel.colour.x) * 0.5));
+	pixel_colour.y = min_d(255, max_d(pixel.colour.y,
+				(lights.y + pixel.colour.y) * 0.5));
+	pixel_colour.z = min_d(255, max_d(pixel.colour.z,
+				(lights.z + pixel.colour.z) * 0.5));
+	pixel_colour = mul_n(pixel_colour, l);
+	d[0] = min_d(255, max_d(0.0, pixel_colour.z) * (1.0 / 2.2));
+	d[1] = min_d(255, max_d(0.0, pixel_colour.y) * (1.0 / 2.2));
+	d[2] = min_d(255, max_d(0.0, pixel_colour.x) * (1.0 / 2.2));
 }
 
-int		compose_colour(t_data *data, t_light *light, double *lightvalue, t_elem pixel)
+int		compose_colour(t_data *data, t_light *light, double *l, t_elem p)
 {
 	t_ray		rayshadow;
 	t_vector	dist;
 	int			ret;
 
-	set_rayshadow(data, &rayshadow, light);
-	dist = normalize(sub(light->coor, pixel.point));
+	set_rayshadow(p, &rayshadow, light);
+	dist = sub(light->coor, p.point);
 	ret = check_shapes(data, rayshadow);
 	if (ret && (data->elem.pos * data->elem.pos) < dot_product(dist, dist))
 		return (0);
-	*lightvalue = min_d(1.3, (*lightvalue) +
-			((light->ratio * 1.3 * dot_product(dist, pixel.normale))
+	dist = normalize(dist);
+	*l = min_d(2.3, (*l) +
+			((light->ratio * 2.3 * dot_product(dist, p.normale))
 				/ dot_product(dist, dist)));
 	return (1);
 }
@@ -56,10 +60,10 @@ void	add_ambient(t_data *data, unsigned char *dst)
 	colour = mul_n(data->alight.colour, data->alight.ratio);
 	dst[0] = min_d(255, (dst[0] + max_d(0, colour.x) * (1 / 2.2)));
 	dst[1] = min_d(255, (dst[1] + max_d(0, colour.y) * (1 / 2.2)));
-	dst[2] = min_d(255, (dst[2] + max_d(0, colour.z) * (1 / 2.2)));	
+	dst[2] = min_d(255, (dst[2] + max_d(0, colour.z) * (1 / 2.2)));
 }
 
-int	check_lights(t_data *data, unsigned char *dst)
+int		check_lights(t_data *data, unsigned char *dst)
 {
 	t_light		*light;
 	double		lightvalue;
@@ -72,7 +76,7 @@ int	check_lights(t_data *data, unsigned char *dst)
 	lightcolours.y = 0.0;
 	lightcolours.z = 0.0;
 	pixel = data->elem;
-	while(light)
+	while (light)
 	{
 		if (compose_colour(data, light, &lightvalue, pixel))
 		{

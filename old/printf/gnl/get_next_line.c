@@ -105,6 +105,7 @@ int		get_next_line(int fd, char **line)
 		ret = read_line(fd, line, &previous_buffer);
 		if (ret <= 0)
 		{
+			free(previous_buffer);
 			if (ret == 0)
 				return (0);
 			else if (ret < 0)
@@ -113,5 +114,5 @@ int		get_next_line(int fd, char **line)
 	}
 	else
 		ret = get_prev(&previous_buffer, previous_buffer, index);
-	return (1);
+	return (ret);
 }
