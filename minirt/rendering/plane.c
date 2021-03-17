@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:02:49 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/14 14:45:27 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/17 16:55:39 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ double	check_plane(t_plane *plane, t_ray ray)
 	if (denom == 0.0)
 		return (-1);
 	dist = -dot_product(sub(ray.origin, plane->coor), plane->v) / denom;
-	if (dist < 0.0001)
+	if (dist ==  0)
 		return (-1);
 	return (dist);
 }

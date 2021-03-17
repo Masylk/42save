@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:07:26 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/14 13:56:49 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/17 15:24:05 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	set_ray(t_ray *ray, int x, int y, t_data *data)
 	fov = data->cameras->fov * (M_PI / 180);
 	ray->direction.x = (x - (data->resolution.width * 0.5));
 	ray->direction.y = -(y - (data->resolution.height * 0.5));
-	ray->direction.z = -((data->resolution.width) / (2.0 * tan(fov * 0.5)));
+	ray->direction.z = ((data->resolution.width) / (2.0 * tan(fov * 0.5)));
 	rotate_ray(data, ray);
 	ray->direction = normalize(ray->direction);
 }

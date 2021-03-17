@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:15:20 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/14 15:00:12 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/17 14:54:49 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ typedef struct	s_mlxdata
 
 typedef	struct	s_vector
 {
-	double			x;
-	double			y;
-	double			z;
+	double	x;
+	double	y;
+	double	z;
 }				t_vector;
 
 typedef struct	s_ray
@@ -273,11 +273,11 @@ int				check_planes(t_data *data, t_ray ray);
 int				check_cylinders(t_data *data, t_ray ray);
 double			check_caps(t_ray ray, t_cyl *cyl, t_data *data, double res);
 double			check_circle(t_ray ray, t_cyl *cyl);
-int			rotate_ray(t_data *data, t_ray *ray);
-int			rotate(t_data *data, t_ray *ray);
+int				rotate_ray(t_data *data, t_ray *ray);
+int				rotate(t_data *data, t_ray *ray);
 void			*freemat(float **mat, int size);
-int			check_lights(t_data *data, unsigned char *dst);
-int			create_new_image(t_data *data);
+int				check_lights(t_data *data, unsigned char *dst);
+int				create_new_image(t_data *data);
 void			change_camera(t_data *data);
 void			add_camera(t_camera *camera, t_data *data);
 #endif

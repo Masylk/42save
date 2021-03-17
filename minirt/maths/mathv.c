@@ -1,30 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.c                                           :+:      :+:    :+:   */
+/*   mathv.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:11:56 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/02/22 14:35:33 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/17 12:29:49 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void		*freemat(float **mat, int size)
-{
-	int	i;
-
-	i = size - 1;
-	while (i >= 0)
-		free(mat[i--]);
-	free(mat);
-	return (NULL);
-}
-
-double		clamp(double n, double upper, double lower)
-{
-	return (min(upper, max(x, lower)));
-}
+#include "minirt.h"
 
 double		dot_product(t_vector i, t_vector j)
 {

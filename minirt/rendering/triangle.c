@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:07:08 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/14 14:45:46 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/17 16:53:33 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	check_triangle(t_triangle *triangle, t_ray ray)
 	if (a == 0.0)
 		return (-1);
 	dist = dot_product(normale, triangle->coor_a);
-	t = -(dot_product(normale, ray.origin) + dist) / a;
+	t = (dot_product(normale, ray.origin) + dist) / a;
 	if (t < 0.0)
 		return (-1);
 	point = add(ray.origin, mul_n(ray.direction, t));

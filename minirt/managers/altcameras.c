@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 13:56:11 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/11 13:31:18 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/17 15:23:17 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,13 @@ int		rotate_ray(t_data *data, t_ray *ray)
 	t_vector	tmp;
 
 	forward = normalize(data->cameras->v);
-	tmp.x = forward.y;
-	tmp.y = forward.z;
-	tmp.z = forward.x;
+	tmp.x = 0;
+	tmp.z = 0;
+	tmp.y = 0;
+	if (forward.y == 1 || forward.y == -1)
+		tmp.x = 1;
+	else
+		tmp.y = 1;
 	right = cross_product(normalize(tmp), forward);
 	up = cross_product(forward, right);
 	ray->direction.x = ray->direction.x * right.x
