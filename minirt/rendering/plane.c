@@ -21,7 +21,7 @@ double	check_plane(t_plane *plane, t_ray ray)
 	if (denom == 0.0)
 		return (-1);
 	dist = -dot_product(sub(ray.origin, plane->coor), plane->v) / denom;
-	if (dist ==  0)
+	if (dist ==  0.0)
 		return (-1);
 	return (dist);
 }
@@ -39,7 +39,7 @@ int		check_planes(t_data *data, t_ray ray)
 		{
 			data->elem.pos = t;
 			data->elem.colour = tmp->colour;
-			data->elem.normale = tmp->v;
+			data->elem.normale = normalize(tmp->v);
 			data->elem.point = add(ray.origin,
 					mul_n(ray.direction, t));
 		}

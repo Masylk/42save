@@ -47,7 +47,7 @@ int	check_squares(t_data *data, t_ray ray)
 		{
 			data->elem.pos = t;
 			data->elem.colour = tmp->colour;
-			data->elem.normale = normalize(tmp->v);
+			data->elem.normale = tmp->v;
 			data->elem.point = add(ray.origin,
 					mul_n(ray.direction, t));
 		}

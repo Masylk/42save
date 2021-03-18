@@ -141,8 +141,8 @@ int	parse_triangle(t_data *data, char *line)
 		return (freetab(tab, 0));
 	if (!(get_point(tab[4], &(triangle->colour))))
 		return (freetab(tab, 0));
-	triangle->normale = cross_product(
+	triangle->normale = normalize(cross_product(
 			sub(triangle->coor_b, triangle->coor_a),
-			sub(triangle->coor_c, triangle->coor_a));
+			sub(triangle->coor_c, triangle->coor_a)));
 	return (freetab(tab, 1 - limvec(triangle->colour, 0, 255)));
 }

@@ -41,8 +41,8 @@ int	check_triangle(t_triangle *triangle, t_ray ray)
 	double		t;
 
 	normale = normalize(cross_product(
-			sub(triangle->coor_b, triangle->coor_a),
-			sub(triangle->coor_c, triangle->coor_a)));
+		sub(triangle->coor_b, triangle->coor_a),
+		sub(triangle->coor_c, triangle->coor_a)));
 	a = dot_product(ray.direction, normale);
 	if (a == 0.0)
 		return (-1);

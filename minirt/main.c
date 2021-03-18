@@ -47,13 +47,13 @@ void	change_planes_next(t_data *data)
 	triangle = data->triangles;
 	while (plane)
 	{
-		if (dot_product(plane->v, data->cameras->v) > 0)
+		if (dot_product(plane->v, data->cameras->v) >= 0)
 			plane->v = mul_n(plane->v, -1);
 		plane = plane->next;
 	}
 	while (triangle)
 	{
-		if (dot_product(triangle->normale, data->cameras->v) > 0)
+		if (dot_product(triangle->normale, data->cameras->v) > 0.1)
 			triangle->normale = mul_n(triangle->normale, -1);
 		triangle = triangle->next;
 	}
@@ -75,6 +75,7 @@ void	change_planes_normal(t_data *data)
 
 int		create_new_image(t_data *data)
 {
+	change_planes_normal(data);
 	my_mlx_pixel_put(data, data->resolution.width, data->resolution.height);
 	mlx_clear_window(data->mlxdata.mlx, data->mlxdata.win);
 	mlx_put_image_to_window(data->mlxdata.mlx, data->mlxdata.win,

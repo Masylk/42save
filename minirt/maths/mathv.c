@@ -31,8 +31,8 @@ double		get_length(t_vector v)
 
 t_vector	normalize(t_vector v)
 {
-	float	invlen;
-	float	len;
+	double	invlen;
+	double	len;
 
 	len = get_length(v);
 	if (len > 0)
