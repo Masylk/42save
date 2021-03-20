@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:02:49 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/17 16:55:39 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/20 17:04:15 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ double	check_plane(t_plane *plane, t_ray ray)
 	if (denom == 0.0)
 		return (-1);
 	dist = -dot_product(sub(ray.origin, plane->coor), plane->v) / denom;
-	if (dist ==  0.0)
+	if (dist <  0.0)
 		return (-1);
 	return (dist);
 }
@@ -35,11 +35,16 @@ int		check_planes(t_data *data, t_ray ray)
 	while (tmp)
 	{
 		t = check_plane(tmp, ray);
+		if (t < 0.0)
+		{
+			tmp->v = mul_n(tmp->v, -1);
+			t = check_plane(tmp, ray);
+		}
 		if (t >= 0.0 && (data->elem.pos > t || data->elem.pos < 0.0))
 		{
 			data->elem.pos = t;
 			data->elem.colour = tmp->colour;
-			data->elem.normale = normalize(tmp->v);
+			data->elem.normale = tmp->v;
 			data->elem.point = add(ray.origin,
 					mul_n(ray.direction, t));
 		}

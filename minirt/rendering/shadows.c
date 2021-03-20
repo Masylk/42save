@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 13:48:15 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/17 16:49:56 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/20 16:59:29 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	set_rayshadow(t_elem pixel, t_ray *ray, t_light *light)
 {
 	ray->direction = normalize(sub(light->coor,
 				pixel.point));
-	ray->origin = add(pixel.point, mul_n(ray->direction, 0.1));
+	ray->origin = add(pixel.point, mul_n(ray->direction, 2.1));
 }
 
 void	colour_pixel(unsigned char *d, t_vector hitcolour)

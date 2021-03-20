@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:07:08 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/17 16:53:33 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/20 16:57:33 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,13 @@ int	check_triangle(t_triangle *triangle, t_ray ray)
 	t_vector	normale;
 	t_vector	point;
 	double		a;
-	double		dist;
 	double		t;
 
-	normale = normalize(cross_product(
-		sub(triangle->coor_b, triangle->coor_a),
-		sub(triangle->coor_c, triangle->coor_a)));
-	a = dot_product(ray.direction, normale);
+	normale = triangle->normale;
+	a = dot_product(normale, ray.direction);
 	if (a == 0.0)
 		return (-1);
-	dist = dot_product(normale, triangle->coor_a);
-	t = (dot_product(normale, ray.origin) + dist) / a;
+	t = -(dot_product(sub(ray.origin, triangle->coor_a), normale)) / a;
 	if (t < 0.0)
 		return (-1);
 	point = add(ray.origin, mul_n(ray.direction, t));
@@ -65,11 +61,18 @@ int	check_triangles(t_data *data, t_ray ray)
 	while (tmp)
 	{
 		t = check_triangle(tmp, ray);
-		if (t >= 0.0 && (data->elem.pos > t || data->elem.pos < 0.0))
+		if (t < 0.0)
+		{
+			tmp->normale = mul_n(tmp->normale, -1);
+			t = check_triangle(tmp, ray);
+			if (t < 0.0)
+				tmp->normale = mul_n(tmp->normale, -1);
+		}
+		if (t > 0.0 && (t < data->elem.pos || data->elem.pos < 0.0))
 		{
 			data->elem.pos = t;
 			data->elem.colour = tmp->colour;
-			data->elem.normale = normalize(tmp->normale);
+			data->elem.normale = tmp->normale;
 			data->elem.point = add(ray.origin,
 					mul_n(ray.direction, t));
 		}
