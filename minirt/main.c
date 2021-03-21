@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:25:58 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/20 15:09:21 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/21 15:25:52 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,44 +38,8 @@ int		parse_file(char *str, t_data *data)
 	return (close(fd) + ret);
 }
 
-void	change_planes_next(t_data *data)
-{
-	t_plane		*plane;
-	t_triangle	*triangle;
-	
-	plane = data->planes;
-	triangle = data->triangles;
-	while (plane)
-	{
-		if (dot_product(plane->v, data->cameras->v) > 0)
-			plane->v = mul_n(plane->v, -1);
-		plane = plane->next;
-	}
-	while (triangle)
-	{
-		if (dot_product(triangle->normale, data->cameras->v) > 0)
-			triangle->normale = mul_n(triangle->normale, 1);
-		triangle = triangle->next;
-	}
-}
-
-void	change_planes_normal(t_data *data)
-{
-	t_square	*square;
-
-	square = data->squares;
-	while (square)
-	{
-		if (dot_product(square->v, data->cameras->v) > 0)
-			square->v = mul_n(square->v, -1);
-		square = square->next;
-	}
-	change_planes_next(data);
-}
-
 int		create_new_image(t_data *data)
 {
-//	change_planes_normal(data);
 	my_mlx_pixel_put(data, data->resolution.width, data->resolution.height);
 	mlx_clear_window(data->mlxdata.mlx, data->mlxdata.win);
 	mlx_put_image_to_window(data->mlxdata.mlx, data->mlxdata.win,

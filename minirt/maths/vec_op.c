@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 14:55:34 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/20 14:53:45 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/21 16:32:03 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ t_vector	mul(t_vector a, t_vector b)
 
 t_vector	mul_n(t_vector v, double n)
 {
-	v.x *= n;
-	v.y *= n;
-	v.z *= n;
+	v.x = v.x * n;
+	v.y = v.y * n;
+	v.z = v.z * n;
 	return (v);
 }

@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:11:56 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/20 17:02:22 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/21 16:50:39 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_vector	normalize(t_vector v)
 	double	len;
 
 	len = get_length(v);
-	if (len > 0)
+	if (len != 0)
 	{
 		invlen = 1 / len;
 		v.x *= invlen;

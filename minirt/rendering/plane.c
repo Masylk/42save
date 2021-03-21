@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:02:49 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/20 17:04:15 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/21 16:44:58 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		check_planes(t_data *data, t_ray ray)
 			tmp->v = mul_n(tmp->v, -1);
 			t = check_plane(tmp, ray);
 		}
-		if (t >= 0.0 && (data->elem.pos > t || data->elem.pos < 0.0))
+		if (t > 0.0 && (t < data->elem.pos))
 		{
 			data->elem.pos = t;
 			data->elem.colour = tmp->colour;

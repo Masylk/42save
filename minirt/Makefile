@@ -6,7 +6,7 @@
 #    By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/15 11:23:31 by mtogbe            #+#    #+#              #
-#    Updated: 2021/03/17 12:29:00 by mtogbe           ###   ########.fr        #
+#    Updated: 2021/03/21 15:41:06 by mtogbe           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC=gcc
 
 OBJDIR = obj
 
-CFLAGS=-Wall -Wextra -Werror -O3
+CFLAGS=-Wall -Wextra -Werror
 
 PATHS= $(OBJDIR)/parsing $(OBJDIR)/testing $(OBJDIR)/managers $(OBJDIR)/rendering $(OBJDIR)/maths
 
@@ -37,7 +37,7 @@ LFLAGS= -Llib -lft
 ENV:= $(shell uname -s)
 
 ifeq ($(ENV), Linux)
-	INCFLAGS += -I/usr/include -I./lib/mlx_linux -O3
+	INCFLAGS += -I/usr/include -I./lib/mlx_linux
 	LFLAGS = -Llib/linux -lft -L./lib/mlx_linux -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz
 endif
 ifeq ($(ENV), Darwin)
@@ -55,7 +55,7 @@ $(OBJDIR)/%.o: %.c | $(OBJDIR)
 	$(CC) $(CFLAGS) $(INCFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) -o $@ $^ $(LFLAGS) -lpthread
+	$(CC) $(CFLAGS) -o $@ $^ $(LFLAGS)
 
 $(OBJDIR) :
 	mkdir $(OBJDIR) $(PATHS)

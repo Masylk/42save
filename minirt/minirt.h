@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:15:20 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/20 14:48:14 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/21 15:39:30 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <stdio.h>
-# include <pthread.h>
 # include "lib/libft.h"
 
 # define ROTSPEED 0.01
@@ -178,7 +177,18 @@ typedef struct	s_tools
 	double		t_one;
 	double		t_two;
 	double		n;
+	double		ma;
+	double		mb;
+	double		mc;
+	double		ga;
+	double		gc;
+	double		gb;
+	double		ba;
+	double		bb;
+	double		bc;
+	t_vector	u;
 	t_vector	v;
+	t_vector	w;
 	t_vector	dist;
 }				t_tools;
 

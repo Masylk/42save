@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 13:48:15 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/20 16:59:29 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/21 15:36:13 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ void	set_rayshadow(t_elem pixel, t_ray *ray, t_light *light)
 {
 	ray->direction = normalize(sub(light->coor,
 				pixel.point));
-	ray->origin = add(pixel.point, mul_n(ray->direction, 2.1));
+	ray->origin = add(pixel.point, mul_n(ray->direction, 0.01));
 }
 
 void	colour_pixel(unsigned char *d, t_vector hitcolour)
 {
-	d[0] = min_d(255, max_d(0.0, hitcolour.z));
-	d[1] = min_d(255, max_d(0.0, hitcolour.y));
-	d[2] = min_d(255, max_d(0.0, hitcolour.x));
+	d[0] = min_d(255, max_d(0.0, hitcolour.z)) * 1 / 2.2;
+	d[1] = min_d(255, max_d(0.0, hitcolour.y)) * 1 / 2.2;
+	d[2] = min_d(255, max_d(0.0, hitcolour.x)) * 1 / 2.2;
 }
 
 t_vector	compose_colour(t_data *data, t_light *light, t_elem p)
@@ -41,7 +41,7 @@ t_vector	compose_colour(t_data *data, t_light *light, t_elem p)
 	ret = check_shapes(data, rayshadow);
 	if (ret && (data->elem.pos * data->elem.pos) < dot_product(dist, dist))
 		return (i);
-	i = mul_n(light->colour, light->ratio * 25
+	i = mul_n(light->colour, light->ratio * 100
 			/ (4 * M_PI * dot_product(dist, dist)));
 	i = mul_n(mul(i, p.colour), max_d(0, dot_product(normalize(dist), p.normale)));
 	return (i);

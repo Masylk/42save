@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:10:49 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/14 15:18:59 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/21 16:56:48 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int		check_cylinders(t_data *data, t_ray ray)
 	while (tmp)
 	{
 		t = check_cylinder(tmp, ray, data);
-		if (t > 0 && (data->elem.pos > t || data->elem.pos < 0))
+		if (t > 0.0 && (t < data->elem.pos))
 		{
 			data->elem.pos = t;
 			data->elem.colour = tmp->colour;

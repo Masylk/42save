@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 16:35:21 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/20 14:10:02 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/21 13:17:00 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,12 @@ void	check_look(int keycode, t_data *data)
 	}
 	else if (keycode == UP)
 	{
-		data->cameras->v.y -= ROTSPEED;
+		data->cameras->v.y += ROTSPEED;
 		create_new_image(data);
 	}
 	else if (keycode == DOWN)
 	{
-		data->cameras->v.y += ROTSPEED;
+		data->cameras->v.y -= ROTSPEED;
 		create_new_image(data);
 	}
 	else

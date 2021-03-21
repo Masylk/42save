@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:05:16 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/20 15:28:30 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/21 14:43:52 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	check_squares(t_data *data, t_ray ray)
 			if (t < 0.0)
 				tmp->v = mul_n(tmp->v, -1);
 		}
-		if (t > 0.0 && (data->elem.pos > t || data->elem.pos < 0.0))
+		if (t > 0.0 && (t < data->elem.pos))
 		{
 			data->elem.pos = t;
 			data->elem.colour = tmp->colour;

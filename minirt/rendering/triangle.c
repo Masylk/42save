@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:07:08 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/20 16:57:33 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/21 17:24:39 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,52 @@ int	is_inside(t_triangle *triangle, t_vector normale, t_vector point)
 	return (1);
 }
 
+int	is_triangle(t_tools k)
+{
+	double	detm;
+	double	detb;
+	double	detg;
+
+	k.ma = dot_product(k.u, k.u);
+	k.mb = dot_product(k.u, k.v);
+	k.mc = dot_product(k.v, k.v);
+	detm = k.ma * k.mc - k.mb * k.mb;
+	k.ba = dot_product(k.w, k.u);
+	k.bb = dot_product(k.w, k.v);
+	detb = k.ba * k.mc - k.bb * k.mb;
+	k.b = detb / detm;
+	detg = k.ma * k.bb - k.mb * k.ba;
+	k.c = detg / detm;
+	k.a = 1 - k.b - k.c;
+	if (k.a < 0 || k.a > 1 || k.b < 0 || k.b > 1
+			|| k.c < 0 || k.c > 1)
+		return (0);
+	return (1);
+}
+
 int	check_triangle(t_triangle *triangle, t_ray ray)
 {
 	t_vector	normale;
 	t_vector	point;
 	double		a;
 	double		t;
+	t_tools		k;
 
 	normale = triangle->normale;
-	a = dot_product(normale, ray.direction);
+	a = dot_product(ray.direction, normale);
 	if (a == 0.0)
 		return (-1);
-	t = -(dot_product(sub(ray.origin, triangle->coor_a), normale)) / a;
+	t = (dot_product(sub(triangle->coor_c, ray.origin), normale)) / a;
 	if (t < 0.0)
 		return (-1);
 	point = add(ray.origin, mul_n(ray.direction, t));
-	if (is_inside(triangle, normale, point))
+	k.u = sub(triangle->coor_b, triangle->coor_a);
+	k.v = sub(triangle->coor_c, triangle->coor_a);
+	k.w = sub(point, triangle->coor_a);
+	if (is_triangle(k))
 		return (t);
+	//if (is_inside(triangle, normale, point))
+	//	return (t);
 	return (-1);
 }
 
@@ -68,7 +97,7 @@ int	check_triangles(t_data *data, t_ray ray)
 			if (t < 0.0)
 				tmp->normale = mul_n(tmp->normale, -1);
 		}
-		if (t > 0.0 && (t < data->elem.pos || data->elem.pos < 0.0))
+		if (t > 0.0 && (t < data->elem.pos))
 		{
 			data->elem.pos = t;
 			data->elem.colour = tmp->colour;
