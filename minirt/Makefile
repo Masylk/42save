@@ -6,7 +6,7 @@
 #    By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/15 11:23:31 by mtogbe            #+#    #+#              #
-#    Updated: 2021/03/21 15:41:06 by mtogbe           ###   ########.fr        #
+#    Updated: 2021/03/22 18:05:34 by mtogbe           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRC=parsing/parse.c parsing/add_camera.c parsing/limit.c \
 	rendering/renderer.c rendering/sphere.c rendering/square.c rendering/triangle.c \
 	rendering/plane.c rendering/cylinder.c rendering/cylinder_next.c \
 	rendering/shadows.c \
+	test_utils.c test_utils_lst.c \
 	maths/vec_op.c maths/math_utils.c maths/mathv.c \
 	main.c
 

@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:07:26 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/21 17:20:16 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/22 18:16:26 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	set_ray(t_ray *ray, int x, int y, t_data *data)
 	ray->origin.z = data->cameras->coor.z;
 	fov = data->cameras->fov * (M_PI / 180.0);
 	ray->direction.x = (x - (data->resolution.width * 0.5));
-	ray->direction.y = (y - (data->resolution.height * 0.5));
+	ray->direction.y = -(y - (data->resolution.height * 0.5));
 	ray->direction.z = ((data->resolution.width) / (2.0 * tan(fov * 0.5)));
 	rotate_ray(data, ray);
 	ray->direction = normalize(ray->direction);
@@ -31,9 +31,9 @@ int		check_shapes(t_data *data, t_ray ray)
 {
 	data->elem.pos = INFINITY;
 	check_cylinders(data, ray);
-	check_squares(data, ray);
-	check_planes(data, ray);
 	check_spheres(data, ray);
+	check_planes(data, ray);
+	check_squares(data, ray);
 	check_triangles(data, ray);
 	if (data->elem.pos < INFINITY)
 		return (1);

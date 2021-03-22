@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:28:34 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/21 16:19:44 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/22 18:08:08 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	parse_square(t_data *data, char *line)
 	if (limvec(square->v, -1, 1) || square->width <= 0 ||
 			limvec(square->colour, 0, 255))
 		return (freetab(tab, 0));
-	square->v = normalize(square->v);
+	//square->v = normalize(square->v);
 	return (freetab(tab, 1));
 }
 

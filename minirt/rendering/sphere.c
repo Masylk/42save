@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:03:02 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/21 17:09:35 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/22 17:13:45 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ double	check_sphere(t_sphere *sphere, t_ray ray)
 	t_tools		k;
 	double		r;
 	double		delta;
+	double		q;
 
 	k.d = sub(ray.origin, sphere->coor);
 	r = sphere->width * 0.5;
@@ -50,17 +51,13 @@ double	check_sphere(t_sphere *sphere, t_ray ray)
 	delta = k.b * k.b - 4.0 * k.a * k.c;
 	if (delta < 0.0)
 		return (-1);
-	if (delta == 0.0)
-	{
-		k.t = -k.b / 2.0 * k.a;
-		if (k.t > 0.0)
-			return (k.t);
-		return (-1);
-	}
 	delta = sqrt(delta);
-	k.a = 2.0 * k.a;
-	k.t = (-k.b + delta) / k.a;
-	k.t_one = (-k.b - delta) / k.a;
+	if (k.b > 0)
+		q = -0.5 * (k.b + delta);
+	else
+		q = -0.5 * (k.b - delta);
+	k.t = q / k.a;
+	k.t_one = k.c / q;
 	if (k.t < 0.0)
 		return (-1);
 	if (k.t > k.t_one && k.t_one > 0.0)

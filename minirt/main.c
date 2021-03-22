@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:25:58 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/21 15:25:52 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/22 18:20:29 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int		main(int ac, char **av)
 		printf("Error\n");
 		return (destroydata(&data));
 	}
+	print_data(&data);
 	if (init_window(&data) < 0)
 		return (destroydata(&data));
 	create_new_image(&data);
