@@ -17,7 +17,7 @@ int		quit_process(t_data *data)
 	printf("EXIT");
 	mlx_destroy_image(data->mlxdata.mlx, data->curr_image.img);
 	mlx_destroy_window(data->mlxdata.mlx, data->mlxdata.win);
-//	mlx_destroy_display(data->mlxdata.mlx);
+	mlx_destroy_display(data->mlxdata.mlx);
 	clear_mlxdata(data->mlxdata);
 	destroydata(data);
 	exit(0);

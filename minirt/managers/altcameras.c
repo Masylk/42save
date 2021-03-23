@@ -12,13 +12,27 @@
 
 #include "minirt.h"
 
-void	change_camera(t_data *data)
+void		change_camera(t_data *data)
 {
 	data->cameras = data->cameras->next;
 	create_new_image(data);
 }
 
-int		rotate_ray(t_data *data, t_ray *ray)
+t_vector	init_tmp(t_vector forward)
+{
+	t_vector tmp;
+
+	tmp.x = 0;
+	tmp.y = 0;
+	tmp.z = 0;
+	if (forward.y == 1 || forward.y == -1)
+		tmp.x = 1;
+	else
+		tmp.y = 1;
+	return (tmp);
+}
+
+int			rotate_ray(t_data *data, t_ray *ray)
 {
 	t_vector	forward;
 	t_vector	right;
@@ -26,13 +40,7 @@ int		rotate_ray(t_data *data, t_ray *ray)
 	t_vector	tmp;
 
 	forward = normalize(data->cameras->v);
-	tmp.x = 0;
-	tmp.z = 0;
-	tmp.y = 0;
-	if (forward.y == 1 || forward.y == -1)
-		tmp.x = 1;
-	else
-		tmp.y = 1;
+	tmp = init_tmp(forward);
 	right = cross_product(normalize(tmp), forward);
 	up = cross_product(forward, right);
 	ray->direction.x = ray->direction.x * right.x

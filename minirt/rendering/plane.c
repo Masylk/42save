@@ -21,7 +21,7 @@ double	check_plane(t_plane *plane, t_ray ray)
 	if (denom == 0.0)
 		return (-1);
 	dist = -dot_product(sub(ray.origin, plane->coor), plane->v) / denom;
-	if (dist <  0.0)
+	if (dist < 0.0)
 		return (-1);
 	return (dist);
 }

@@ -251,6 +251,7 @@ void			printtriangles(t_triangle *list);
 void			printlights(t_light *list);
 void			printcameras(t_camera *list);
 void			print_data(t_data *data);
+int				resize(t_data *data);
 int				destroydata(t_data *data);
 int				clear_mlxdata(t_mlxdata mlxdata);
 int				init_window(t_data *data);

@@ -76,8 +76,6 @@ int	check_triangle(t_triangle *triangle, t_ray ray)
 	k.w = sub(point, triangle->coor_a);
 	if (is_triangle(k))
 		return (t);
-	//if (is_inside(triangle, normale, point))
-	//	return (t);
 	return (-1);
 }
 

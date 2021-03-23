@@ -21,7 +21,6 @@ int	init_window(t_data *data)
 
 	maxw = 1920;
 	maxh = 1080;
-	//mlx_get_screen_size(data->mlxdata.mlx, &maxw, &maxh);
 	x = max_d(1, min_d(maxw, data->resolution.width));
 	y = max_d(1, min_d(maxh, data->resolution.height));
 	data->mlxdata.mlx = mlx_init();
@@ -43,12 +42,21 @@ int	clear_mlxdata(t_mlxdata mlxdata)
 	return (0);
 }
 
+int	resize(t_data *data)
+{
+	mlx_clear_window(data->mlxdata.mlx, data->mlxdata.win);
+	mlx_put_image_to_window(data->mlxdata.mlx, data->mlxdata.win,
+			data->curr_image.img, 0, 0);
+	return (1);
+}
+
 int	set_hooks(t_data *data)
 {
 	mlx_hook(data->mlxdata.win, 2, 1L << 0, keypress, data);
 	mlx_hook(data->mlxdata.win, 3, 1L << 1, keyrelease, data);
 	mlx_hook(data->mlxdata.win, 17, 1L << 17, quit_process, data);
 	mlx_hook(data->mlxdata.win, 33, 1L << 17, quit_process, data);
+	mlx_hook(data->mlxdata.win, 15, 1L << 16, resize, data);
 	return (1);
 }
 

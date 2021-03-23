@@ -12,14 +12,14 @@
 
 #include "minirt.h"
 
-void	set_rayshadow(t_elem pixel, t_ray *ray, t_light *light)
+void		set_rayshadow(t_elem pixel, t_ray *ray, t_light *light)
 {
 	ray->direction = normalize(sub(light->coor,
 				pixel.point));
 	ray->origin = add(pixel.point, mul_n(ray->direction, 0.01));
 }
 
-void	colour_pixel(unsigned char *d, t_vector hitcolour)
+void		colour_pixel(unsigned char *d, t_vector hitcolour)
 {
 	d[0] = min_d(255, max_d(0.0, hitcolour.z)) * 1 / 2.2;
 	d[1] = min_d(255, max_d(0.0, hitcolour.y)) * 1 / 2.2;
@@ -43,7 +43,8 @@ t_vector	compose_colour(t_data *data, t_light *light, t_elem p)
 		return (i);
 	i = mul_n(light->colour, light->ratio * 100
 			/ (4 * M_PI * dot_product(dist, dist)));
-	i = mul_n(mul(i, p.colour), max_d(0, dot_product(normalize(dist), p.normale)));
+	i = mul_n(mul(i, p.colour), max_d(0,
+				dot_product(normalize(dist), p.normale)));
 	return (i);
 }
 
@@ -58,13 +59,16 @@ t_vector	add_ambient(t_data *data, t_vector lcolours)
 	return (lcolours);
 }
 
-int		check_lights(t_data *data, unsigned char *dst)
+int			check_lights(t_data *data, unsigned char *dst)
 {
 	t_light		*light;
 	t_vector	hitcolour;
 	t_elem		pixel;
 	t_vector	intensity;
 
+	hitcolour.x = 0;
+	hitcolour.y = 0;
+	hitcolour.z = 0;
 	light = data->lights;
 	pixel = data->elem;
 	while (light)

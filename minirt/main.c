@@ -12,6 +12,14 @@
 
 #include "minirt.h"
 
+int		checkres(t_data *data)
+{
+	if (data->resolution.width == 0
+		|| data->resolution.height == 0)
+		return (-1);
+	return (0);
+}
+
 int		parse_file(char *str, t_data *data)
 {
 	int		fd;
@@ -35,7 +43,7 @@ int		parse_file(char *str, t_data *data)
 	}
 	free(parsers);
 	free(line);
-	return (close(fd) + ret);
+	return (close(fd) + ret + checkres(data));
 }
 
 int		create_new_image(t_data *data)
@@ -68,7 +76,6 @@ int		main(int ac, char **av)
 		printf("Error\n");
 		return (destroydata(&data));
 	}
-	print_data(&data);
 	if (init_window(&data) < 0)
 		return (destroydata(&data));
 	create_new_image(&data);

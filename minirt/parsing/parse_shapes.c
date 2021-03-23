@@ -62,7 +62,7 @@ int	parse_square(t_data *data, char *line)
 	if (limvec(square->v, -1, 1) || square->width <= 0 ||
 			limvec(square->colour, 0, 255))
 		return (freetab(tab, 0));
-	//square->v = normalize(square->v);
+	square->v = normalize(square->v);
 	return (freetab(tab, 1));
 }
 

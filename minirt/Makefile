@@ -26,7 +26,6 @@ SRC=parsing/parse.c parsing/add_camera.c parsing/limit.c \
 	rendering/renderer.c rendering/sphere.c rendering/square.c rendering/triangle.c \
 	rendering/plane.c rendering/cylinder.c rendering/cylinder_next.c \
 	rendering/shadows.c \
-	test_utils.c test_utils_lst.c \
 	maths/vec_op.c maths/math_utils.c maths/mathv.c \
 	main.c
 
@@ -39,11 +38,11 @@ ENV:= $(shell uname -s)
 
 ifeq ($(ENV), Linux)
 	INCFLAGS += -I/usr/include -I./lib/mlx_linux
-	LFLAGS = -Llib/linux -lft -L./lib/mlx_linux -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz
+	LFLAGS = -Llibft -lft -L./lib/mlx_linux -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz
 endif
 ifeq ($(ENV), Darwin)
 	INCFLAGS += -I/usr/local/include
-	LFLAGS = -Llib/mac -lft -L/usr/local/lib -lmlx -framework OpenGL -framework AppKit
+	LFLAGS = -Llibft -lft -L/usr/local/lib -lmlx -framework OpenGL -framework AppKit
 endif
 
 RM=rm -rf
@@ -56,6 +55,7 @@ $(OBJDIR)/%.o: %.c | $(OBJDIR)
 	$(CC) $(CFLAGS) $(INCFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ)
+	make -C libft
 	$(CC) $(CFLAGS) -o $@ $^ $(LFLAGS)
 
 $(OBJDIR) :
