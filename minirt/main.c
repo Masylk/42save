@@ -60,23 +60,19 @@ int		main(int ac, char **av)
 {
 	t_data		data;
 
-	if (ac < 2)
-	{
-		printf("Error\n");
-		return (0);
-	}
+	if (ac < 2 || ac > 3)
+		return (printf("Error : wrong arguments\n"));
 	setdata_lists(&data);
 	if (!check_ext(av[1]))
-	{
-		printf("Error\n");
-		return (0);
-	}
+		return (printf("Error : bad extension\n"));
 	if (parse_file(av[1], &data) < 0 || !(data.cameras))
 	{
-		printf("Error\n");
+		printf("Error : parsing failed\n");
 		return (destroydata(&data));
 	}
-	if (init_window(&data) < 0)
+	if (ac == 3)
+		return (save_image(&data, av[2]));
+	else if (init_window(&data) < 0)
 		return (destroydata(&data));
 	create_new_image(&data);
 	mlx_loop(data.mlxdata.mlx);

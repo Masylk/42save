@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME=minirt
+NAME=miniRT
 
 CC=gcc
 
@@ -25,7 +25,7 @@ SRC=parsing/parse.c parsing/add_camera.c parsing/limit.c \
 	managers/window.c managers/hooks.c managers/camera.c managers/altcameras.c \
 	rendering/renderer.c rendering/sphere.c rendering/square.c rendering/triangle.c \
 	rendering/plane.c rendering/cylinder.c rendering/cylinder_next.c \
-	rendering/shadows.c \
+	rendering/shadows.c rendering/save.c \
 	maths/vec_op.c maths/math_utils.c maths/mathv.c \
 	main.c
 
@@ -38,7 +38,7 @@ ENV:= $(shell uname -s)
 
 ifeq ($(ENV), Linux)
 	INCFLAGS += -I/usr/include -I./lib/mlx_linux
-	LFLAGS = -Llibft -lft -L./lib/mlx_linux -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz
+	LFLAGS = -Llibft -lft -L./lib/mlx_linux -lmlx_Linux -L/usr/lib -lXext -lX11 -lm
 endif
 ifeq ($(ENV), Darwin)
 	INCFLAGS += -I/usr/local/include

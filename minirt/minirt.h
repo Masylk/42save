@@ -291,4 +291,5 @@ int				check_lights(t_data *data, unsigned char *dst);
 int				create_new_image(t_data *data);
 void			change_camera(t_data *data);
 void			add_camera(t_camera *camera, t_data *data);
+int				save_image(t_data *data, char *str);
 #endif

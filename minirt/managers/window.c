@@ -19,17 +19,14 @@ int	init_window(t_data *data)
 	int	maxh;
 	int	maxw;
 
-	maxw = 1920;
-	maxh = 1080;
+	data->mlxdata.mlx = mlx_init();
+	mlx_get_screen_size(data->mlxdata.mlx, &maxw, &maxh);
 	x = max_d(1, min_d(maxw, data->resolution.width));
 	y = max_d(1, min_d(maxh, data->resolution.height));
-	data->mlxdata.mlx = mlx_init();
+	data->resolution.width = x;
+	data->resolution.height = y;
 	if (!(data->mlxdata.mlx))
 		return (-1);
-	if ((int)data->resolution.width > x)
-		x = data->resolution.width;
-	if ((int)data->resolution.height > y)
-		y = data->resolution.height;
 	data->mlxdata.win = mlx_new_window(data->mlxdata.mlx, x, y, "Namae");
 	if (!(data->mlxdata.win))
 		return (-1);
