@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 16:35:21 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/21 13:17:00 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/03/25 14:28:36 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		quit_process(t_data *data)
 	printf("EXIT");
 	mlx_destroy_image(data->mlxdata.mlx, data->curr_image.img);
 	mlx_destroy_window(data->mlxdata.mlx, data->mlxdata.win);
-	mlx_destroy_display(data->mlxdata.mlx);
+//	mlx_destroy_display(data->mlxdata.mlx);
 	clear_mlxdata(data->mlxdata);
 	destroydata(data);
 	exit(0);
