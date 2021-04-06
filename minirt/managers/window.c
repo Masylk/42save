@@ -19,10 +19,8 @@ int	init_window(t_data *data)
 	int	maxh;
 	int	maxw;
 
-	maxh = 1920;
-	maxw = 1080;
 	data->mlxdata.mlx = mlx_init();
-//	mlx_get_screen_size(data->mlxdata.mlx, &maxw, &maxh);
+	mlx_get_screen_size(data->mlxdata.mlx, &maxw, &maxh);
 	x = max_d(1, min_d(maxw, data->resolution.width));
 	y = max_d(1, min_d(maxh, data->resolution.height));
 	data->resolution.width = x;

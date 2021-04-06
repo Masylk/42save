@@ -26,7 +26,14 @@ tar -xvzf latest.tar.gz && rm -rf latest.tar.gz
 #ssl self signed key
 openssl req -x509 -nodes -days 365 -subj "/C=FR/ST=France/L=Paris/O=in/OU=42Paris/CN=mtogbe" -newkey rsa:2048 -keyout /etc/ssl/nginx-selfsigned.key -out /etc/ssl/nginx-selfsigned.crt;
 
-cp /tmp/nginx.conf /etc/nginx/sites-avalaible
+#index listing
+if "$AUTOINDEX" == "ON"
+then
+	cp /tmp/nginx.conf /etc/nginx/sites-avalaible
+else	
+	cp /tmp/nginxoff.conf /etc/nginx/sites-avalaible
+fi
+#run nginx server
 service nginx start
 service mysql start
 service php7.3-fpm start
