@@ -1,25 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_args.c                                       :+:      :+:    :+:   */
+/*   op_b.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/25 15:23:16 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/27 14:54:41 by mtogbe           ###   ########.fr       */
+/*   Created: 2021/04/01 16:26:16 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/04/01 16:36:43 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pushswap.h"
 
-int	check_args(char **args, int *n)
+t_stacklist	double_rotate(t_stacklist l)
 {
-	int	i;
+	t_stacklist res;
+	res.stack_a = rotate(l.stack_a);
+	res.stack_b = rotate(l.stack_b);
+	return (res);
+}
 
-	i = 0;
-	while (args[i])
-		if (!(ft_strisdigit(args[i++])))
-			return (0);
-	*n = i + 1;
-	return (1);
+t_stacklist	double_rev_rotate(t_stacklist l)
+{
+	t_stacklist res;
+	res.stack_a = reverse_rotate(l.stack_a);
+	res.stack_b = reverse_rotate(l.stack_b);
+	return (res);
+}
+
+t_stacklist	*double_swap(t_stacklist *l)
+{
+	swap(l->stack_a);
+	swap(l->stack_b);
+	return (l);
 }

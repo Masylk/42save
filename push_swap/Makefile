@@ -6,7 +6,7 @@
 #    By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/15 11:23:31 by mtogbe            #+#    #+#              #
-#    Updated: 2021/03/25 15:35:18 by mtogbe           ###   ########.fr        #
+#    Updated: 2021/04/01 16:31:04 by mtogbe           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ CFLAGS=-Wall -Wextra -Werror
 PATHS= $(OBJDIR)/srcs
 
 SRC=push_swap.c \
-	srcs/check_args.c
+	srcs/check_args.c srcs/op_a.c srcs/op_b.c
 
 INCFLAGS=-I.
 
