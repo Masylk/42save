@@ -18,10 +18,12 @@ int	main(int ac, char **av, char **env)
 	pid = fork();
 	if (pid == 0)
 	{
-		ret = execve(av[1], av + 1, env);
+		ret = execve(av[0], av + 1, env);
+		exit(ret);
 	}
 	else
-	{	
+	{
 		waitpid(pid, &status, 0);
+		printf("%d\n", pid);
 	}
 }
