@@ -47,8 +47,9 @@ int main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	g_env = parse_env(env);
-	sort_env(&g_env);
-	//	g_env = unset("_", g_env);
-//	print_env(g_env);
-//	pwd(g_env);
+	print_sorted_env(g_env);
+	g_env = unset("_", g_env);
+	print_env(g_env);
+	pwd(g_env);
+	free_env(g_env);
 }

@@ -32,6 +32,10 @@ int		echo(int fd, char **tab, int opt);
 int		export(char *str, t_env *env);
 char	*get_env_value(char *key, t_env *env);
 void	print_env(t_env *env);
-void	sort_env(t_env **env);
+void	print_sorted_env(t_env *env);
+void	free_block(t_env *env);
+void	free_env(t_env *env);
+t_env	*blockcpy(t_env *env);
+t_env	*envcpy(t_env *env);
 t_env	*unset(char *key, t_env *env);
 #endif

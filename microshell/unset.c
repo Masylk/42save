@@ -24,7 +24,7 @@ t_env	*remove_mid(t_env *env, char *key)
 		{
 			stack = env->next;
 			env->next = env->next->next;
-			free(stack);
+			free_block(stack);
 		}
 		env = env->next;
 	}
@@ -44,7 +44,7 @@ t_env	*unset(char *key, t_env *env)
 		{
 			stack = env;
 			env = env->next;
-			free(env);
+			free_block(stack);
 			return (env);
 		}
 		tmp = remove_mid(env, key);
@@ -53,7 +53,7 @@ t_env	*unset(char *key, t_env *env)
 			tmp = tmp->next;
 		if (ft_strcmp(tmp->next->key, key) == 0)
 		{
-			free(tmp->next);
+			free_block(tmp->next);
 			tmp->next = NULL;
 		}
 	}
