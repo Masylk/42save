@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_env_value.c                                    :+:      :+:    :+:   */
+/*   calloc.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/16 16:31:07 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/05/12 15:36:58 by mtogbe           ###   ########.fr       */
+/*   Created: 2021/05/14 17:34:47 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/05/14 17:51:07 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef CALLOC_H
+# define CALLOC_H
 
-char	*get_env_value(char *key, t_env *env)
+typedef struct	s_cal
 {
-	t_env	*tmp;
+	void			*content;
+	struct s_cal	*next;
+}				t_cal;
 
-	tmp = env;
-	while (tmp)
-	{
-		if (ft_strcmp(tmp->key, key) == 0)
-			return (tmp->value);
-		tmp = tmp->next;
-	}
-	return (NULL);
-}
+#endif

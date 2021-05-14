@@ -1,29 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/12 15:18:10 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/05/13 17:21:08 by mtogbe           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include "minishell.h"
 
-int	main(int ac, char **av, char **env)
+int main(int ac, char **av, char **env)
 {
-	int	i;
-	int	pid;
-	int	ret;
-	int	status;
-
-	i = 0;
-	if (ac <= 1)
-		return (0);
-	pid = fork();
-	if (pid == 0)
-	{
-		ret = execve(av[0], av + 1, env);
-		exit(ret);
-	}
-	else
-	{
-		waitpid(pid, &status, 0);
-		printf("%d\n", pid);
-	}
+	(void)ac;
+	(void)av;
+	(void)env;
+	g_env = parse_env(env);
+	g_env = unset("_", g_env);
+	print_env(g_env);
+	cd(".");
+	sort_env(g_env);
+	pwd(g_env);
 }
