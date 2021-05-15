@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 17:30:48 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/05/14 17:58:48 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/05/15 18:18:06 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,43 @@ void	free_all(t_cal *lst)
 		free(tmp);
 		printf("free\n");
 	}
+}
+
+void	free_part_end(void *ptr, t_cal *list)
+{
+	
+}
+
+void	free_part(void *ptr)
+{
+	t_cal	*list;
+	t_cal	*tmp;
+
+	list = my_calloc(0, 0, NULL);
+	if (list && list->content == ptr)
+	{
+		tmp = list;
+		if (list->next)
+			list = list->next;
+		free(tmp->content);
+		free(tmp);
+		return ;
+	}
+	while (list && list->next)
+	{
+		if (list->next->content == ptr)
+		{
+			tmp = list->next;
+			if (list->next->next)
+				list->next = list->next->next;
+			free(tmp->content);
+			free(tmp);
+			tmp = NULL;
+		}
+		list = list->next;
+	}
+	if (list)
+		free_part_end(ptr, list);
 }
 
 int	main()
