@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 17:30:48 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/05/16 17:45:42 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/05/16 18:20:44 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ int	main()
 	
 	lst = *my_calloc(8, sizeof(char), (void *)&str);
 	lst = *my_calloc(8, sizeof(char), (void *)&str1);
-	lst = *my_calloc(8, sizeof(char), (void *)&str2);
-	lst = *my_calloc(8, sizeof(char), (void *)&str3);
-	lst = *my_calloc(8, sizeof(char), (void *)&str4);
+//	lst = *my_calloc(8, sizeof(char), (void *)&str2);
+//	lst = *my_calloc(8, sizeof(char), (void *)&str3);
+//	lst = *my_calloc(8, sizeof(char), (void *)&str4);
 	head = lst;
 	while (lst)
 	{
@@ -71,7 +71,8 @@ int	main()
 	}
 	lst = head;
 	print_lst(lst);	
-	free_part((void *)str, &lst);
+	//free_part((void *)str, &lst);
+	//print_lst(lst);	
 	free_part((void *)str1, &lst);
 	//free_part((void *)str2, &lst);
 	//free_part((void *)str3, &lst);

@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 16:57:48 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/05/16 17:47:20 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/05/16 18:23:01 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	free_part_start(void *ptr, t_cal **list)
 		tmp->content = NULL;
 		free(tmp);
 		tmp = NULL;
-		return ;
 	}
 	if ((*list)->next)
 	{
@@ -36,12 +35,16 @@ void	free_part_start(void *ptr, t_cal **list)
 
 void	free_part_end(void *ptr, t_cal **list)
 {
+	t_cal *tmp;
+
 	if (list && *list && (*list)->content == ptr)
 	{
+		tmp = *list;
 		printf("in end\n");
-		free((*list)->content);
-		free(*list);
-		(*list) = NULL;
+		free(tmp->content);
+		tmp->content = NULL;
+		free(tmp);
+		tmp = NULL;
 	}
 }
 
@@ -50,10 +53,12 @@ void	free_part(void *ptr, t_cal **lst)
 	t_cal	*tmp;
 	t_cal	*head;
 
+	head = lst;
 	free_part_start(ptr, lst);
-	head = *lst;
+	printf("head : %p\n", (*head)->content);
 	while (lst && *lst  && (*lst)->next)
 	{
+		printf("inmid\n");
 		if ((*lst)->next->content == ptr)
 		{
 			printf("in mid\n");
@@ -66,7 +71,7 @@ void	free_part(void *ptr, t_cal **lst)
 		}
 		*lst = (*lst)->next;
 	}
-	if (*lst)
+	if (lst && *lst)
 		free_part_end(ptr, lst);
 	*lst = head;
 }
