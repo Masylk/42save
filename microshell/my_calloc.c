@@ -14,7 +14,7 @@
 
 t_cal	**my_calloc(size_t nmemb, size_t size, void **ptr)
 {
-	static t_cal	*list;
+	static t_cal	*list = NULL;
 	t_cal			*new;
 
 	if (!ptr)
@@ -44,7 +44,6 @@ void	free_all(t_cal **lst)
 		*lst = (*lst)->next;
 		free(tmp->content);
 		free(tmp);
-		printf("free\n");
 	}
 }
 
@@ -55,28 +54,19 @@ int	main()
 	char	*str2;
 	char	*str3;
 	char	*str4;
-	t_cal	*lst;
+	t_cal	**lst;
 	t_cal	*head;
 	
-	lst = *my_calloc(8, sizeof(char), (void *)&str);
-	lst = *my_calloc(8, sizeof(char), (void *)&str1);
-//	lst = *my_calloc(8, sizeof(char), (void *)&str2);
-//	lst = *my_calloc(8, sizeof(char), (void *)&str3);
-//	lst = *my_calloc(8, sizeof(char), (void *)&str4);
-	head = lst;
-	while (lst)
-	{
-		printf("alloc\n");
-		lst = lst->next;
-	}
-	lst = head;
-	print_lst(lst);	
-	//free_part((void *)str, &lst);
-	//print_lst(lst);	
-	free_part((void *)str1, &lst);
-	//free_part((void *)str2, &lst);
-	//free_part((void *)str3, &lst);
-	//free_part((void *)str4, &lst);
-	//free_all(&lst);
-	print_lst(lst);	
+	lst = my_calloc(8, sizeof(char), (void *)&str);
+	lst = my_calloc(8, sizeof(char), (void *)&str1);
+	lst = my_calloc(8, sizeof(char), (void *)&str2);
+	lst = my_calloc(8, sizeof(char), (void *)&str3);
+	lst = my_calloc(8, sizeof(char), (void *)&str4);
+	*lst = free_part((void *)str2, *lst);
+	*lst = free_part((void *)str1, *lst);
+	*lst = free_part((void *)str, *my_calloc(0,0,NULL));
+	*lst = free_part((void *)str3, *lst);
+	*lst = free_part((void *)str4, *lst);
+	free_all(lst);
+	print_lst(*lst);	
 }

@@ -12,68 +12,54 @@
 
 #include "calloc.h"
 
-void	free_part_start(void *ptr, t_cal **list)
+
+t_cal	*free_part_mid(t_cal *lst, void *ptr)
 {
-	t_cal	*tmp;
-
-	if (*list && (*list)->content == ptr)
-	{
-		printf("in start\n");
-		tmp = *list;
-		if (!((*list)->next))
-			*list = NULL;
-		free(tmp->content);
-		tmp->content = NULL;
-		free(tmp);
-		tmp = NULL;
-	}
-	if ((*list)->next)
-	{
-		*list = (*list)->next;
-	}
-}
-
-void	free_part_end(void *ptr, t_cal **list)
-{
-	t_cal *tmp;
-
-	if (list && *list && (*list)->content == ptr)
-	{
-		tmp = *list;
-		printf("in end\n");
-		free(tmp->content);
-		tmp->content = NULL;
-		free(tmp);
-		tmp = NULL;
-	}
-}
-
-void	free_part(void *ptr, t_cal **lst)
-{
-	t_cal	*tmp;
+	t_cal	*stack;
 	t_cal	*head;
 
 	head = lst;
-	free_part_start(ptr, lst);
-	printf("head : %p\n", (*head)->content);
-	while (lst && *lst  && (*lst)->next)
+	while (lst && lst->next && lst->next->next)
 	{
-		printf("inmid\n");
-		if ((*lst)->next->content == ptr)
+		if (lst->next->content == ptr)
 		{
-			printf("in mid\n");
-			tmp = (*lst)->next;
-			if ((*lst)->next->next)
-				(*lst)->next = (*lst)->next->next;
-			free(tmp->content);
-			free(tmp);
-			tmp = NULL;
+			stack = lst->next;
+			lst->next = lst->next->next;
+			free(stack->content);
+			free(stack);
 		}
-		*lst = (*lst)->next;
+		lst = lst->next;
 	}
-	if (lst && *lst)
-		free_part_end(ptr, lst);
-	*lst = head;
+	return (head);
+}
+
+
+t_cal	*free_part(void *ptr, t_cal *lst)
+{
+	t_cal	*tmp;
+	t_cal	*stack;
+	t_cal	*head;
+
+	head = lst;
+	if (lst->content == ptr)
+	{
+		stack = lst;
+		lst = lst->next;
+		free(stack->content);
+		free(stack);
+		return (lst);
+	}
+	tmp = free_part_mid(lst, ptr);
+	head = tmp;
+	while (tmp && tmp->next && tmp->next->next)
+		tmp = tmp->next;
+	if (tmp->next->content == ptr)
+	{
+		free(tmp->next->content);
+		free(tmp->next);
+		tmp->next = NULL;
+	}
+	return (head);
 }
 
 void	print_lst(t_cal *lst)
@@ -83,4 +69,5 @@ void	print_lst(t_cal *lst)
 		printf("content : %p\n", lst->content);
 		lst = lst->next;
 	}
+	printf("------------\n");
 }

@@ -24,8 +24,6 @@ typedef struct	s_cal
 
 t_cal	**my_calloc(size_t nmemb, size_t size, void **ptr);
 void	free_all(t_cal **lst);
-void	free_part_end(void *ptr, t_cal **list);
-void	free_part_start(void *ptr, t_cal **list);
-void	free_part(void *ptr, t_cal **lst);
+t_cal	*free_part(void *ptr, t_cal *lst);
 void	print_lst(t_cal *lst);
 #endif
