@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_env.c                                        :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/16 17:28:13 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/05/20 16:35:51 by mtogbe           ###   ########.fr       */
+/*   Created: 2020/11/06 03:45:40 by flohrel           #+#    #+#             */
+/*   Updated: 2021/01/16 15:57:46 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft/string.h"
 
-void	print_env(t_env *env)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	t_env	*tmp;
-
-	tmp = env;
-	while (tmp)
+	while (n--)
 	{
-		printf("%s=", tmp->key);
-		printf("%s\n", tmp->value);
-		tmp = tmp->next;
+		if (*s1 != *s2 || !(*s1))
+			return (*(unsigned char *)s1 - *(unsigned char *)s2);
+		s1++;
+		s2++;
 	}
+	return (0);
 }

@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_env.c                                        :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/16 17:28:13 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/05/20 16:35:51 by mtogbe           ###   ########.fr       */
+/*   Created: 2020/12/11 19:33:54 by flohrel           #+#    #+#             */
+/*   Updated: 2021/01/16 15:54:54 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft/list.h"
 
-void	print_env(t_env *env)
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	t_env	*tmp;
-
-	tmp = env;
-	while (tmp)
+	if (!lst || !f)
+		return ;
+	while (lst)
 	{
-		printf("%s=", tmp->key);
-		printf("%s\n", tmp->value);
-		tmp = tmp->next;
+		f(lst->content);
+		lst = lst->next;
 	}
 }

@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_env.c                                        :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/16 17:28:13 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/05/20 16:35:51 by mtogbe           ###   ########.fr       */
+/*   Created: 2020/11/06 01:10:33 by flohrel           #+#    #+#             */
+/*   Updated: 2021/05/08 01:30:00 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft/string.h"
 
-void	print_env(t_env *env)
+size_t	ft_strlen(const char *s)
 {
-	t_env	*tmp;
+	const char *str;
 
-	tmp = env;
-	while (tmp)
-	{
-		printf("%s=", tmp->key);
-		printf("%s\n", tmp->value);
-		tmp = tmp->next;
-	}
+	str = s;
+	if (str)
+		while (*str)
+			str++;
+	return (str - s);
 }

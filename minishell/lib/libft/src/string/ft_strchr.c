@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_env.c                                        :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/16 17:28:13 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/05/20 16:35:51 by mtogbe           ###   ########.fr       */
+/*   Created: 2020/11/06 00:50:37 by flohrel           #+#    #+#             */
+/*   Updated: 2021/01/16 15:58:49 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft/string.h"
 
-void	print_env(t_env *env)
+char	*ft_strchr(const char *s, int c)
 {
-	t_env	*tmp;
+	const char	*end;
 
-	tmp = env;
-	while (tmp)
+	end = s + ft_strlen(s);
+	while (s <= end)
 	{
-		printf("%s=", tmp->key);
-		printf("%s\n", tmp->value);
-		tmp = tmp->next;
+		if (*s == c)
+			return ((char *)s);
+		s++;
 	}
+	return (NULL);
 }

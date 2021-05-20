@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_env.c                                        :+:      :+:    :+:   */
+/*   io.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/16 17:28:13 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/05/20 16:35:51 by mtogbe           ###   ########.fr       */
+/*   Created: 2021/01/16 15:45:03 by flohrel           #+#    #+#             */
+/*   Updated: 2021/04/28 16:13:50 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef IO_H
+# define IO_H
 
-void	print_env(t_env *env)
-{
-	t_env	*tmp;
+# include "string.h"
 
-	tmp = env;
-	while (tmp)
-	{
-		printf("%s=", tmp->key);
-		printf("%s\n", tmp->value);
-		tmp = tmp->next;
-	}
-}
+int				ft_putchar(int c);
+void			ft_putchar_fd(char c, int fd);
+size_t			ft_putstr_fd(char *s, int fd);
+size_t			ft_putendl_fd(char *s, int fd);
+void			ft_putnbr_fd(int n, int fd);
+
+#endif

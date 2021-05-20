@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_env.c                                        :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/16 17:28:13 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/05/20 16:35:51 by mtogbe           ###   ########.fr       */
+/*   Created: 2020/12/03 21:13:14 by flohrel           #+#    #+#             */
+/*   Updated: 2021/01/16 15:58:45 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft/string.h"
 
-void	print_env(t_env *env)
+char	*ft_strdup(const char *s)
 {
-	t_env	*tmp;
+	char	*d;
+	char	*dup;
+	size_t	len;
 
-	tmp = env;
-	while (tmp)
-	{
-		printf("%s=", tmp->key);
-		printf("%s\n", tmp->value);
-		tmp = tmp->next;
-	}
+	len = ft_strlen(s);
+	dup = malloc(sizeof(*dup) * (len + 1));
+	if (!dup)
+		return (dup);
+	d = dup;
+	while (len--)
+		*d++ = *s++;
+	*d = '\0';
+	return (dup);
 }

@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_env.c                                        :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/16 17:28:13 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/05/20 16:35:51 by mtogbe           ###   ########.fr       */
+/*   Created: 2020/12/11 18:51:19 by flohrel           #+#    #+#             */
+/*   Updated: 2021/01/16 15:55:05 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft/list.h"
 
-void	print_env(t_env *env)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	t_env	*tmp;
+	t_list	*lptr;
+	t_list	*next;
 
-	tmp = env;
-	while (tmp)
+	if (*lst && del)
 	{
-		printf("%s=", tmp->key);
-		printf("%s\n", tmp->value);
-		tmp = tmp->next;
+		lptr = *lst;
+		while (lptr)
+		{
+			next = lptr->next;
+			ft_lstdelone(lptr, del);
+			lptr = next;
+		}
+		*lst = NULL;
 	}
 }

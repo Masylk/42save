@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 17:30:48 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/05/19 16:44:24 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/05/20 18:09:57 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_cal	**my_calloc(size_t nmemb, size_t size, void **ptr)
 		*ptr = NULL;
 		return (&list);
 	}
-	*ptr = malloc(nmemb * size);
+	*ptr = ft_calloc(nmemb, size);
 	if (!(*ptr))
 		return (NULL);
 	new = malloc(sizeof(t_cal));
@@ -44,11 +44,10 @@ void	free_all(t_cal **lst)
 		*lst = (*lst)->next;
 		free(tmp->content);
 		free(tmp);
-		head = *lst;
 	}
 }
 
-int	main()
+/*int	main()
 {
 	char	*str;
 	char	*str1;
@@ -70,4 +69,4 @@ int	main()
 	*lst = free_part((void *)str4, *lst);
 	free_all(*my_calloc(0,0,NULL));
 	print_lst(*lst);	
-}
+}*/
