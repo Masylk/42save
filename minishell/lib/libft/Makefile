@@ -62,7 +62,9 @@ LIST		=	ft_lstadd_back.c \
 				ft_lstnew.c \
 				ft_lstsize.c
 
-MEM			=	ft_calloc.c
+MEM			=	ft_calloc.c \
+				my_calloc.c \
+				free_part.c
 
 STR			=	ft_memccpy.c \
 				ft_memchr.c \

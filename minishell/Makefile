@@ -22,8 +22,6 @@ SRC			=	main.c \
 				parser4.c \
 				parser5.c \
 				astree.c \
-				free_part.c \
-				my_calloc.c \
 				test.c
 OBJ			=	$(SRC:%.c=$(OBJDIR)/%.o)
 

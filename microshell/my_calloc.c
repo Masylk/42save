@@ -44,8 +44,12 @@ void	free_all(t_cal **lst)
 		*lst = (*lst)->next;
 		free(tmp->content);
 		free(tmp);
-		head = *lst;
 	}
+}
+
+void	freo()
+{
+	free_all(my_calloc(0,0,NULL));
 }
 
 int	main()
@@ -63,11 +67,11 @@ int	main()
 	lst = my_calloc(8, sizeof(char), (void *)&str2);
 	lst = my_calloc(8, sizeof(char), (void *)&str3);
 	lst = my_calloc(8, sizeof(char), (void *)&str4);
-	*lst = free_part((void *)str2, *lst);
+	/*lst = free_part((void *)str2, *lst);
 	*lst = free_part((void *)str1, *lst);
 	*lst = free_part((void *)str, *my_calloc(0,0,NULL));
 	*lst = free_part((void *)str3, *lst);
-	*lst = free_part((void *)str4, *lst);
-	free_all(*my_calloc(0,0,NULL));
+	*lst = free_part((void *)str4, *lst);*/
+	freo();
 	print_lst(*lst);	
 }
