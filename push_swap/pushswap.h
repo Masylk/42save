@@ -26,13 +26,18 @@ typedef struct	s_stacklist
 {
 	t_stack	*stack_a;
 	t_stack	*stack_b;
+	int	*tab;
 }				t_stacklist;
 
+
+int		init_stacks(t_stacklist *list, char **av);
 void		set_order(t_stack *stack, int *tab);
 void		postab_to_list(int *tab, t_stack *stack);
 void		set_order_tab(int *tab, int size);
 void		print_tab(int *tab, t_stack *stack);
+void		print_stack(t_stack *stack);
 int		stack_size(t_stack *list);
+t_stack		*arr_to_stack(char **arr);
 void		set_order(t_stack *stack, int *tab);
 int		*list_to_tab(t_stack *list);
 int		*poslist_to_tab(t_stack *list);

@@ -70,24 +70,11 @@ void	print_tab(int *tab, t_stack *stack)
 int		main(int ac, char **av)
 {
 	int		size_stack;
-	int		*tab;
 	t_stacklist	list;
 
 	if (ac < 2)
 		return (ft_printf("Error\n"));
 	if (!(check_args(av + 1, &size_stack)))
 		return (ft_printf("Error\n"));
-	list.stack_a = arr_to_stack(av + 1);
-	if (!list.stack_a)
-		return (0);
-	list.stack_b = NULL;
-	//double_swap(&list);
-	tab = list_to_tab(list.stack_a);
-//	print_tab(tab, list.stack_a);
-	set_order(list.stack_a, tab);
-	free(tab);
-	tab = poslist_to_tab(list.stack_a);
-	set_order_tab(tab, stack_size(list.stack_a));
-	postab_to_list(tab, list.stack_a);
-	print_stack((&list)->stack_a);
+	init_stacks(&list, av);
 }
