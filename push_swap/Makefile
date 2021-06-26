@@ -21,8 +21,8 @@ CFLAGS=-Wall -Wextra -Werror
 PATHS= $(OBJDIR)/srcs
 
 SRC=push_swap.c \
-	srcs/check_args.c srcs/op_a.c srcs/op_b.c
-
+	srcs/check_args.c srcs/op_a.c srcs/op_b.c \
+	srcs/utils.c srcs/setup.c
 INCFLAGS=-I.
 
 LFLAGS= -Llib -lft

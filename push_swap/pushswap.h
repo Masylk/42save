@@ -18,6 +18,7 @@
 typedef struct	s_stack
 {
 	int		n;
+	int		pos;
 	struct	s_stack	*next;
 }				t_stack;
 
@@ -27,6 +28,14 @@ typedef struct	s_stacklist
 	t_stack	*stack_b;
 }				t_stacklist;
 
+void		set_order(t_stack *stack, int *tab);
+void		postab_to_list(int *tab, t_stack *stack);
+void		set_order_tab(int *tab, int size);
+void		print_tab(int *tab, t_stack *stack);
+int		stack_size(t_stack *list);
+void		set_order(t_stack *stack, int *tab);
+int		*list_to_tab(t_stack *list);
+int		*poslist_to_tab(t_stack *list);
 int		check_args(char **args, int *n);
 int		swap(t_stack *stack);
 int		push(t_stack *stack_s, t_stack *stack_d);

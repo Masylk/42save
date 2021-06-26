@@ -30,7 +30,9 @@ t_stacklist	double_rev_rotate(t_stacklist l)
 
 t_stacklist	*double_swap(t_stacklist *l)
 {
-	swap(l->stack_a);
-	swap(l->stack_b);
+	if (l->stack_a)
+		swap(l->stack_a);
+	if (l->stack_b)
+		swap(l->stack_b);
 	return (l);
 }

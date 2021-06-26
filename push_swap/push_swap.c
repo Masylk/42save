@@ -47,14 +47,30 @@ void	print_stack(t_stack *stack)
 	tmp = stack;
 	while (tmp)
 	{
-		ft_printf("%d\n", tmp->n);
+		ft_printf("%d : ", tmp->n);
+		ft_printf("%d\n", tmp->pos);
 		tmp = tmp->next;
+	}
+}
+
+void	print_tab(int *tab, t_stack *stack)
+{
+	int	i;
+	int	size;
+
+	i = 0;
+	size = stack_size(stack);
+	while (i < size)
+	{
+		ft_printf("%d \n", tab[i]);
+		i++;
 	}
 }
 
 int		main(int ac, char **av)
 {
-	int			size_stack;
+	int		size_stack;
+	int		*tab;
 	t_stacklist	list;
 
 	if (ac < 2)
@@ -64,6 +80,14 @@ int		main(int ac, char **av)
 	list.stack_a = arr_to_stack(av + 1);
 	if (!list.stack_a)
 		return (0);
-	double_swap(&list);
+	list.stack_b = NULL;
+	//double_swap(&list);
+	tab = list_to_tab(list.stack_a);
+//	print_tab(tab, list.stack_a);
+	set_order(list.stack_a, tab);
+	free(tab);
+	tab = poslist_to_tab(list.stack_a);
+	set_order_tab(tab, stack_size(list.stack_a));
+	postab_to_list(tab, list.stack_a);
 	print_stack((&list)->stack_a);
 }
