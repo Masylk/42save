@@ -6,11 +6,9 @@ int	init_stacks(t_stacklist *list, char **av)
         if (!list->stack_a)
                 return (-1);
         list->stack_b = NULL;
-	//double_swap(&list);
 	list->tab = list_to_tab(list->stack_a);
 	if (!list->tab)
 		return (-1);
-	//print_tab(tab, list.stack_a);
 	set_order(list->stack_a, list->tab);
 	free(list->tab);
 	list->tab = poslist_to_tab(list->stack_a);

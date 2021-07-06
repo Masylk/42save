@@ -26,7 +26,27 @@ int	swap(t_stack *stack)
 	return (0);
 }
 
-int	push(t_stack *stack_s, t_stack *stack_d)
+int	push(t_stack **stack_s, t_stack **stack_d)
+{
+	t_stack *elem;
+	t_stack	*tmp;
+
+	if (!(*stack_s))
+		return (0);
+	elem = malloc(sizeof(t_stack));
+	if (!elem)
+		return (0);
+	elem->n = (*stack_s)->n;
+	elem->pos = (*stack_s)->pos;
+	elem->next = *stack_d;
+	*stack_d = elem;
+	tmp = *stack_s;
+	*stack_s = (*stack_s)->next;
+	free(tmp);
+	return (1);
+}
+
+int	push2(t_stack *stack_s, t_stack *stack_d)
 {
 	t_stack *tmp;
 	
@@ -36,6 +56,10 @@ int	push(t_stack *stack_s, t_stack *stack_d)
 	stack_s = stack_s->next;
 	tmp->next = stack_d;
 	stack_d = tmp;
+	printf("a\n");
+	print_stack(stack_s);
+	printf("b\n");
+	print_stack(stack_d);
 	return (1);
 }
 

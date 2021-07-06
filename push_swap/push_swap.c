@@ -76,5 +76,8 @@ int		main(int ac, char **av)
 		return (ft_printf("Error\n"));
 	if (!(check_args(av + 1, &size_stack)))
 		return (ft_printf("Error\n"));
-	init_stacks(&list, av);
+	if (init_stacks(&list, av) < 0)
+		return (ft_printf("Error\n"));
+	push2(list.stack_a, list.stack_b);
+	//	rd_sort_stack(&list, size_stack);
 }

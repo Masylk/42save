@@ -20,6 +20,6 @@ int	check_args(char **args, int *n)
 	while (args[i])
 		if (!(ft_strisdigit(args[i++])))
 			return (0);
-	*n = i + 1;
+	*n = i;
 	return (1);
 }
