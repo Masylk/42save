@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/07 03:01:53 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/07/07 04:49:16 by mtogbe           ###   ########.fr       */
+/*   Created: 2021/07/07 04:47:55 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/07/07 04:48:51 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#ifndef PHILOSOPHERS_H
+# define PHILOSOPHERS_H
 
-int	main(int ac, char **av)
-{
-	(void)ac;
-	(void)av;
-	return (1);
-}
+#include <pthread.h>
+
+#endif
