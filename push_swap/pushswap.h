@@ -27,22 +27,31 @@ typedef struct	s_stacklist
 {
 	t_stack	*stack_a;
 	t_stack	*stack_b;
+	int	nb_instr;
 	int	*tab;
 }				t_stacklist;
 
 
+void		free_stlist(t_stacklist *list);
+int		small_sorts(t_stacklist *list, int size);
+int		trick_sort(t_stacklist *list, int size);
+int		trick_sort_plus(t_stacklist *list, int size);
+int		two_sort(t_stacklist *list, int size);
 int		rd_sort_stack(t_stacklist *list, int size);
 int		sort_boxes(t_stacklist *list, int size, int max_bit, int ith);
 int		check_ith_bit(t_stack *s, int i);
-int		pa(t_stack *a, t_stack *b);
+int		is_smallest(t_stack *s, int i);
+int		is_biggest(t_stack *s, int i);
+int		size_stack(t_stack *s);
+int		pa(t_stack **a, t_stack **b);
 int		sa(t_stack *a);
-int		ra(t_stack *a);
-int		rra(t_stack *a);
-int		rrr(t_stack *a, t_stack *b);
-int		pb(t_stack *b, t_stack *a);
+t_stack		*ra(t_stack *a);
+t_stack		*rra(t_stack *a);
+t_stack		*rrr(t_stack *a, t_stack *b);
+int		pb(t_stack **b, t_stack **a);
 int		sb(t_stack *b);
-int		rb(t_stack *b);
-int		rrb(t_stack *b);
+t_stack		*rb(t_stack *b);
+t_stack		*rrb(t_stack *b);
 int		init_stacks(t_stacklist *list, char **av);
 void		set_order(t_stack *stack, int *tab);
 void		postab_to_list(int *tab, t_stack *stack);

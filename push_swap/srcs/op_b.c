@@ -17,6 +17,7 @@ t_stacklist	double_rotate(t_stacklist l)
 	t_stacklist res;
 	res.stack_a = rotate(l.stack_a);
 	res.stack_b = rotate(l.stack_b);
+	res.tab = l.tab;	
 	return (res);
 }
 
@@ -25,6 +26,7 @@ t_stacklist	double_rev_rotate(t_stacklist l)
 	t_stacklist res;
 	res.stack_a = reverse_rotate(l.stack_a);
 	res.stack_b = reverse_rotate(l.stack_b);
+	res.tab = l.tab;
 	return (res);
 }
 

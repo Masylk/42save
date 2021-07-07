@@ -1,8 +1,8 @@
 #include "pushswap.h"
 
-int	pb(t_stack *a, t_stack *b)
+int	pb(t_stack **a, t_stack **b)
 {
-	if (!push(&a, &b))
+	if (!push(a, b))
 		return (0);
 	ft_printf("pb\n");
 	return (1);
@@ -16,27 +16,32 @@ int	sb(t_stack *b)
 	return (1);
 }
 
-int	rb(t_stack *b)
+t_stack	*rb(t_stack *b)
 {
-	if (!rotate(b))
-		return (0);
+	b = rotate(b);
+	if (!b)
+		return (b);
 	ft_printf("rb\n");
-	return (1);
+	return (b);
 }
 
-int	rrb(t_stack *b)
+t_stack	*rrb(t_stack *b)
 {
-	if (!reverse_rotate(b))
-		return (0);
+	b = reverse_rotate(b);
+	if (!b)
+		return (b);
 	ft_printf("rrb\n");
-	return (1);
+	return (b);
 }
 
-int	rrr(t_stack *a, t_stack *b)
+//finir correctement avec stacklist
+t_stack	*rrr(t_stack *a, t_stack *b)
 {
-	if (!rotate(b))
-		return (0);
-	if (!rotate(a))
-		return (0);
-	return (1);
+	b = rotate(b);
+	if (!b)
+		return (b);
+	a = rotate(a);
+	if (!a)
+		return (a);
+	return (b);
 }

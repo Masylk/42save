@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME=pushswap
+NAME=push_swap
 
 CC=gcc
 
@@ -23,7 +23,7 @@ PATHS= $(OBJDIR)/srcs
 SRC=push_swap.c \
 	srcs/check_args.c srcs/op_a.c srcs/op_b.c srcs/op_c.c srcs/op_d.c \
 	srcs/utils.c srcs/setup.c srcs/init.c srcs/is_sorted.c srcs/rd_sort.c \
-	srcs/boxes.c
+	srcs/boxes.c srcs/exit.c srcs/small_sort.c srcs/choose_sort.c
 
 INCFLAGS=-I.
 

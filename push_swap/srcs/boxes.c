@@ -1,40 +1,51 @@
 #include "pushswap.h"
 
+int	find_last(t_stack *list)
+{
+	while (list->next)
+	{
+		list = list->next;
+	}
+	return (list->pos);
+}
+
+void	choose_move(t_stacklist *list, int ith)
+{
+	//if (list->stack_a->next && list->stack_a->pos == list->stack_a->next->pos - 1)
+	//	sa(list->stack_a);
+	if (check_ith_bit(list->stack_a, ith))
+	{
+		list->stack_a = ra(list->stack_a);
+	}
+	else
+	{
+		pb(&list->stack_a, &list->stack_b);
+	}
+}
+
 int	sort_boxes(t_stacklist *list, int size, int max_bit, int ith)
 {
-	int	head;
-	int	pushed;
-
-	pushed = 1;
-	head = -1;
-//	print_stack(list->stack_a);
-	while (list->stack_a->pos != head)
+	int	last;
+	
+	last = find_last(list->stack_a); 
+	while (list->stack_a)
 	{
-		if (check_ith_bit(list->stack_a, ith) && pushed)
+		if (list->stack_a->pos == last)
 		{
-			if (pushed)
-			{
-				head = list->stack_a->pos;
-				pushed = 0;
-			}
-			ra(list->stack_a);
-			printf("oui");
+			choose_move(list, ith);
+			list->nb_instr = list->nb_instr + 1;
+			break ;
 		}
 		else
-		{
-			printf("non");
-			pb(list->stack_a, list->stack_b);
-			pushed = 1;
-		}
-		printf(" %d ", list->stack_a->pos);
-		break ;
+			choose_move(list, ith);
+		list->nb_instr = list->nb_instr + 1;
 	}
-//	print_stack(list->stack_a);
-	print_stack(list->stack_b);
-	return (1);
 	while (list->stack_b)
-		pa(list->stack_b, list->stack_a);
-	if (ith <= max_bit)
-		sort_boxes(list, size, max_bit, ith++);
+	{
+		list->nb_instr = list->nb_instr + 1;
+		pa(&list->stack_b, &list->stack_a);
+	}
+	if (ith < max_bit)
+		sort_boxes(list, size, max_bit, ith + 1);
 	return (1);
 }

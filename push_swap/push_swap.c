@@ -74,10 +74,21 @@ int		main(int ac, char **av)
 
 	if (ac < 2)
 		return (ft_printf("Error\n"));
-	if (!(check_args(av + 1, &size_stack)))
+	if (ac == 2 && !ft_strisdigit(av[1]))
+	{
+		av = ft_split(av[1], ' ');
+		if (!check_args(av, &size_stack))
+			return (ft_printf("Error\n"));
+	}
+	else if (!(check_args(av + 1, &size_stack)))
 		return (ft_printf("Error\n"));
+	else
+		av = av + 1;
 	if (init_stacks(&list, av) < 0)
 		return (ft_printf("Error\n"));
-	push2(list.stack_a, list.stack_b);
-	//	rd_sort_stack(&list, size_stack);
+	if (!small_sorts(&list, size_stack))
+		rd_sort_stack(&list, size_stack);
+//	ft_printf("size stack : %d \n", size_stack);
+//	ft_printf("nb instructions : %d \n", list.nb_instr);
+	free_stlist(&list);
 }

@@ -15,12 +15,16 @@
 int	swap(t_stack *stack)
 {
 	int	s;
+	int	d;
 
 	if (stack && stack->next)
 	{
 		s = stack->n;
+		d = stack->pos;
 		stack->n = stack->next->n;
 		stack->next->n = s;
+		stack->pos = stack->next->pos;
+		stack->next->pos = d;
 		return (1);
 	}
 	return (0);

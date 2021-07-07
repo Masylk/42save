@@ -1,8 +1,8 @@
 #include "pushswap.h"
 
-int	pa(t_stack *b, t_stack *a)
+int	pa(t_stack **b, t_stack **a)
 {
-	if (!push(&b, &a))
+	if (!push(b, a))
 		return (0);
 	ft_printf("pa\n");
 	return (1);
@@ -16,18 +16,20 @@ int	sa(t_stack *a)
 	return (1);
 }
 
-int	ra(t_stack *a)
+t_stack	*ra(t_stack *a)
 {
-	if (!rotate(a))
-		return (0);
+	a = rotate(a);
+	if (!a)
+		return (a);
 	ft_printf("ra\n");
-	return (1);
+	return (a);
 }
 
-int	rra(t_stack *a)
+t_stack	*rra(t_stack *a)
 {
-	if (!reverse_rotate(a))
-		return (0);
+	a = reverse_rotate(a);
+	if (!a)
+		return (a);
 	ft_printf("rra\n");
-	return (1);
+	return (a);
 }
