@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rd_sort.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/07 02:10:11 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/07/07 02:10:47 by mtogbe           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pushswap.h"
 
 int	check_ith_bit(t_stack *s, int i)
@@ -9,7 +21,7 @@ int	check_max_bit(t_stack *s)
 {
 	int	i;
 	int	max;
-	
+
 	max = 0;
 	while (s)
 	{
@@ -24,6 +36,7 @@ int	check_max_bit(t_stack *s)
 	}
 	return (max);
 }
+
 int	rd_sort(t_stacklist *list, int size)
 {
 	int	max_bit;
@@ -32,7 +45,6 @@ int	rd_sort(t_stacklist *list, int size)
 	if (!max_bit)
 		return (1);
 	sort_boxes(list, size, max_bit, 0);
-	//print_stack(list->stack_a);
 	return (1);
 }
 

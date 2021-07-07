@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:34:27 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/02/18 11:43:37 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/07/07 02:33:57 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdarg.h>
 # include "../libft.h"
 
-typedef	struct	s_flagmodes
+typedef struct s_flagmodes
 {
 	int	precision;
 	int	left;

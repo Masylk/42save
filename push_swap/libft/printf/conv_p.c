@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:32:00 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/02/04 15:32:22 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/07/07 02:31:14 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*set_prefix(char *str)
 	return (str);
 }
 
-int		conv_p(va_list *args, t_flagmodes *s, int *count)
+int	conv_p(va_list *args, t_flagmodes *s, int *count)
 {
 	char	*str;
 	int		len;

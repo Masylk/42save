@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 14:32:05 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/04/01 16:33:59 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/07/07 02:06:32 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	swap(t_stack *stack)
 
 int	push(t_stack **stack_s, t_stack **stack_d)
 {
-	t_stack *elem;
+	t_stack	*elem;
 	t_stack	*tmp;
 
 	if (!(*stack_s))
@@ -52,8 +52,8 @@ int	push(t_stack **stack_s, t_stack **stack_d)
 
 int	push2(t_stack *stack_s, t_stack *stack_d)
 {
-	t_stack *tmp;
-	
+	t_stack	*tmp;
+
 	tmp = stack_s;
 	if (!tmp)
 		return (0);
@@ -88,7 +88,7 @@ t_stack	*rotate(t_stack *stack)
 
 t_stack	*reverse_rotate(t_stack *stack)
 {
-	t_stack *tmp;
+	t_stack	*tmp;
 
 	tmp = stack;
 	if (!tmp || !tmp->next)

@@ -6,13 +6,13 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 14:53:07 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/02/04 16:51:12 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/07/07 02:31:45 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		set_precision(t_flagmodes *s, va_list *arg)
+int	set_precision(t_flagmodes *s, va_list *arg)
 {
 	(void)arg;
 	if (!(s->precision))
@@ -23,7 +23,7 @@ int		set_precision(t_flagmodes *s, va_list *arg)
 	return (-1);
 }
 
-int		set_left(t_flagmodes *s, va_list *arg)
+int	set_left(t_flagmodes *s, va_list *arg)
 {
 	(void)arg;
 	s->zero = 0;
@@ -32,7 +32,7 @@ int		set_left(t_flagmodes *s, va_list *arg)
 	return (1);
 }
 
-int		set_fill(t_flagmodes *s, va_list *arg)
+int	set_fill(t_flagmodes *s, va_list *arg)
 {
 	s->fill = (int)va_arg(*arg, int);
 	if (!(s->precision) && !(s->min))
@@ -58,7 +58,7 @@ int		set_fill(t_flagmodes *s, va_list *arg)
 	return (-1);
 }
 
-int		set_zero(t_flagmodes *s, va_list *arg)
+int	set_zero(t_flagmodes *s, va_list *arg)
 {
 	(void)arg;
 	if (s->precision)

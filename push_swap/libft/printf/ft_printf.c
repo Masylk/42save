@@ -6,13 +6,13 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 16:05:39 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/02/19 12:05:41 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/07/07 02:33:07 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		get_flags(t_flagmodes *flagmodes, char *str, va_list *arg)
+int	get_flags(t_flagmodes *flagmodes, char *str, va_list *arg)
 {
 	char	*flags;
 	int		i;
@@ -52,7 +52,7 @@ void	*set_converters(int (***f)(va_list *, t_flagmodes *, int *))
 	return (*f);
 }
 
-int		get_format(char *str, t_flagmodes *flagmodes, va_list *args, int *count)
+int	get_format(char *str, t_flagmodes *flagmodes, va_list *args, int *count)
 {
 	int			i;
 	int			format;
@@ -80,7 +80,7 @@ int		get_format(char *str, t_flagmodes *flagmodes, va_list *args, int *count)
 	return (i);
 }
 
-int		set_flagmodes(t_flagmodes *flagmodes)
+int	set_flagmodes(t_flagmodes *flagmodes)
 {
 	flagmodes->left = 0;
 	flagmodes->precision = 0;
@@ -91,7 +91,7 @@ int		set_flagmodes(t_flagmodes *flagmodes)
 	return (1);
 }
 
-int		ft_printf(const char *str, ...)
+int	ft_printf(const char *str, ...)
 {
 	int			i;
 	int			count;
@@ -109,7 +109,7 @@ int		ft_printf(const char *str, ...)
 		if (str[i] == '%')
 		{
 			set_flagmodes(&flagmodes);
-			ret = get_format((char*)str + i, &flagmodes, &args, &count);
+			ret = get_format((char *)str + i, &flagmodes, &args, &count);
 			if (ret < 0)
 				return (-1);
 			i += ret;

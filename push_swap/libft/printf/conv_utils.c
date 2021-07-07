@@ -6,20 +6,20 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:32:10 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/02/04 16:53:25 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/07/07 02:31:16 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		ft_max(int a, int b)
+int	ft_max(int a, int b)
 {
 	if (a > b)
 		return (a);
 	return (b);
 }
 
-int		ft_min(int a, int b)
+int	ft_min(int a, int b)
 {
 	if (a < b)
 		return (a);
@@ -54,7 +54,7 @@ void	print_conv_int(t_flagmodes *s, char *str, int *count, int len)
 		*count += ft_putfill(s->min - s->max, s);
 }
 
-int		ft_putfill(int n, t_flagmodes *s)
+int	ft_putfill(int n, t_flagmodes *s)
 {
 	char	fill;
 	int		i;

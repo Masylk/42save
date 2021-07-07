@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   small_sort.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/07 02:10:17 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/07/07 02:10:52 by mtogbe           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pushswap.h"
 
 int	is_biggest(t_stack *s, int i)
@@ -21,7 +33,6 @@ int	is_smallest(t_stack *s, int i)
 	}
 	return (1);
 }
-
 
 int	two_sort(t_stacklist *list, int size)
 {

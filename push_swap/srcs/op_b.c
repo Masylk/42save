@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 16:26:16 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/04/01 16:36:43 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/07/07 02:09:27 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,18 @@
 
 t_stacklist	double_rotate(t_stacklist l)
 {
-	t_stacklist res;
+	t_stacklist	res;
+
 	res.stack_a = rotate(l.stack_a);
 	res.stack_b = rotate(l.stack_b);
-	res.tab = l.tab;	
+	res.tab = l.tab;
 	return (res);
 }
 
 t_stacklist	double_rev_rotate(t_stacklist l)
 {
-	t_stacklist res;
+	t_stacklist	res;
+
 	res.stack_a = reverse_rotate(l.stack_a);
 	res.stack_b = reverse_rotate(l.stack_b);
 	res.tab = l.tab;

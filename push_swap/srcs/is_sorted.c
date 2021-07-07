@@ -1,13 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   is_sorted.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/07 02:09:55 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/07/07 02:10:41 by mtogbe           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pushswap.h"
 
 int	nb_is_sorted(int *stack, int i, int size)
 {
 	int	cmp;
 	int	index_cmp;
-	
+
 	cmp = stack[i];
 	index_cmp = i;
-	while(i > 0)
+	while (i > 0)
 	{
 		if (stack[i] > cmp)
 			return (0);

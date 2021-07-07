@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 14:55:32 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/01/20 17:10:23 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/07/07 02:25:33 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	if (n <= 0)
 		return (0);
 	if (!s1 && s2)
-		return ((unsigned char)-s2[i]);
+		return (0 - (unsigned char)s2[i]);
 	else if (!s2)
 		return ((unsigned char)s1[i]);
 	while (i < n - 1 && s1[i] == s2[i] && s1[i] && s2[i])

@@ -6,13 +6,13 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:41:34 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/02/04 15:31:44 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/07/07 02:27:19 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		get_nb_size(int base, long long n)
+static int	get_nb_size(int base, long long n)
 {
 	int	size;
 
@@ -31,7 +31,7 @@ static int		get_nb_size(int base, long long n)
 	return (size);
 }
 
-static void		getnb(char **result, char *base, long long n, int pos)
+static void	getnb(char **result, char *base, long long n, int pos)
 {
 	if (n < (long long)ft_strlen(base))
 		(*result)[pos] = base[n % ft_strlen(base)];
@@ -42,7 +42,7 @@ static void		getnb(char **result, char *base, long long n, int pos)
 	}
 }
 
-char			*ft_utoa_base(unsigned int n, char *base)
+char	*ft_utoa_base(unsigned int n, char *base)
 {
 	char		*result;
 	int			size;

@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 15:50:39 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/02/19 12:08:19 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/07/07 02:29:42 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*ft_concat(char **dest, char *src, int srclen)
 	return (*dest);
 }
 
-int		get_line(char **line, char *buffer)
+int	get_line(char **line, char *buffer)
 {
 	int		line_length;
 	char	*chr;
@@ -49,7 +49,7 @@ int		get_line(char **line, char *buffer)
 	return (result);
 }
 
-int		get_prev(char **previous_buffer, char *buffer, int index)
+int	get_prev(char **previous_buffer, char *buffer, int index)
 {
 	char	*tmp;
 
@@ -62,7 +62,7 @@ int		get_prev(char **previous_buffer, char *buffer, int index)
 	return (1);
 }
 
-int		read_line(int fd, char **line, char **previous_buffer)
+int	read_line(int fd, char **line, char **previous_buffer)
 {
 	int		index;
 	char	buffer[BUFFER_SIZE + 1];
@@ -87,7 +87,7 @@ int		read_line(int fd, char **line, char **previous_buffer)
 	return (1);
 }
 
-int		get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	int			index;
 	int			ret;

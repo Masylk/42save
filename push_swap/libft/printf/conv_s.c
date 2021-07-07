@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:32:04 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/02/04 16:57:19 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/07/07 02:31:15 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	print_conv_string(t_flagmodes *s, int *count, char *str)
 		*count += ft_putfill(s->min - s->max, s);
 }
 
-int		conv_s(va_list *args, t_flagmodes *s, int *count)
+int	conv_s(va_list *args, t_flagmodes *s, int *count)
 {
 	char	*str;
 

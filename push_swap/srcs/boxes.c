@@ -1,33 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   boxes.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/07 02:09:17 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/07/07 02:09:21 by mtogbe           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pushswap.h"
 
 int	find_last(t_stack *list)
 {
 	while (list->next)
-	{
 		list = list->next;
-	}
 	return (list->pos);
 }
 
 void	choose_move(t_stacklist *list, int ith)
 {
-	//if (list->stack_a->next && list->stack_a->pos == list->stack_a->next->pos - 1)
-	//	sa(list->stack_a);
 	if (check_ith_bit(list->stack_a, ith))
-	{
 		list->stack_a = ra(list->stack_a);
-	}
 	else
-	{
 		pb(&list->stack_a, &list->stack_b);
-	}
 }
 
 int	sort_boxes(t_stacklist *list, int size, int max_bit, int ith)
 {
 	int	last;
-	
-	last = find_last(list->stack_a); 
+
+	last = find_last(list->stack_a);
 	while (list->stack_a)
 	{
 		if (list->stack_a->pos == last)

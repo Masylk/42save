@@ -6,14 +6,14 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 14:02:56 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/02/19 12:24:55 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/07/07 02:20:59 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
 
-int		convert_nb(const char *nb, double *result, double *div)
+int	convert_nb(const char *nb, double *result, double *div)
 {
 	static int	i = 0;
 	static int	isdec = 0;
@@ -58,7 +58,6 @@ double	ft_atod(const char *nptr)
 	}
 	while ((convert_nb(nptr, &result, &div) || isdecimal))
 	{
-		;
 	}
 	return ((result / div) * sign);
 }

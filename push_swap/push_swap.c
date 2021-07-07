@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:43:28 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/04/01 16:37:19 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/07/07 02:12:56 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_stack	*arr_to_stack(char **arr)
 	t_stack	*stack;
 	int		i;
 	t_stack	*tmp;
-	t_stack *head;
+	t_stack	*head;
 
 	i = 0;
 	tmp = malloc(sizeof(t_stack));
@@ -67,9 +67,9 @@ void	print_tab(int *tab, t_stack *stack)
 	}
 }
 
-int		main(int ac, char **av)
+int	main(int ac, char **av)
 {
-	int		size_stack;
+	int			size_stack;
 	t_stacklist	list;
 
 	if (ac < 2)
@@ -88,7 +88,5 @@ int		main(int ac, char **av)
 		return (ft_printf("Error\n"));
 	if (!small_sorts(&list, size_stack))
 		rd_sort_stack(&list, size_stack);
-//	ft_printf("size stack : %d \n", size_stack);
-//	ft_printf("nb instructions : %d \n", list.nb_instr);
 	free_stlist(&list);
 }
