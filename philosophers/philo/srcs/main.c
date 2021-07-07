@@ -12,9 +12,59 @@
 
 #include "philosophers.h"
 
+int	create_philosophers(t_vars *vars, int nb)
+{
+	int	i;
+	t_philo	*block;
+
+	i = 1;
+	while (i <= nb)
+	{
+		block = new_philo(i++);
+		if (!block)
+			return (-1);
+		add_end(&vars->plist, block);
+	}
+	debug_philo(vars->plist);
+	i = 1;
+	while (i <= nb)
+	{
+		if (pthread_create(&get_philo(vars->plist, i++)->thread,
+				NULL, philo_life, (void *)vars))
+			return (-1);
+	}
+	return (1);
+}
+
+int	wait_thr(t_vars *vars)
+{
+	void	*ret;
+	int	i;
+
+	i = 1;
+	while (i <= vars->nb)
+	{
+		if (pthread_join(get_philo(vars->plist, i++)->thread, &ret))
+			return (-1);
+	}
+	return (1);
+}
+
+void	init_vars(t_vars *vars, int nb)
+{
+	vars->plist = NULL;
+	vars->nb = nb;
+}
+
 int	main(int ac, char **av)
 {
+	t_vars	vars;
 	(void)ac;
 	(void)av;
+	init_vars(&vars, 8);
+	if (create_philosophers(&vars, vars.nb) < 0)
+		return (0);
+	if (wait_thr(&vars) < 0)
+		return (0);
 	return (1);
 }

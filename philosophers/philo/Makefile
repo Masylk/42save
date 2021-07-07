@@ -20,7 +20,7 @@ CFLAGS=-Wall -Wextra -Werror
 
 PATHS= $(OBJDIR)/srcs
 
-SRC=srcs/main.c
+SRC=srcs/main.c srcs/list.c srcs/philothr.c
 
 INCFLAGS=-I.
 
