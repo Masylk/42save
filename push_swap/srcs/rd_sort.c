@@ -54,5 +54,6 @@ int	rd_sort_stack(t_stacklist *list, int size)
 		return (1);
 	else
 		rd_sort(list, size);
+	free(list->tab);
 	return (1);
 }

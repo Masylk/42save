@@ -71,12 +71,17 @@ int	main(int ac, char **av)
 {
 	int			size_stack;
 	t_stacklist	list;
+	char		**newarg;
 
+	newarg = NULL;
 	if (ac < 2)
 		return (ft_printf("Error\n"));
 	if (ac == 2 && !ft_strisdigit(av[1]))
 	{
-		av = ft_split(av[1], ' ');
+		newarg = ft_split(av[1], ' ');
+		if (!newarg)
+			return (0);
+		av = newarg;
 		if (!check_args(av, &size_stack))
 			return (ft_printf("Error\n"));
 	}
@@ -88,5 +93,5 @@ int	main(int ac, char **av)
 		return (ft_printf("Error\n"));
 	if (!small_sorts(&list, size_stack))
 		rd_sort_stack(&list, size_stack);
-	free_stlist(&list);
+	free_stlist(&list, newarg);
 }

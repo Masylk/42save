@@ -31,7 +31,7 @@ typedef struct s_stacklist
 	int		*tab;
 }				t_stacklist;
 
-void		free_stlist(t_stacklist *list);
+void		free_stlist(t_stacklist *list, char **arg);
 int			small_sorts(t_stacklist *list, int size);
 int			trick_sort(t_stacklist *list, int size);
 int			trick_sort_plus(t_stacklist *list, int size);

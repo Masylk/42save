@@ -24,9 +24,20 @@ void	free_list(t_stack *s)
 	}
 }
 
-void	free_stlist(t_stacklist *list)
+void	free_tab(char **arg)
+{
+	int	i;
+
+	i = 0;
+	while (arg[i])
+	{
+		free(arg[i++]);
+	}
+	free(arg);
+}
+void	free_stlist(t_stacklist *list, char **arg)
 {
 	free_list(list->stack_a);
 	free_list(list->stack_b);
-	free(list->tab);
+	free_tab(arg);
 }

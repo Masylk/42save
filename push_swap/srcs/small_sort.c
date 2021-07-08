@@ -60,6 +60,7 @@ int	trick_sort(t_stacklist *list, int size)
 		free(tmp);
 		tmp = list_to_tab(list->stack_a);
 	}
+	free(tmp);
 	return (1);
 }
 
