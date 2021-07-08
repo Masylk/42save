@@ -28,24 +28,29 @@ int	create_philosophers(t_vars *vars, int nb)
 	i = 1;
 	while (i <= nb)
 	{
-		if (pthread_create(&get_philo(vars->plist, i++)->thread,
+		if (pthread_create(&get_philo(vars->plist, i)->thread,
 				NULL, philo_life, (void *)vars))
 			return (-1);
+		pthread_detach(get_philo(vars->plist, i++)->thread);
 	}
 	return (1);
 }
 
 int	wait_thr(t_vars *vars)
 {
-	void	*ret;
+//	void	*ret;
+	void	*cret;
 	int	i;
 
+	(void)i;
 	i = 1;
-	while (i <= vars->nb)
+/*	while (i <= vars->nb)
 	{
 		if (pthread_join(get_philo(vars->plist, i++)->thread, &ret))
 			return (-1);
-	}
+	}*/
+	if (pthread_join(vars->clock_thr, &cret))
+		return (-1);
 	return (1);
 }
 
@@ -58,9 +63,8 @@ void	print_config(t_vars *vars)
 	printf("eat goal : %d\n", vars->eat_goal);
 }
 
-int	init_vars(t_vars *vars, char **av)
+int	init_args(t_vars *vars, char **av)
 {
-	vars->plist = NULL;
 	vars->nb = ft_atoi(av[1]);
 	if (nblen(vars->nb) != ft_strlen(av[1]) || vars->nb > 1024)
 		return (0);
@@ -76,11 +80,26 @@ int	init_vars(t_vars *vars, char **av)
 	if (av[5])
 	{
 		vars->eat_goal = ft_atoi(av[5]);
+		if (vars->eat_goal < 0)
+			return (0);
 		if (nblen(vars->eat_goal) != ft_strlen(av[5]))
 			return (0);
 	}
 	else
 		vars->eat_goal = -1;
+	return (1);
+}
+
+int	init_vars(t_vars *vars, char **av)
+{
+	vars->plist = NULL;
+	pthread_mutex_init(&vars->mutex, NULL);
+	if (!init_args(vars, av))
+		return (0);
+	get_time(&vars->start_time);
+	vars->cur_time = vars->start_time;
+	if (pthread_create(&vars->clock_thr, NULL, ft_clock, (void *)vars))
+		return (0);
 	vars->philo_end = 0;
 	print_config(vars);
 	return (1);
@@ -97,6 +116,5 @@ int	main(int ac, char **av)
 		return (0);
 	if (wait_thr(&vars) < 0)
 		return (0);
-	ft_clock((void *)&vars);
 	return (1);
 }

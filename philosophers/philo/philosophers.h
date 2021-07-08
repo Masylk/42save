@@ -29,18 +29,23 @@ typedef struct s_philo
 	int		thinking;
 	pthread_t	thread;
 	int		last;
+	unsigned int	prev_time;
 	struct s_philo	*previous;
 	struct s_philo	*next;
 }		t_philo;
 
 typedef struct s_vars
 {
-	int	nb;
-	int	die_time;
-	int	eat_time;
-	int	sleep_time;
-	int	eat_goal;
-	int	philo_end;
+	int		nb;
+	int		die_time;
+	int		eat_time;
+	unsigned int	cur_time;
+	unsigned int	start_time;
+	int		sleep_time;
+	int		eat_goal;
+	pthread_t	clock_thr;
+	pthread_mutex_t	mutex;
+	int		philo_end;
 	t_philo	*plist;
 }		t_vars;
 
@@ -56,6 +61,7 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	print_timestamp(int ms);
+void	get_time(unsigned int *t);
 int	ft_atoi(const char *nptr);
 int	nblen(int nb);
 int	ft_strlen(char *str);
