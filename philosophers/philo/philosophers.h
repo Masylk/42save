@@ -56,5 +56,8 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	print_timestamp(int ms);
+int	ft_atoi(const char *nptr);
+int	nblen(int nb);
+int	ft_strlen(char *str);
 
 #endif

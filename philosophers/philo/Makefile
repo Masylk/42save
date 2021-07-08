@@ -21,7 +21,7 @@ CFLAGS=-Wall -Wextra -Werror
 PATHS= $(OBJDIR)/srcs
 
 SRC=srcs/main.c srcs/list.c srcs/philothr.c srcs/clock.c \
-    srcs/ft_putendl_fd.c srcs/ft_putnbr_fd.c srcs/ft_putstr_fd.c srcs/ft_putchar_fd.c
+    srcs/ft_putendl_fd.c srcs/ft_putnbr_fd.c srcs/ft_putstr_fd.c srcs/ft_putchar_fd.c srcs/ft_atoi.c
 
 INCFLAGS=-I.
 

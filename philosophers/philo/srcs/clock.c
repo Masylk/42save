@@ -24,7 +24,7 @@ void	*ft_clock(void *args)
 	{
 		gettimeofday(&tm, NULL);
 		cur_time = ((unsigned int)tm.tv_sec * 1000) + ((unsigned int)tm.tv_usec / 1000);
-		if (cur_time - start_time >= 5)
+		if (cur_time - start_time >= 1000)
 		{
 			print_timestamp((int)((cur_time - pstart_time)));
 			start_time = cur_time;
