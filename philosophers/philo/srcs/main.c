@@ -54,6 +54,7 @@ void	init_vars(t_vars *vars, int nb)
 {
 	vars->plist = NULL;
 	vars->nb = nb;
+	vars->philo_end = 0;
 }
 
 int	main(int ac, char **av)
@@ -66,5 +67,6 @@ int	main(int ac, char **av)
 		return (0);
 	if (wait_thr(&vars) < 0)
 		return (0);
+	ft_clock((void *)&vars);
 	return (1);
 }
