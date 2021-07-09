@@ -23,15 +23,12 @@ int	create_philosophers(t_vars *vars, int nb)
 		block = new_philo(i++);
 		if (!block)
 			return (-1);
+		block->vars = vars;
 		add_end(&vars->plist, block);
-	}
-	i = 1;
-	while (i <= nb)
-	{
-		if (pthread_create(&get_philo(vars->plist, i)->thread,
-				NULL, philo_life, (void *)vars))
+		if (pthread_create(&block->thread,
+				NULL, philo_life, (void *)block))
 			return (-1);
-		pthread_detach(get_philo(vars->plist, i++)->thread);
+		pthread_detach(block->thread);
 	}
 	return (1);
 }

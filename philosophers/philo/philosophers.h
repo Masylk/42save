@@ -32,6 +32,7 @@ typedef struct s_philo
 	unsigned int	prev_time;
 	struct s_philo	*previous;
 	struct s_philo	*next;
+	struct s_vars	*vars;
 }		t_philo;
 
 typedef struct s_vars
