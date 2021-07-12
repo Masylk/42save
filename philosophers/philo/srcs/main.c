@@ -113,6 +113,7 @@ int	init_vars(t_vars *vars, char **av)
 int	main(int ac, char **av)
 {
 	t_vars	vars;
+
 	if (ac < 5 || ac > 6)
 		return (printf("Wrong number of arguments"));
 	if (init_vars(&vars, av) == 0)
@@ -123,5 +124,8 @@ int	main(int ac, char **av)
 	//	return (0);
 	if (wait_thr(&vars) < 0)
 		return (0);
+	free_philo(vars.plist);
+	free(vars.forks);
+	vars.forks = NULL;
 	return (1);
 }

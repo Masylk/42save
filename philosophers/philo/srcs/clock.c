@@ -25,7 +25,7 @@ void	*ft_clock(void *args)
 		pthread_mutex_lock(&vars->mutex);
 		get_time(&vars->cur_time);
 		pthread_mutex_unlock(&vars->mutex);
-		usleep(10);
+		usleep(1000);
 	}
 	return (vars);
 }

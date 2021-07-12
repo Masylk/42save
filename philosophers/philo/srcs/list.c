@@ -76,16 +76,14 @@ void	add_start(t_philo **list, t_philo *elem)
 	*list = elem;
 }
 
-void	debug_philo(t_philo *list)
+void	free_philo(t_philo *list)
 {
+	t_philo	*stack;
 	while (list && !list->last)
 	{
-		printf("philo id : %d\n", list->id);
-		printf("philo alive : %d\n", list->alive);
-	//	printf("philo previous id : %d\n", list->previous->id);
+		stack = list;
 		list = list->next;
+		free(stack);
 	}
-	printf("philo id : %d\n", list->id);
-	printf("philo alive : %d\n", list->alive);
-	//printf("philo previous id : %d\n", list->previous->id);
+	free(list);
 }

@@ -30,7 +30,7 @@ int	eat_state(t_philo *philo, int id)
 	}
 	if (philo->sleeping)
 		return (think_state(philo, id));
-	return (5);
+	return (1);
 }
 
 int	sleep_state(t_philo *philo, int id)
@@ -43,7 +43,7 @@ int	sleep_state(t_philo *philo, int id)
 	philo->eating = 0;
 	philo->sleeping = 1;
 	philo->prev_time = philo->vars->cur_time;
-	return (5);
+	return (1);
 }
 
 int	think_state(t_philo *philo, int id)
@@ -54,7 +54,7 @@ int	think_state(t_philo *philo, int id)
 	print_message(id, time_ms, " is thinking");
 	philo->sleeping = 0;
 	philo->thinking = 1;
-	return (5);
+	return (1);
 }
 
 unsigned int	handle_state(t_philo *philo, t_vars *vars)
@@ -63,7 +63,7 @@ unsigned int	handle_state(t_philo *philo, t_vars *vars)
 	int		id;
 
 	id = philo->id;
-	next_timer = 5;
+	next_timer = 1;
 	if (philo->thinking || philo->sleeping)
 	{
 		if (philo->vars->cur_time - philo->prev_time >= vars->die_time)
@@ -89,7 +89,7 @@ int	choose_sleep(t_philo *philo)
 {
 	if(philo->eating)
 		return (philo->vars->eat_time * 1000);
-	return (3000);
+	return (1000);
 }
 
 void	*philo_life(void *args)

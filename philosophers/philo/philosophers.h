@@ -67,7 +67,7 @@ void	*ft_clock(void *args);
 void	*philo_life(void *args);
 void	add_end(t_philo **list, t_philo *elem);
 void	add_start(t_philo **list, t_philo *elem);
-void	debug_philo(t_philo *list);
+void	free_philo(t_philo *list);
 void	ft_putnbr_fd(int n, int fd);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
