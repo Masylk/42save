@@ -27,31 +27,42 @@ typedef struct s_philo
 	int		sleeping;
 	int		eating;
 	int		thinking;
+	int		goal;
 	pthread_t	thread;
 	int		last;
+	int		fleft;
+	int		fright;
 	unsigned int	prev_time;
 	struct s_philo	*previous;
 	struct s_philo	*next;
 	struct s_vars	*vars;
 }		t_philo;
 
+
 typedef struct s_vars
 {
 	int		nb;
-	int		die_time;
-	int		eat_time;
+	unsigned int	die_time;
+	unsigned int	eat_time;
 	unsigned int	cur_time;
 	unsigned int	start_time;
-	int		sleep_time;
+	unsigned int	sleep_time;
 	int		eat_goal;
 	pthread_t	clock_thr;
 	pthread_mutex_t	mutex;
 	int		philo_end;
 	t_philo	*plist;
+	int	*forks;
 }		t_vars;
 
 t_philo	*new_philo(int id);
 t_philo	*get_philo(t_philo *list, int id);
+int	think_state(t_philo *philo, int id);
+int	sleep_state(t_philo *philo, int id);
+int	eat_state(t_philo *philo, int id);
+int	get_fork(t_vars *vars, int index);
+int	get_forks(t_vars *vars, int fl, int fr);
+void	get_forks_back(t_vars *vars, int fl, int fr);
 void	*ft_clock(void *args);
 void	*philo_life(void *args);
 void	add_end(t_philo **list, t_philo *elem);

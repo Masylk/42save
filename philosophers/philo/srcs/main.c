@@ -24,6 +24,8 @@ int	create_philosophers(t_vars *vars, int nb)
 		if (!block)
 			return (-1);
 		block->vars = vars;
+		block->fleft = i % nb;
+		block->fright = (i % nb) + 1;
 		add_end(&vars->plist, block);
 		if (pthread_create(&block->thread,
 				NULL, philo_life, (void *)block))
@@ -89,16 +91,22 @@ int	init_args(t_vars *vars, char **av)
 
 int	init_vars(t_vars *vars, char **av)
 {
+	int	i;
+
+	i = 0;
 	vars->plist = NULL;
 	pthread_mutex_init(&vars->mutex, NULL);
 	if (!init_args(vars, av))
 		return (0);
+	vars->forks = malloc(sizeof(int) * (vars->nb));
+	while (i < vars->nb)
+		(vars->forks[i++]) = 1;
 	get_time(&vars->start_time);
 	vars->cur_time = vars->start_time;
+	vars->philo_end = 0;
 	if (pthread_create(&vars->clock_thr, NULL, ft_clock, (void *)vars))
 		return (0);
-	vars->philo_end = 0;
-	print_config(vars);
+	//print_config(vars);
 	return (1);
 }
 
@@ -111,6 +119,8 @@ int	main(int ac, char **av)
 		return (printf("Arguments bad format"));
 	if (create_philosophers(&vars, vars.nb) < 0)
 		return (0);
+	//if (pthread_create(&(vars.clock_thr), NULL, ft_clock, (void *)&vars))
+	//	return (0);
 	if (wait_thr(&vars) < 0)
 		return (0);
 	return (1);
