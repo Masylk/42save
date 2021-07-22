@@ -33,6 +33,7 @@ typedef struct s_philo
 	int		fleft;
 	int		fright;
 	unsigned int	prev_time;
+	unsigned int	prev_mealtime;
 	struct s_philo	*previous;
 	struct s_philo	*next;
 	struct s_vars	*vars;

@@ -16,17 +16,19 @@ int	eat_state(t_philo *philo, int id)
 	int	time_ms;
 
 	time_ms = philo->vars->cur_time - philo->vars->start_time;
-	if (get_forks(philo->vars, philo->fleft, philo->fright))
+	if (philo->fleft != philo->fright
+			&& get_forks(philo->vars, philo->fleft, philo->fright))
 	{
 		print_message(id, time_ms, " has taken a fork");
 		print_message(id, time_ms, " has taken a fork");
 		print_message(id, time_ms, " is eating");
 		philo->eating = 1;
+		philo->prev_mealtime = philo->vars->cur_time;
 		if (philo->sleeping)
 			philo->sleeping = 0;
 		else if (philo->thinking)
 			philo->thinking = 0;
-		return (philo->vars->eat_time);
+		return (1);
 	}
 	if (philo->sleeping)
 		return (think_state(philo, id));
@@ -36,7 +38,7 @@ int	eat_state(t_philo *philo, int id)
 int	sleep_state(t_philo *philo, int id)
 {
 	int	time_ms;
-	
+
 	time_ms = philo->vars->cur_time - philo->vars->start_time;
 	print_message(id, time_ms, " is sleeping");
 	get_forks_back(philo->vars, philo->fleft, philo->fright);
@@ -64,23 +66,20 @@ unsigned int	handle_state(t_philo *philo, t_vars *vars)
 
 	id = philo->id;
 	next_timer = 1;
-	if (philo->thinking || philo->sleeping)
+	if (philo->vars->cur_time - philo->prev_mealtime >= vars->die_time)
 	{
-		if (philo->vars->cur_time - philo->prev_time >= vars->die_time)
-		{
-			print_message(philo->id, vars->cur_time - vars->start_time,
-					" died");
-			vars->philo_end = 1;
-			return (-1);
-		}
-		if ((philo->sleeping && vars->cur_time - philo->prev_time
+		print_message(philo->id, vars->cur_time - vars->start_time,
+				" died");
+		vars->philo_end = 1;
+		return (-1);
+	}
+	if ((philo->sleeping && vars->cur_time - philo->prev_time
 				>= vars->sleep_time)
 			|| philo->thinking)
-			next_timer = eat_state(philo, id);
-	}
+		next_timer = eat_state(philo, id);
 	else if (philo->eating)
 		next_timer = sleep_state(philo, id);
-	if (vars->die_time < next_timer && !philo->eating)
+	if (vars->die_time < next_timer)
 		next_timer = vars->die_time;
 	return (next_timer);
 }
@@ -89,7 +88,7 @@ int	choose_sleep(t_philo *philo)
 {
 	if(philo->eating)
 		return (philo->vars->eat_time * 1000);
-	return (1000);
+	return (10);
 }
 
 void	*philo_life(void *args)

@@ -15,6 +15,7 @@ t_philo	*new_philo(int id)
 	res->thinking = 1;
 	res->last = 0;
 	res->prev_time = 0;
+	res->prev_mealtime = 0;
 	res->previous = NULL;
 	res->next = NULL;
 	return (res);

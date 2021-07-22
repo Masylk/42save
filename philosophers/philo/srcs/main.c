@@ -25,7 +25,11 @@ int	create_philosophers(t_vars *vars, int nb)
 			return (-1);
 		block->vars = vars;
 		block->fleft = i % nb;
-		block->fright = (i % nb) + 1;
+		if (nb != 1)
+			block->fright = (i % nb) + 1;
+		else
+			block->fright = i % nb;
+		block->prev_mealtime = vars->cur_time;
 		add_end(&vars->plist, block);
 		if (pthread_create(&block->thread,
 				NULL, philo_life, (void *)block))
