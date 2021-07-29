@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 03:01:53 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/07/07 04:49:16 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/07/29 23:43:58 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	create_philosophers(t_vars *vars, int nb)
 {
-	int	i;
+	int		i;
 	t_philo	*block;
 
 	i = 1;
@@ -36,24 +36,6 @@ int	create_philosophers(t_vars *vars, int nb)
 			return (-1);
 		pthread_detach(block->thread);
 	}
-	return (1);
-}
-
-int	wait_thr(t_vars *vars)
-{
-//	void	*ret;
-	void	*cret;
-	int	i;
-
-	(void)i;
-	i = 1;
-/*	while (i <= vars->nb)
-	{
-		if (pthread_join(get_philo(vars->plist, i++)->thread, &ret))
-			return (-1);
-	}*/
-	if (pthread_join(vars->clock_thr, &cret))
-		return (-1);
 	return (1);
 }
 
@@ -110,7 +92,6 @@ int	init_vars(t_vars *vars, char **av)
 	vars->philo_end = 0;
 	if (pthread_create(&vars->clock_thr, NULL, ft_clock, (void *)vars))
 		return (0);
-	//print_config(vars);
 	return (1);
 }
 
@@ -124,8 +105,6 @@ int	main(int ac, char **av)
 		return (printf("Arguments bad format"));
 	if (create_philosophers(&vars, vars.nb) < 0)
 		return (0);
-	//if (pthread_create(&(vars.clock_thr), NULL, ft_clock, (void *)&vars))
-	//	return (0);
 	if (wait_thr(&vars) < 0)
 		return (0);
 	free_philo(vars.plist);

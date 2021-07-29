@@ -6,18 +6,29 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 03:01:53 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/07/07 04:49:16 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/07/29 23:54:22 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+t_philo	*new_block(int id, t_vars *vars)
+{
+	t_philo	*block;
+
+	block = new_philo(id);
+	if (!block)
+		exit(0);
+	block->vars = vars;
+	block->prev_mealtime = vars->cur_time;
+	return (block);
+}
+
 int	create_philosophers(t_vars *vars, int nb)
 {
-	int	i;
-	t_philo	*block;
-	int	pid;
-	int	status;
+	int		i;
+	int		pid;
+	int		status;
 
 	i = 1;
 	while (i <= nb)
@@ -25,16 +36,11 @@ int	create_philosophers(t_vars *vars, int nb)
 		pid = fork();
 		if (!pid)
 		{
-			block = new_philo(i);
-			if (!block)
-				return (-1);
-			block->vars = vars;
-			block->prev_mealtime = vars->cur_time;
-			vars->plist = block;
+			vars->plist = new_block(i, vars);
 			if (pthread_create(&vars->clock_thr, NULL, ft_clock, (void *)vars))
 				return (0);
 			pthread_detach(vars->clock_thr);
-			philo_life((void *) block);
+			philo_life((void *) vars->plist);
 		}
 		i++;
 	}
@@ -95,8 +101,8 @@ int	init_vars(t_vars *vars, char **av)
 int	main(int ac, char **av)
 {
 	t_vars	vars;
-	int	ret;
-	
+	int		ret;
+
 	if (ac < 5 || ac > 6)
 		return (printf("Wrong number of arguments"));
 	if (init_vars(&vars, av) == 0)

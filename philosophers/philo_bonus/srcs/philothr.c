@@ -1,15 +1,16 @@
-#include "philosophers.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philothr.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/29 23:47:06 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/07/29 23:55:22 by mtogbe           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void	print_message(int nb, unsigned int time, char *msg)
-{
-	ft_putstr_fd("[", 1);
-	ft_putnbr_fd(time, 1);
-	ft_putstr_fd(" ms] : ", 1);
-	ft_putstr_fd("Philosopher ", 1);
-	ft_putnbr_fd(nb, 1);
-	ft_putstr_fd(msg, 1);
-	ft_putendl_fd("", 1);
-}
+#include "philosophers.h"
 
 int	eat_state(t_philo *philo, int id)
 {
@@ -69,13 +70,13 @@ int	think_state(t_philo *philo, int id)
 unsigned int	handle_state(t_philo *philo, t_vars *vars)
 {
 	unsigned int	next_timer;
-	int		id;
+	int				id;
 
 	id = philo->id;
 	next_timer = 1;
 	if ((philo->sleeping && vars->cur_time - philo->prev_time
-				>= vars->sleep_time)
-			|| philo->thinking)
+			>= vars->sleep_time)
+		|| philo->thinking)
 		next_timer = eat_state(philo, id);
 	else if (philo->eating
 		&& philo->vars->cur_time - philo->prev_mealtime
@@ -88,8 +89,8 @@ unsigned int	handle_state(t_philo *philo, t_vars *vars)
 
 void	*philo_life(void *args)
 {
-	t_vars		*vars;
-	t_philo		*philo;
+	t_vars			*vars;
+	t_philo			*philo;
 	unsigned int	prev_time;
 	unsigned int	next_timer;
 	unsigned int	time;
