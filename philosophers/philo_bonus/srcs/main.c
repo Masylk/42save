@@ -57,7 +57,7 @@ int	create_philosophers(t_vars *vars, int nb)
 int	init_args(t_vars *vars, char **av)
 {
 	vars->nb = ft_atoi(av[1]);
-	if (nblen(vars->nb) != ft_strlen(av[1]) || vars->nb > 1024)
+	if (!vars->nb || nblen(vars->nb) != ft_strlen(av[1]) || vars->nb > 1024)
 		return (0);
 	vars->die_time = ft_atoi(av[2]);
 	if (nblen(vars->die_time) != ft_strlen(av[2]))
