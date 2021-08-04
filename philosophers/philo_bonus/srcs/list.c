@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   list.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/29 23:47:02 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/07/29 23:48:06 by mtogbe           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "philosophers.h"
 
 t_philo	*new_philo(int id)
@@ -83,7 +71,7 @@ void	add_start(t_philo **list, t_philo *elem)
 		(*list)->previous = NULL;
 		return ;
 	}
-	while (tmp->last == 0)
+	while(tmp->last == 0)
 		tmp = tmp->next;
 	elem->next = *list;
 	elem->previous = tmp;
@@ -93,7 +81,6 @@ void	add_start(t_philo **list, t_philo *elem)
 void	free_philo(t_philo *list)
 {
 	t_philo	*stack;
-
 	while (list && !list->last)
 	{
 		stack = list;

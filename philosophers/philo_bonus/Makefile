@@ -6,7 +6,7 @@
 #    By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/15 11:23:31 by mtogbe            #+#    #+#              #
-#    Updated: 2021/07/29 23:56:12 by mtogbe           ###   ########.fr        #
+#    Updated: 2021/07/07 04:47:46 by mtogbe           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,7 @@ CFLAGS=-Wall -Wextra -Werror
 PATHS= $(OBJDIR)/srcs
 
 SRC=srcs/main.c srcs/list.c srcs/philothr.c srcs/clock.c srcs/forks.c \
-    srcs/ft_putendl_fd.c srcs/ft_putnbr_fd.c srcs/ft_putstr_fd.c srcs/ft_putchar_fd.c srcs/ft_atoi.c \
-	srcs/utils.c
+    srcs/ft_putendl_fd.c srcs/ft_putnbr_fd.c srcs/ft_putstr_fd.c srcs/ft_putchar_fd.c srcs/ft_atoi.c
 
 INCFLAGS=-I.
 
