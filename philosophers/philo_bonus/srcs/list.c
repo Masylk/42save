@@ -81,11 +81,13 @@ void	add_start(t_philo **list, t_philo *elem)
 void	free_philo(t_philo *list)
 {
 	t_philo	*stack;
+	
 	while (list && !list->last)
 	{
 		stack = list;
 		list = list->next;
 		free(stack);
 	}
-	free(list);
+	if (list)
+		free(list);
 }

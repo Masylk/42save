@@ -72,3 +72,16 @@ void	postab_to_list(int *tab, t_stack *stack)
 		stack = stack->next;
 	}
 }
+
+int	arr_isdigit(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i])
+	{
+		if (!ft_strisdigit(tab[i++]))
+			return (1);
+	}
+	return (0);
+}

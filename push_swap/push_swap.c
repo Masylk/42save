@@ -67,30 +67,61 @@ void	print_tab(int *tab, t_stack *stack)
 	}
 }
 
+char	*join_args(char **av)
+{
+	int	i;
+	char	*stack;
+	char	*res;
+
+	i = 1;
+	res = "";
+	while (av[i])
+	{
+		if (i > 1)
+			stack = res;
+		res = ft_strjoin(res, av[i++]);
+		if (!res)
+			return (NULL);
+		if (i > 2)
+			free (stack);
+		if (!av[i])
+			break;
+		stack = res;
+		res = ft_strjoin(stack, " ");
+		if (!res)
+			return (NULL);
+		free(stack);
+	}
+	return (res);
+}
+
 int	main(int ac, char **av)
 {
 	int			size_stack;
 	t_stacklist	list;
 	char		**newarg;
+	char		*args;
 
-	newarg = NULL;
 	if (ac < 2)
 		return (ft_printf("Error\n"));
-	if (ac == 2 && !ft_strisdigit(av[1]))
+	args = join_args(av);
+	if (!args)
+		return (ft_printf("Error\n"));
+	newarg = ft_split(args, ' ');
+	free(args);
+	if (!newarg)
+		return (ft_printf("Error\n"));
+	if (arr_isdigit(newarg))
 	{
-		newarg = ft_split(av[1], ' ');
-		if (!newarg)
-			return (0);
-		av = newarg;
-		if (!check_args(av, &size_stack))
-			return (ft_printf("Error\n"));
+		free_tab(newarg);
+		return (ft_printf("Error\n"));
 	}
-	else if (!(check_args(av + 1, &size_stack)))
+	av = newarg;
+	if (!check_args(av, &size_stack) || init_stacks(&list, av) < 0)
+	{
+		free_tab(newarg);
 		return (ft_printf("Error\n"));
-	else
-		av = av + 1;
-	if (init_stacks(&list, av) < 0)
-		return (ft_printf("Error\n"));
+	}
 	if (!small_sorts(&list, size_stack))
 		rd_sort_stack(&list, size_stack);
 	free_stlist(&list, newarg);

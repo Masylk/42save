@@ -49,7 +49,7 @@ static int	filltab(char **result, char const *str, char c, int pos)
 	j = pos;
 	while (str[j] && str[j] != c)
 		j++;
-	size = j;
+	size = j - pos;
 	*result = malloc((size + 1) * sizeof(char));
 	if (!(*result))
 		return (-1);

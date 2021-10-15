@@ -12,6 +12,22 @@
 
 #include "philosophers.h"
 
+int	limit_threads(t_vars *vars, int pid)
+{
+	if (pid)
+	{
+		if (pthread_create(&vars->goal_thr, NULL, check_meals,
+			(void *)vars))
+			return (0);
+		if (pthread_create(&vars->end_thr, NULL, check_end,
+			(void *)vars))
+			return (0);
+		pthread_join(vars->goal_thr, NULL);
+		pthread_join(vars->end_thr, NULL);
+	}
+	return (1);
+}
+
 int	create_philosophers(t_vars *vars, int nb)
 {
 	int	i;
@@ -31,26 +47,17 @@ int	create_philosophers(t_vars *vars, int nb)
 			block->prev_mealtime = vars->cur_time;
 			vars->plist = block;
 			if (pthread_create(&vars->clock_thr, NULL, ft_clock, (void *)vars))
-				return (0);
+				return (-1);
 			if (pthread_create(&vars->death_thr, NULL, check_death, (void *)vars))
-				return (0);
-		//	pthread_detach(vars->clock_thr);
-		//	pthread_detach(vars->death_thr);
+				return (-1);
 			philo_life((void *) block);
 			pthread_join(vars->clock_thr, NULL);
 			pthread_join(vars->death_thr, NULL);
 		}
 		i++;
 	}
-	if (pid && pthread_create(&vars->goal_thr, NULL, check_meals,
-			(void *)vars))
-		return (0);
-	//pthread_detach(vars->goal_thr);
-	if (pid && pthread_create(&vars->end_thr, NULL, check_end,
-			(void *)vars))
-		return (0);
-	pthread_join(vars->goal_thr, NULL);
-	pthread_join(vars->end_thr, NULL);
+	if (!limit_threads(vars, pid))
+		return (-1);
 	return (1);
 }
 
@@ -109,17 +116,17 @@ int	main(int ac, char **av)
 	t_vars	vars;
 	
 	if (ac < 5 || ac > 6)
-		return (printf("Wrong number of arguments"));
+		return (printf("Wrong number of arguments\n"));
 	if (init_vars(&vars, av) == 0)
-		return (printf("Arguments bad format"));
-	create_philosophers(&vars, vars.nb);
+		return (printf("Arguments bad format\n"));
+	if (create_philosophers(&vars, vars.nb) < 0)
+		printf("Error\n");
 	sem_close(vars.sem_forks);
 	sem_close(vars.sem_goal);
 	sem_close(vars.sem_clock);
 	sem_close(vars.sem_turn);
 	sem_close(vars.sem_death);
 	sem_close(vars.sem_end);
-	free_philo(vars.plist);
-	//kill(0, SIGTERM);
+	//free_philo(vars.plist);
 	return (1);
 }

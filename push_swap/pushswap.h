@@ -32,6 +32,7 @@ typedef struct s_stacklist
 }				t_stacklist;
 
 void		free_stlist(t_stacklist *list, char **arg);
+int			arr_isdigit(char **tab);
 int			small_sorts(t_stacklist *list, int size);
 int			trick_sort(t_stacklist *list, int size);
 int			trick_sort_plus(t_stacklist *list, int size);
@@ -68,6 +69,7 @@ int			push(t_stack **stack_s, t_stack **stack_d);
 int			push2(t_stack *stack_s, t_stack *stack_d);
 int			nb_is_sorted(int *stack, int i, int size);
 int			stack_is_sorted(int *stack, int size);
+void		free_tab(char **arg);
 t_stack		*rotate(t_stack *stack);
 t_stack		*reverse_rotate(t_stack *stack);
 t_stacklist	*double_swap(t_stacklist *l);

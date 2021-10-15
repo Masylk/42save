@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 02:09:45 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/07/30 00:02:37 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/07/07 02:10:36 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	free_tab(char **arg)
 	}
 	free(arg);
 }
-
 void	free_stlist(t_stacklist *list, char **arg)
 {
 	free_list(list->stack_a);

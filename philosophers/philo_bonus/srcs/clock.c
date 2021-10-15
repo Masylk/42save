@@ -74,6 +74,7 @@ void	*ft_clock(void *args)
 	while (!vars->philo_end)
 	{
 		get_time(&vars->cur_time);
+		sem_wait(vars->sem_turn);
 		sem_wait(vars->sem_clock);
 		if (philo->vars->cur_time - philo->prev_mealtime >= vars->die_time)
 		{
@@ -84,6 +85,7 @@ void	*ft_clock(void *args)
 			continue ;
 		}
 		sem_post(vars->sem_clock);
+		sem_post(vars->sem_turn);
 		usleep(10);
 	}
 	return (vars);
