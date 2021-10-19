@@ -14,11 +14,13 @@
 
 int	check_double(int index, char **args)
 {
-	int	i;
-	int	nb;
+	int		i;
+	long int	nb;
 
 	i = 0;
-	nb = ft_atoi(args[index]);
+	nb = ft_atod(args[index]);
+	if (nb > 2147483647 || nb < -2147483648)
+		return (0);
 	while (args[i])
 	{
 		if (i != index && nb == ft_atoi(args[i]))

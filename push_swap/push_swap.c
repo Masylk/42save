@@ -103,7 +103,7 @@ int	main(int ac, char **av)
 	char		*args;
 
 	if (ac < 2)
-		return (ft_printf("Error\n"));
+		return (0);
 	args = join_args(av);
 	if (!args)
 		return (ft_printf("Error\n"));
