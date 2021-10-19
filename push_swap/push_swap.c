@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:43:28 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/07/07 02:12:56 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/10/15 19:08:57 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	print_tab(int *tab, t_stack *stack)
 
 char	*join_args(char **av)
 {
-	int	i;
+	int		i;
 	char	*stack;
 	char	*res;
 
@@ -85,7 +85,7 @@ char	*join_args(char **av)
 		if (i > 2)
 			free (stack);
 		if (!av[i])
-			break;
+			break ;
 		stack = res;
 		res = ft_strjoin(stack, " ");
 		if (!res)
@@ -111,13 +111,8 @@ int	main(int ac, char **av)
 	free(args);
 	if (!newarg)
 		return (ft_printf("Error\n"));
-	if (arr_isdigit(newarg))
-	{
-		free_tab(newarg);
-		return (ft_printf("Error\n"));
-	}
-	av = newarg;
-	if (!check_args(av, &size_stack) || init_stacks(&list, av) < 0)
+	if (arr_isdigit(newarg) || !check_args(newarg, &size_stack)
+		|| init_stacks(&list, newarg) < 0)
 	{
 		free_tab(newarg);
 		return (ft_printf("Error\n"));
