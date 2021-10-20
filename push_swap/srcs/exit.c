@@ -38,6 +38,8 @@ void	free_tab(char **arg)
 
 void	free_stlist(t_stacklist *list, char **arg)
 {
+	if (list->tab)
+		free(list->tab);
 	free_list(list->stack_a);
 	free_list(list->stack_b);
 	free_tab(arg);

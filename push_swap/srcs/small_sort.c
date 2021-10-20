@@ -58,9 +58,11 @@ int	trick_sort(t_stacklist *list, int size)
 		else if (is_biggest(list->stack_a, list->stack_a->next->pos))
 			list->stack_a = rra(list->stack_a);
 		free(tmp);
+		tmp = NULL;
 		tmp = list_to_tab(list->stack_a);
 	}
 	free(tmp);
+	list->tab = NULL;
 	return (1);
 }
 

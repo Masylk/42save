@@ -1,16 +1,5 @@
 #include "philosophers.h"
 
-void	print_message(int nb, unsigned int time, char *msg)
-{
-	ft_putstr_fd("[", 1);
-	ft_putnbr_fd(time, 1);
-	ft_putstr_fd(" ms] : ", 1);
-	ft_putstr_fd("Philosopher ", 1);
-	ft_putnbr_fd(nb, 1);
-	ft_putstr_fd(msg, 1);
-	ft_putendl_fd("", 1);
-}
-
 int	eat_state(t_philo *philo, int id)
 {
 	int	time_ms;
