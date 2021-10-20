@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 03:01:53 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/07/07 04:49:16 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/10/20 18:14:35 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	create_philosophers(t_vars *vars, int nb)
 {
-	int	i;
+	int		i;
 	t_philo	*block;
 
 	i = 1;
@@ -34,7 +34,6 @@ int	create_philosophers(t_vars *vars, int nb)
 		if (pthread_create(&block->thread,
 				NULL, philo_life, (void *)block))
 			return (-1);
-	//	pthread_detach(block->thread);
 	}
 	return (1);
 }
@@ -43,7 +42,7 @@ int	wait_thr(t_vars *vars)
 {
 	void	*ret;
 	void	*cret;
-	int	i;
+	int		i;
 
 	(void)i;
 	i = 1;
@@ -55,15 +54,6 @@ int	wait_thr(t_vars *vars)
 	if (pthread_join(vars->clock_thr, &cret))
 		return (-1);
 	return (1);
-}
-
-void	print_config(t_vars *vars)
-{
-	printf("nb philo : %d\n", vars->nb);
-	printf("time before death : %d\n", vars->die_time);
-	printf("time to eat : %d\n", vars->eat_time);
-	printf("time sleeping: %d\n", vars->sleep_time);
-	printf("eat goal : %d\n", vars->eat_goal);
 }
 
 int	init_args(t_vars *vars, char **av)
@@ -110,7 +100,6 @@ int	init_vars(t_vars *vars, char **av)
 	vars->philo_end = 0;
 	if (pthread_create(&vars->clock_thr, NULL, ft_clock, (void *)vars))
 		return (0);
-	//print_config(vars);
 	return (1);
 }
 
@@ -124,8 +113,6 @@ int	main(int ac, char **av)
 		return (printf("Arguments bad format"));
 	if (create_philosophers(&vars, vars.nb) < 0)
 		return (0);
-	//if (pthread_create(&(vars.clock_thr), NULL, ft_clock, (void *)&vars))
-	//	return (0);
 	if (wait_thr(&vars) < 0)
 		return (0);
 	free_philo(vars.plist);

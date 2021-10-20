@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 17:07:56 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/10/20 17:07:57 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/10/20 18:16:41 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	eat_state(t_philo *philo, int id)
 
 	time_ms = philo->vars->cur_time - philo->vars->start_time;
 	if (philo->fleft != philo->fright
-			&& get_forks(philo->vars, philo->fleft, philo->fright))
+		&& get_forks(philo->vars, philo->fleft, philo->fright))
 	{
 		print_message(id, time_ms, " has taken a fork");
 		print_message(id, time_ms, " has taken a fork");
@@ -75,20 +75,20 @@ int	think_state(t_philo *philo, int id)
 unsigned int	handle_state(t_philo *philo, t_vars *vars)
 {
 	unsigned int	next_timer;
-	int		id;
+	int				id;
 
 	id = philo->id;
 	next_timer = 1;
 	if (philo->vars->cur_time - philo->prev_mealtime >= vars->die_time)
 	{
 		print_message(philo->id, vars->cur_time - vars->start_time,
-				" died");
+			" died");
 		vars->philo_end = 1;
 		return (-1);
 	}
 	if ((philo->sleeping && vars->cur_time - philo->prev_time
-				>= vars->sleep_time)
-			|| philo->thinking)
+			>= vars->sleep_time)
+		|| philo->thinking)
 		next_timer = eat_state(philo, id);
 	else if (philo->eating)
 		next_timer = sleep_state(philo, id);
@@ -99,18 +99,18 @@ unsigned int	handle_state(t_philo *philo, t_vars *vars)
 
 int	choose_sleep(t_philo *philo)
 {
-	if(philo->eating)
+	if (philo->eating)
 		return (philo->vars->eat_time * 1000);
 	return (10);
 }
 
 void	*philo_life(void *args)
 {
-	t_vars		*vars;
-	t_philo		*philo;
+	t_vars			*vars;
+	t_philo			*philo;
 	unsigned int	prev_time;
-	int		next_timer;
-	int		time;
+	int				next_timer;
+	int				time;
 
 	philo = (t_philo *)args;
 	vars = philo->vars;
