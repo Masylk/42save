@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 15:23:16 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/03/27 14:54:41 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/10/20 16:51:06 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	check_double(int index, char **args)
 {
-	int		i;
+	int			i;
 	long int	nb;
 
 	i = 0;
