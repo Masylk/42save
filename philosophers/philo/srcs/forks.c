@@ -33,3 +33,22 @@ int	get_forks(t_vars *vars, int fl, int fr)
 	}
 	return (0);
 }
+
+void	print_message(int nb, unsigned int time, char *msg)
+{
+	ft_putstr_fd("[", 1);
+	ft_putnbr_fd(time, 1);
+	ft_putstr_fd(" ms] : ", 1);
+	ft_putstr_fd("Philosopher ", 1);
+	ft_putnbr_fd(nb, 1);
+	ft_putstr_fd(msg, 1);
+	ft_putendl_fd("", 1);
+}
+
+int	choose_sleep(t_philo *philo)
+{
+	if (philo->eating)
+		return (philo->vars->eat_time * 1000);
+	return (10);
+}
+

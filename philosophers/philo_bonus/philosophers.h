@@ -45,7 +45,6 @@ typedef struct s_philo
 	struct s_vars	*vars;
 }		t_philo;
 
-
 typedef struct s_vars
 {
 	int		nb;
@@ -94,6 +93,7 @@ void	ft_putendl_fd(char *s, int fd);
 void	print_timestamp(int ms);
 void	get_time(unsigned int *t);
 void	print_message(int nb, unsigned int time, char *msg);
+void	print_timestamp(int ms);
 int	ft_atoi(const char *nptr);
 int	nblen(int nb);
 int	ft_strlen(char *str);

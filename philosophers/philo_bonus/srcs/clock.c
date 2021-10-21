@@ -1,12 +1,5 @@
 #include "philosophers.h"
 
-void	print_timestamp(int ms)
-{
-	ft_putstr_fd("[", 1);
-	ft_putnbr_fd(ms, 1);
-	ft_putendl_fd(" ms]", 1);
-}
-
 void	get_time(unsigned int *t)
 {
 	struct timeval	tm;

@@ -11,6 +11,13 @@ void	print_message(int nb, unsigned int time, char *msg)
 	ft_putendl_fd("", 1);
 }
 
+void	print_timestamp(int ms)
+{
+	ft_putstr_fd("[", 1);
+	ft_putnbr_fd(ms, 1);
+	ft_putendl_fd(" ms]", 1);
+}
+
 int	get_fork(t_vars *vars, int index)
 {
 	return (vars->forks[index % vars->nb]);

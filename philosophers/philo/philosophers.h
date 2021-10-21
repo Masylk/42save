@@ -74,6 +74,8 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	print_timestamp(int ms);
 void	get_time(unsigned int *t);
+void	print_message(int nb, unsigned int time, char *msg);
+int	choose_sleep(t_philo *philo);
 int		ft_atoi(const char *nptr);
 int		nblen(int nb);
 int		ft_strlen(char *str);
