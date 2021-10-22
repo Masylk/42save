@@ -127,6 +127,5 @@ int	main(int ac, char **av)
 	sem_close(vars.sem_turn);
 	sem_close(vars.sem_death);
 	sem_close(vars.sem_end);
-	//free_philo(vars.plist);
 	return (1);
 }
