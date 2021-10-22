@@ -56,7 +56,7 @@ int	aff_contacts(PhoneBook pbook)
 		}
 		it++;
 	}
-	if (!pbook.contacts[stoi(s_index)].first_name.empty())
+	if (stoi(s_index) < pbook.max_contact && !pbook.contacts[stoi(s_index)].first_name.empty())
 		aff_contact(pbook.contacts[stoi(s_index)]);
 	else
 		std::cout << "Bad index" << std::endl;

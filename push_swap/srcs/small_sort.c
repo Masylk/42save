@@ -77,6 +77,8 @@ int	trick_sort_plus(t_stacklist *list, int size)
 		else
 			list->stack_a = ra(list->stack_a);
 	}
+	free(list->tab);
+	list->tab = poslist_to_tab(list->stack_a);
 	trick_sort(list, stack_size(list->stack_a));
 	while (stack_size(list->stack_a) != size)
 	{
