@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   clock.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/21 17:48:34 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/10/21 17:52:01 by mtogbe           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosophers.h"
 
 void	get_time(unsigned int *t)
 {
 	struct timeval	tm;
-	
+
 	gettimeofday(&tm, NULL);
 	*t = ((unsigned int)tm.tv_sec * 1000) + ((unsigned int)tm.tv_usec / 1000);
 }
@@ -11,7 +23,7 @@ void	get_time(unsigned int *t)
 void	*check_death(void *args)
 {
 	t_vars	*vars;
-	
+
 	vars = (t_vars *)args;
 	sem_wait(vars->sem_death);
 	vars->philo_end = 1;
@@ -24,7 +36,7 @@ void	*check_death(void *args)
 void	*check_end(void *args)
 {
 	t_vars	*vars;
-	int	count;
+	int		count;
 
 	count = 0;
 	vars = (t_vars *)args;
@@ -41,7 +53,7 @@ void	*check_end(void *args)
 void	*check_meals(void *args)
 {
 	t_vars	*vars;
-	int	count;
+	int		count;
 
 	count = 0;
 	vars = (t_vars *)args;

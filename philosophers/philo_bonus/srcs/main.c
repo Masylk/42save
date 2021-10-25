@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 03:01:53 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/07/07 04:49:16 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/10/21 17:53:24 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ int	limit_threads(t_vars *vars, int pid)
 	if (pid)
 	{
 		if (pthread_create(&vars->goal_thr, NULL, check_meals,
-			(void *)vars))
+				(void *)vars))
 			return (0);
 		if (pthread_create(&vars->end_thr, NULL, check_end,
-			(void *)vars))
+				(void *)vars))
 			return (0);
 		pthread_join(vars->goal_thr, NULL);
 		pthread_join(vars->end_thr, NULL);
@@ -30,9 +30,9 @@ int	limit_threads(t_vars *vars, int pid)
 
 int	create_philosophers(t_vars *vars, int nb)
 {
-	int	i;
+	int		i;
 	t_philo	*block;
-	int	pid;
+	int		pid;
 
 	i = 1;
 	while (i <= nb)
@@ -114,7 +114,7 @@ int	init_vars(t_vars *vars, char **av)
 int	main(int ac, char **av)
 {
 	t_vars	vars;
-	
+
 	if (ac < 5 || ac > 6)
 		return (printf("Wrong number of arguments\n"));
 	if (init_vars(&vars, av) == 0)

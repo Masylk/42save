@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 04:47:55 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/10/20 17:07:17 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/10/21 16:46:49 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	ft_putendl_fd(char *s, int fd);
 void	print_timestamp(int ms);
 void	get_time(unsigned int *t);
 void	print_message(int nb, unsigned int time, char *msg);
-int	choose_sleep(t_philo *philo);
+int		choose_sleep(t_philo *philo);
 int		ft_atoi(const char *nptr);
 int		nblen(int nb);
 int		ft_strlen(char *str);

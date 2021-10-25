@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 17:07:49 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/10/20 17:07:50 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/10/21 16:46:57 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,3 @@ int	choose_sleep(t_philo *philo)
 		return (philo->vars->eat_time * 1000);
 	return (10);
 }
-
