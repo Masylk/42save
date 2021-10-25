@@ -24,7 +24,7 @@ class PhoneBook
 		~PhoneBook(void);
 		int		max_contact;
 		int		nb_contact;
-		Contact		contacts[8];
+		Contact		contacts[9];
 };
 
 #endif

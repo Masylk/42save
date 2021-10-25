@@ -9,10 +9,10 @@ int	main(void)
 	Zombie *stack;
 	int		i;
 	int		N;
-
+	
 	N = 6;
 	i = 0;
-	stack = zombieHorde(N, "Jolly");
+	stack = zombieHorde(N, "Horde");
 	if (!stack)
 		return (0);
 	while (i < N)

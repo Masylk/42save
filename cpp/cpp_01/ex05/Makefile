@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME=replace
+NAME=test
 
 CC=g++
 
@@ -20,7 +20,7 @@ CFLAGS=-Wall -Wextra -Werror
 
 PATHS= $(OBJDIR)/srcs
 
-SRC=main.cpp
+SRC=main.cpp Karen.cpp
 
 INCFLAGS=-I.
 
