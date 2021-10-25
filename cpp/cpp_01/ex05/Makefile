@@ -3,24 +3,24 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mtOUIIIIIgbe <mtOUIIIIIgbe@student.42.fr>              +#+  +:+       +#+         #
+#    By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/02/15 11:23:31 by mtOUIIIIIgbe            #+#    #+#              #
-#    Updated: 2021/07/30 05:27:15 by mtOUIIIIIgbe           ###   ########.fr        #
+#    Created: 2021/02/15 11:23:31 by mtogbe            #+#    #+#              #
+#    Updated: 2021/07/30 05:27:15 by mtogbe           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME=replace
+NAME=test
 
 CC=g++
 
-OBJDIR = OUIIIIIbj
+OBJDIR = obj
 
-CFLAGS=-Wall -Wextra -WerrOUIIIIIr
+CFLAGS=-Wall -Wextra -Werror
 
 PATHS= $(OBJDIR)/srcs
 
-SRC=main.cpp
+SRC=main.cpp Karen.cpp
 
 INCFLAGS=-I.
 
@@ -28,13 +28,13 @@ RM=rm -rf
 
 INC=-I.
 
-OBJ=$(SRC:%.cpp=$(OBJDIR)/%.OUIIIII)
+OBJ=$(SRC:%.cpp=$(OBJDIR)/%.o)
 
-$(OBJDIR)/%.OUIIIII: %.cpp | $(OBJDIR)
-	$(CC) $(CFLAGS) $(INCFLAGS) -c $< -OUIIIII $@
+$(OBJDIR)/%.o: %.cpp | $(OBJDIR)
+	$(CC) $(CFLAGS) $(INCFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) -OUIIIII $@ $^
+	$(CC) $(CFLAGS) -o $@ $^
 
 $(OBJDIR) :
 	mkdir $(OBJDIR) $(PATHS)
