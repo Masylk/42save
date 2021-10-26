@@ -1,6 +1,6 @@
 #include "Fixed.hpp"
 
- 
+
 /*
  * ------------------------CONSTRUCTORS--------------------------------
  * */
@@ -20,13 +20,13 @@ Fixed::Fixed(int const val)
 //constructor with float to Fixed conversion
 Fixed::Fixed(float const val)
 {
-	this->value = floor(0.5 + (val * (1 << this->bits)));
+	this->value = roundf(val * (1 << this->bits));
 }
 
 Fixed::Fixed(Fixed const & cpy)
 {
 	std::cout << "Copy constructor called" << std::endl;
-	*this = cpy;
+	this->value = cpy.getRawBits();
 	return ;
 }
 
@@ -74,32 +74,32 @@ std::ostream &	operator<<(std::ostream &o, Fixed const & rhs)
  * ------------------------------COMPARISON--------------------------------
  * */
 
-bool	Fixed::operator>(Fixed const & rhs)
+bool	Fixed::operator>(Fixed const & rhs) const
 {
 	return (this->toFloat() > rhs.toFloat());
 }
 
-bool	Fixed::operator<(Fixed const & rhs)
+bool	Fixed::operator<(Fixed const & rhs) const
 {	
 	return (this->toFloat() < rhs.toFloat());
 }
 
-bool	Fixed::operator>=(Fixed const & rhs)
+bool	Fixed::operator>=(Fixed const & rhs) const
 {
 	return (this->toFloat() >= rhs.toFloat());
 }
 
-bool	Fixed::operator<=(Fixed const & rhs)
+bool	Fixed::operator<=(Fixed const & rhs) const
 {	
 	return (this->toFloat() <= rhs.toFloat());
 }
 
-bool	Fixed::operator==(Fixed const & rhs)
+bool	Fixed::operator==(Fixed const & rhs) const
 {
 	return (this->toFloat() == rhs.toFloat());
 }
 
-bool	Fixed::operator!=(Fixed const & rhs)
+bool	Fixed::operator!=(Fixed const & rhs) const
 {	
 	return (this->toFloat() != rhs.toFloat());
 }
@@ -108,22 +108,40 @@ bool	Fixed::operator!=(Fixed const & rhs)
  * ------------------------------ARITHMETIC--------------------------------
  * */
 
-		float	Fixed::operator*(Fixed const & rhs)
-		{
-			return this->toFloat() * rhs.toFloat();
-		}
-		float	Fixed::operator+(Fixed const & rhs)
-		{
-			return this->toFloat() + rhs.toFloat();
-		}
-		float	Fixed::operator-(Fixed const & rhs)
-		{
-			return this->toFloat() - rhs.toFloat();
-		}
-		float	Fixed::operator/(Fixed const & rhs)
-		{
-			return this->toFloat() / rhs.toFloat();
-		}
+Fixed	Fixed::operator*(Fixed const & rhs)
+{
+	Fixed ret(*this);
+	long	tmp1, tmp2;
+
+	tmp1 = ((long)this->getRawBits());
+	tmp2 = ((long)rhs.getRawBits());
+	ret.setRawBits((tmp1 * tmp2) / (1 << Fixed::bits));
+	return ret;
+}
+
+Fixed	Fixed::operator+(Fixed const & rhs)
+{
+	Fixed	ret(*this);
+
+	ret.setRawBits(this->getRawBits() + rhs.getRawBits());
+	return ret;
+}
+
+Fixed	Fixed::operator-(Fixed const & rhs)
+{
+	Fixed	ret(*this);
+
+	ret.setRawBits(this->getRawBits() - rhs.getRawBits());
+	return ret;
+}
+
+Fixed	Fixed::operator/(Fixed const & rhs)
+{
+	Fixed	ret(*this);
+
+	ret.setRawBits((this->getRawBits() * (1 << this->bits)) / rhs.getRawBits());
+	return ret;
+}
 
 /*
  * ------------------------CONVERSIONS--------------------------------
@@ -132,7 +150,7 @@ bool	Fixed::operator!=(Fixed const & rhs)
 //conver Fixed to Int
 int	Fixed::toInt(void) const
 {
-	return (this->value / (1 << this->bits));
+	return (this->value >> this->bits);
 }
 
 //convert Fixed to Float
@@ -141,3 +159,66 @@ float	Fixed::toFloat(void) const
 	return ((float)this->value / (float)(1 << (this->bits)));
 }
 
+/*
+ * ------------------------INCREMENT/DECREMENT--------------------------------
+ * */
+
+Fixed	Fixed::operator++(void)
+{
+	this->value++;
+	return (*this);
+}
+
+Fixed	Fixed::operator++(int)
+{
+	Fixed	tmp(*this);
+
+	operator++();
+	return (tmp);
+}
+
+Fixed	Fixed::operator--(void)
+{
+	this->value--;
+	return (*this);
+}
+
+Fixed	Fixed::operator--(int)
+{
+	Fixed	tmp(*this);
+
+	operator--();
+	return (tmp);
+}
+
+/*
+ * ------------------------INCREMENT/DECREMENT--------------------------------
+ * */
+
+Fixed 		&Fixed::min(Fixed &lhs, Fixed &rhs)
+{
+	if (lhs > rhs)
+		return (rhs);
+	return (lhs);
+}
+
+const Fixed 	&Fixed::min(const Fixed &lhs, const Fixed &rhs)
+{
+	if (lhs > rhs)
+		return (rhs);
+	return (lhs);
+}
+
+Fixed 		&Fixed::max(Fixed &lhs, Fixed &rhs)
+{
+	if (lhs < rhs)
+		return (rhs);
+	return (lhs);
+}
+
+const Fixed 	&Fixed::max(const Fixed &lhs, const Fixed &rhs)
+{
+	if (lhs < rhs)
+		return (rhs);
+	return (lhs);
+}
