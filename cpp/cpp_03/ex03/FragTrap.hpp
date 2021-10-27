@@ -10,6 +10,8 @@ class	FragTrap : virtual public ClapTrap
 		FragTrap(FragTrap const &cpy);
 		virtual ~FragTrap();
 
+		int	getHitpoints(void) const;
+		int	getAttack_damage(void) const;
 		void	highFivesGuys(void);
 };
 

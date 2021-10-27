@@ -13,6 +13,11 @@ class	DiamondTrap : public FragTrap, public ScavTrap
 		//copy constructor
 		DiamondTrap(DiamondTrap const &cpy);
 		virtual ~DiamondTrap();
+		DiamondTrap & operator=(DiamondTrap const &rhs);
+		
+		void	whoAmI(void);	
+	private :
+		std::string	_name;
 };
 
 #endif

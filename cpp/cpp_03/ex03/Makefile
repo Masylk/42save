@@ -16,7 +16,7 @@ CC=g++
 
 OBJDIR = obj
 
-CFLAGS=-Wall -Wextra -Werror -Wshadow -Wno-shadow
+CFLAGS=-Wall -Wextra -Werror
 
 PATHS= $(OBJDIR)/srcs
 

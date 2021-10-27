@@ -25,6 +25,14 @@ void	ScavTrap::guardGate()
 	this->set_gatekmode(true);
 }
 
+void	ScavTrap::attack(std::string const &target)
+{
+	std::cout << this->getName()
+		<< " ScavTrap attack " << target << " causing "
+		<< this->getAttack_damage() << " points of damage!"
+		<< std::endl;
+}
+
 /*
  *-------------SETTER/GETTER----------
  * */

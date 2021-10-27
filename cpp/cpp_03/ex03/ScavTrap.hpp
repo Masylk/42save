@@ -17,6 +17,7 @@ class	ScavTrap :virtual public ClapTrap
 
 		//Member functions
 		void	guardGate();
+		void	attack(std::string const &target);
 
 		//setter/getter
 		bool	get_gatekmode();

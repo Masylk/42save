@@ -17,20 +17,20 @@ class	ClapTrap
 		ClapTrap	&operator=(ClapTrap const &rhs);
 	
 		//Functions
-		void	attack(std::string const &target);
+		virtual void	attack(std::string const &target);
 		void	takeDamage(unsigned int amount);
 		void	beRepaired(unsigned int amount);
 		
 		//setter
-		void    setName(std::string name);
-		void    setHitpoints(int hp);
-		void    setEnergypoints(int ep);
-		void    setAttack_damage(int ad);
+		virtual void    setName(std::string name);
+		virtual void    setHitpoints(int hp);
+		virtual void    setEnergypoints(int ep);
+		virtual void    setAttack_damage(int ad);
 		//getter
-		std::string	getName() const;
-		int    		getHitpoints() const;
-		int		getEnergypoints() const;
-		int		getAttack_damage() const;
+		virtual std::string	getName() const;
+		virtual int    		getHitpoints() const;
+		virtual int		getEnergypoints() const;
+		virtual int		getAttack_damage() const;
 	protected :
 		std::string	_name;
 		int		_hitpoints;
