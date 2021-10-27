@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 04:47:55 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/10/21 16:48:24 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/10/27 16:03:09 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,6 @@ void	print_timestamp(int ms);
 int		ft_atoi(const char *nptr);
 int		nblen(int nb);
 int		ft_strlen(char *str);
+int		set_child(int i, t_vars *vars);
 
 #endif
