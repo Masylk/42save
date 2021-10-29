@@ -8,7 +8,7 @@ int	main()
 {
 	Animal *arr[10];
 	int	i;
-
+	
 	i = 0;
 	while (i < 10)
 	{

@@ -15,9 +15,6 @@ Animal::~Animal()
 	std::cout << "Animal is dead" << std::endl;
 }
 
-void	Animal::makeSound() const
-{}
-		
 Animal const &Animal::operator=(Animal const &rhs)
 {
 	if (this != &rhs)

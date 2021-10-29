@@ -20,7 +20,7 @@ CFLAGS=-Wall -Wextra -Werror
 
 PATHS= $(OBJDIR)/srcs
 
-SRC=main.cpp Dog.cpp Cat.cpp Brain.cpp Animal.cpp
+SRC=main.cpp AMateria.cpp ICharacter.cpp Ice.cpp MateriaSource.cpp Cure.cpp
 
 INCFLAGS=-I.
 

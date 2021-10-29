@@ -109,8 +109,11 @@ int	main(int ac, char **av)
 		return (ft_printf("Error\n"));
 	newarg = ft_split(args, ' ');
 	free(args);
-	if (!newarg)
+	if (!newarg || !newarg[0])
+	{
+		free_tab(newarg);
 		return (ft_printf("Error\n"));
+	}
 	if (arr_isdigit(newarg) || !check_args(newarg, &size_stack)
 		|| init_stacks(&list, newarg) < 0)
 	{
