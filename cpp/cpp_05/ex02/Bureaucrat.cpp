@@ -3,16 +3,27 @@
 
 Bureaucrat::Bureaucrat(int grade, std::string name) : name(name)
 {
-	if (grade < 1)
-		throw Bureaucrat::GradeTooHighException();
-	else if (grade > 150)
-		throw Bureaucrat::GradeTooLowException();
-	else	
-		this->grade = grade;
+	try
+	{
+		if (grade < 1)
+			throw Bureaucrat::GradeTooHighException();
+		else if (grade > 150)
+			throw Bureaucrat::GradeTooLowException();
+		else	
+			this->grade = grade;
+	}
+	catch (Bureaucrat::GradeTooHighException e)
+	{
+		std::cout << e.what();
+	}
+	catch (Bureaucrat::GradeTooLowException e)
+	{
+		std::cout << e.what();
+	}
 }
 
-	Bureaucrat::Bureaucrat(const Bureaucrat &cpy) : name (cpy.getName())
-							, grade(cpy.getGrade())
+Bureaucrat::Bureaucrat(const Bureaucrat &cpy) : name (cpy.getName())
+						, grade(cpy.getGrade())
 {
 	*this = cpy;
 }
@@ -51,6 +62,12 @@ void	Bureaucrat::downgrade(void)
 {
 	if (this->grade < 150)
 		this->grade++;
+}
+
+void	Bureaucrat::signForm(Form &f)
+{
+	if (f.beSigned(*this).getIsSigned())
+		std::cout << *this << " signs " << f << std::endl;
 }
 
 std::ostream &	operator<<(std::ostream &o, Bureaucrat const &rhs)
