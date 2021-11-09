@@ -1,24 +1,24 @@
-#ifndef SHRUBBERYCREATIONFORM_HPP
-# define SHRUBBERYCREATIONFORM_HPP
+#ifndef PRESIDENTIALPARDONFORM_HPP
+# define PRESIDENTIALPARDONFORM_HPP
 
 # include <iostream>
 # include "Bureaucrat.hpp"
 
 class	Bureaucrat;
 
-class	ShrubberyCreationForm : public virtual Form
+class	PresidentialPardonForm : public virtual Form
 {
 	public :
-		ShrubberyCreationForm(std::string target);
-		ShrubberyCreationForm(const ShrubberyCreationForm &cpy);
-		virtual	~ShrubberyCreationForm();
+		PresidentialPardonForm(std::string target);
+		PresidentialPardonForm(const PresidentialPardonForm &cpy);
+		virtual	~PresidentialPardonForm();
 
-		const ShrubberyCreationForm	&operator=(const ShrubberyCreationForm &cpy);
+		const PresidentialPardonForm	&operator=(const PresidentialPardonForm &cpy);
 		
 		//methods
 		virtual void	execute(Bureaucrat const &executor) const;
 		//functions
-		ShrubberyCreationForm	&beSigned(const Bureaucrat &b);
+		PresidentialPardonForm	&beSigned(const Bureaucrat &b);
 		//getters
 		const std::string	getName(void) const;
 		int		getGradeEx(void) const;
@@ -50,6 +50,6 @@ class	ShrubberyCreationForm : public virtual Form
 		bool			isSigned;
 };
 
-std::ostream	&operator<<(std::ostream &o, const ShrubberyCreationForm &rhs);
+std::ostream	&operator<<(std::ostream &o, const PresidentialPardonForm &rhs);
 
 #endif

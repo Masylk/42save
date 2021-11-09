@@ -3,11 +3,13 @@
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
+#include "Intern.hpp"
 
 int	main()
 {
 	Bureaucrat	*o;
 	Form		*f;
+	Intern		i;
 
 	try
 	{
@@ -27,7 +29,10 @@ int	main()
 	}
 	o->signForm(f);
 	o->executeForm(*f);
-
+	delete f;
+	f = i.makeForm("robotomy request", "bender");
+	o->signForm(f);
+	o->executeForm(*f);
 	delete o;
 	delete f;
 }

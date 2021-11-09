@@ -69,11 +69,11 @@ Form	&Form::beSigned(const Bureaucrat &b)
 
 std::ostream &	operator<<(std::ostream &o, Form const &rhs)
 {
-	o << rhs.getName() << ", form grade " << rhs.getGradeS();
+	o << rhs.getName() << ", signing grade " 
+		<< rhs.getGradeS() << ", execution grade " << rhs.getGradeEx();
 	if (rhs.getIsSigned())
 		o << " [signed]";
 	else
 		o << " [not signed]";
 	return o;
 }
-

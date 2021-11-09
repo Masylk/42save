@@ -23,7 +23,7 @@ class	Bureaucrat
 		//member functions
 		void	upgrade(void);
 		void	downgrade(void);
-		void	signForm(Form &f);	
+		void	signForm(Form *f);	
 
 		//exceptions
 	class	GradeTooHighException : public std::exception

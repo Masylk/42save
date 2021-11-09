@@ -8,7 +8,7 @@ int	main()
 
 	try
 	{
-		o = new Bureaucrat(-1, "Bob");
+		o = new Bureaucrat(1, "Bob");
 	}
 	catch (std::exception &e)
 	{
@@ -24,5 +24,5 @@ int	main()
 		std::cout << e.what() << std::endl;
 		return (0);
 	}
-	o->signForm(*f);
+	o->signForm(f);
 }

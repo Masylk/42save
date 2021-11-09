@@ -28,6 +28,11 @@ const ShrubberyCreationForm &ShrubberyCreationForm::operator=(const ShrubberyCre
 	return *this;
 }
 
+Form	*ShrubberyCreationForm::factoryForm(std::string target)
+{
+	return (new ShrubberyCreationForm(target));
+}
+
 //getter
 const std::string	ShrubberyCreationForm::getName(void) const
 {

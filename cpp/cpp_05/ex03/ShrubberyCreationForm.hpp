@@ -17,6 +17,7 @@ class	ShrubberyCreationForm : public virtual Form
 		
 		//methods
 		virtual void	execute(Bureaucrat const &executor) const;
+		virtual	Form	*factoryForm(std::string target);
 		//functions
 		ShrubberyCreationForm	&beSigned(const Bureaucrat &b);
 		//getters

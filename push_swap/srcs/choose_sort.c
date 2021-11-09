@@ -27,6 +27,8 @@ int	size_stack(t_stack *s)
 
 int	small_sorts(t_stacklist *list, int size)
 {
+	if (stack_is_sorted(list->tab, size))
+		return (1);
 	if (size == 1)
 		return (1);
 	if (size == 2)

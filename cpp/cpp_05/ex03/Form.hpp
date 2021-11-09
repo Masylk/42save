@@ -18,6 +18,7 @@ class	Form
 		
 		//methods
 		virtual void	execute(Bureaucrat const &executor) const  = 0;
+		virtual	Form	*factoryForm(std::string target) = 0;
 		//functions
 		virtual Form	&beSigned(const Bureaucrat &b);
 		static	bool	isExecutable(const Bureaucrat &b, const Form &f);
