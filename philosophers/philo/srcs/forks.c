@@ -14,23 +14,47 @@
 
 int	get_fork(t_vars *vars, int index)
 {
-	return (vars->forks[index % vars->nb]);
+	if (vars->forks[index % vars->nb])
+		return (vars->forks[index % vars->nb]);
+	else
+		return (0);
 }
 
 void	get_forks_back(t_vars *vars, int fl, int fr)
 {
+	pthread_mutex_unlock(&vars->mutex_forks[fl % vars->nb]);
+	pthread_mutex_unlock(&vars->mutex_forks[fr % vars->nb]);
 	vars->forks[fl % vars->nb] = 1;
 	vars->forks[fr % vars->nb] = 1;
 }
 
-int	get_forks(t_vars *vars, int fl, int fr)
+int	get_forks(t_vars *vars, int fl, int fr, int id)
 {
-	if (get_fork(vars, fl) && get_fork(vars, fr))
+	int	time_ms;
+
+	
+	pthread_mutex_lock(&vars->mutex);
+	if ((get_fork(vars, fl) && get_fork(vars, fr)))
 	{
+		pthread_mutex_unlock(&vars->mutex);
 		vars->forks[fl % vars->nb] = 0;
 		vars->forks[fr % vars->nb] = 0;
-		return (1);
+		pthread_mutex_lock(&vars->mutex_forks[fl % vars->nb]);
+		pthread_mutex_lock(&vars->mutex);
+		time_ms = vars->cur_time - vars->start_time;
+		print_message(id, time_ms, " has taken a fork");
+		pthread_mutex_unlock(&vars->mutex);
+		if (vars->nb > 1)
+		{
+			pthread_mutex_lock(&vars->mutex_forks[fr % vars->nb]);
+			pthread_mutex_lock(&vars->mutex);
+			time_ms = vars->cur_time - vars->start_time;
+			print_message(id, time_ms, " has taken a fork");
+			pthread_mutex_unlock(&vars->mutex);
+			return (1);
+		}
 	}
+	pthread_mutex_unlock(&vars->mutex);
 	return (0);
 }
 
@@ -47,7 +71,6 @@ void	print_message(int nb, unsigned int time, char *msg)
 
 int	choose_sleep(t_philo *philo)
 {
-	if (philo->eating)
-		return (philo->vars->eat_time * 1000);
-	return (10);
+	(void)philo;
+	return (30);
 }

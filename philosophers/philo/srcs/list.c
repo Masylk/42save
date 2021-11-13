@@ -29,6 +29,7 @@ t_philo	*new_philo(int id)
 	res->last = 0;
 	res->prev_time = 0;
 	res->prev_mealtime = 0;
+	res->thread = 0;
 	res->previous = NULL;
 	res->next = NULL;
 	return (res);
@@ -36,13 +37,15 @@ t_philo	*new_philo(int id)
 
 t_philo	*get_philo(t_philo *list, int id)
 {
+	if (list == NULL)
+		return (NULL);
 	while (list && !list->last)
 	{
 		if (list->id == id)
 			return (list);
 		list = list->next;
 	}
-	if (list->id == id)
+	if (list->id == id && list->thread)
 		return (list);
 	return (NULL);
 }

@@ -50,6 +50,8 @@ typedef struct s_vars
 	int				eat_goal;
 	pthread_t		clock_thr;
 	pthread_mutex_t	mutex;
+	pthread_mutex_t	*mutex_forks;
+	pthread_mutex_t	turn;
 	int				philo_end;
 	t_philo			*plist;
 	int				*forks;
@@ -61,7 +63,7 @@ int		think_state(t_philo *philo, int id);
 int		sleep_state(t_philo *philo, int id);
 int		eat_state(t_philo *philo, int id);
 int		get_fork(t_vars *vars, int index);
-int		get_forks(t_vars *vars, int fl, int fr);
+int		get_forks(t_vars *vars, int fl, int fr, int id);
 void	get_forks_back(t_vars *vars, int fl, int fr);
 void	*ft_clock(void *args);
 void	*philo_life(void *args);

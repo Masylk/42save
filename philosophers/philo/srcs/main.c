@@ -40,19 +40,19 @@ int	create_philosophers(t_vars *vars, int nb)
 
 int	wait_thr(t_vars *vars)
 {
-	void	*ret;
-	void	*cret;
 	int		i;
+	t_philo	*philo;
 
-	(void)i;
 	i = 1;
 	while (i <= vars->nb)
 	{
-		if (pthread_join(get_philo(vars->plist, i++)->thread, &ret))
-			return (-1);
+		philo = get_philo(vars->plist, i++);
+		if (!philo)
+			return (1);
+		pthread_detach(philo->thread);
 	}
-	if (pthread_join(vars->clock_thr, &cret))
-		return (-1);
+	pthread_detach(vars->clock_thr);
+	pthread_mutex_lock(&vars->turn);
 	return (1);
 }
 
@@ -90,11 +90,23 @@ int	init_vars(t_vars *vars, char **av)
 	i = 0;
 	vars->plist = NULL;
 	pthread_mutex_init(&vars->mutex, NULL);
+	pthread_mutex_init(&vars->turn, NULL);
 	if (!init_args(vars, av))
 		return (0);
 	vars->forks = malloc(sizeof(int) * (vars->nb));
+	if (!vars->forks)
+		return (0);
+	vars->mutex_forks = malloc(sizeof(pthread_mutex_t) * (vars->nb));
+	if (!vars->mutex_forks)
+	{
+		free(vars->forks);
+		return (0);
+	}
 	while (i < vars->nb)
-		(vars->forks[i++]) = 1;
+	{
+		(vars->forks[i]) = 1;
+		pthread_mutex_init(&vars->mutex_forks[i++], NULL);
+	}
 	get_time(&vars->start_time);
 	vars->cur_time = vars->start_time;
 	vars->philo_end = 0;
@@ -102,6 +114,11 @@ int	init_vars(t_vars *vars, char **av)
 		return (0);
 	return (1);
 }
+
+/*void	destroy_threads(t_vars *vars)
+{
+
+}*/
 
 int	main(int ac, char **av)
 {
@@ -115,8 +132,10 @@ int	main(int ac, char **av)
 		return (0);
 	if (wait_thr(&vars) < 0)
 		return (0);
+	pthread_mutex_lock(&vars.turn);
 	free_philo(vars.plist);
 	free(vars.forks);
+	free(vars.mutex_forks);
 	vars.forks = NULL;
 	return (1);
 }
