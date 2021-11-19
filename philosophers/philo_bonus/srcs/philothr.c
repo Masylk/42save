@@ -19,10 +19,13 @@ int	eat_state(t_philo *philo, int id)
 	if (philo->sleeping)
 		think_state(philo, philo->id);
 	sem_wait(philo->vars->sem_forks);
-	sem_wait(philo->vars->sem_forks);
 	sem_wait(philo->vars->sem_turn);
 	time_ms = philo->vars->cur_time - philo->vars->start_time;
 	print_message(id, time_ms, " has taken a fork");
+	sem_post(philo->vars->sem_turn);
+	sem_wait(philo->vars->sem_forks);
+	sem_wait(philo->vars->sem_turn);
+	time_ms = philo->vars->cur_time - philo->vars->start_time;
 	print_message(id, time_ms, " has taken a fork");
 	print_message(id, time_ms, " is eating");
 	philo->goal = philo->goal + 1;
@@ -60,6 +63,7 @@ int	think_state(t_philo *philo, int id)
 
 	sem_wait(philo->vars->sem_turn);
 	time_ms = philo->vars->cur_time - philo->vars->start_time;
+	if (!philo->vars->philo_end)
 	print_message(id, time_ms, " is thinking");
 	philo->sleeping = 0;
 	philo->thinking = 1;
@@ -102,13 +106,13 @@ void	*philo_life(void *args)
 	philo->prev_time = prev_time;
 	while (!vars->philo_end)
 	{
-		usleep(300);
 		time = vars->cur_time - prev_time;
 		if (time >= next_timer && !vars->philo_end)
 		{
 			prev_time = vars->cur_time;
 			next_timer = handle_state(philo, vars);
 		}
+		usleep(300);
 	}
 	return (NULL);
 }

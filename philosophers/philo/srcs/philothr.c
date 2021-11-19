@@ -24,7 +24,7 @@ int	eat_state(t_philo *philo, int id)
 			return (1);
 		pthread_mutex_lock(&philo->vars->mutex);
 		time_ms = philo->vars->cur_time - philo->vars->start_time;
-		print_message(id, time_ms, " is eating");
+		print_message(id, time_ms, " is eating", philo->vars);
 		philo->goal = philo->goal + 1;
 		philo->eating = 1;
 		philo->thinking = 0;
@@ -44,7 +44,7 @@ int	sleep_state(t_philo *philo, int id)
 		pthread_mutex_lock(&philo->vars->mutex);
 		philo->prev_time = philo->vars->cur_time;
 		time_ms = philo->vars->cur_time - philo->vars->start_time;
-		print_message(id, time_ms, " is sleeping");
+		print_message(id, time_ms, " is sleeping", philo->vars);
 		philo->sleeping = 1;
 		philo->eating = 0;
 		philo->thinking = 0;
@@ -62,7 +62,7 @@ int	think_state(t_philo *philo, int id)
 	{
 		pthread_mutex_lock(&philo->vars->mutex);
 		time_ms = philo->vars->cur_time - philo->vars->start_time;
-		print_message(id, time_ms, " is thinking");
+		print_message(id, time_ms, " is thinking", philo->vars);
 		philo->sleeping = 0;
 		philo->thinking = 1;
 		philo->eating = 0;
@@ -93,12 +93,10 @@ unsigned int	handle_state(t_philo *philo, t_vars *vars)
 void	*philo_life(void *args)
 {
 	t_philo			*philo;
-	unsigned int	prev_time;
 
 	philo = (t_philo *)args;
-	prev_time = philo->vars->start_time;
-	philo->prev_time = prev_time;
-	while (prev_time && !philo->vars->philo_end)
+	philo->prev_time = 0;
+	while (!philo->vars->philo_end)
 	{
 		handle_state(philo, philo->vars);
 		usleep(choose_sleep(philo));

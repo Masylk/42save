@@ -42,14 +42,14 @@ int	get_forks(t_vars *vars, int fl, int fr, int id)
 		pthread_mutex_lock(&vars->mutex_forks[fl % vars->nb]);
 		pthread_mutex_lock(&vars->mutex);
 		time_ms = vars->cur_time - vars->start_time;
-		print_message(id, time_ms, " has taken a fork");
+		print_message(id, time_ms, " has taken a fork", vars);
 		pthread_mutex_unlock(&vars->mutex);
 		if (vars->nb > 1)
 		{
 			pthread_mutex_lock(&vars->mutex_forks[fr % vars->nb]);
 			pthread_mutex_lock(&vars->mutex);
 			time_ms = vars->cur_time - vars->start_time;
-			print_message(id, time_ms, " has taken a fork");
+			print_message(id, time_ms, " has taken a fork", vars);
 			pthread_mutex_unlock(&vars->mutex);
 			return (1);
 		}
@@ -58,8 +58,10 @@ int	get_forks(t_vars *vars, int fl, int fr, int id)
 	return (0);
 }
 
-void	print_message(int nb, unsigned int time, char *msg)
+void	print_message(int nb, unsigned int time, char *msg, t_vars *vars)
 {
+	if (vars->philo_end)
+		return ;
 	ft_putstr_fd("[", 1);
 	ft_putnbr_fd(time, 1);
 	ft_putstr_fd(" ms] : ", 1);
@@ -72,5 +74,5 @@ void	print_message(int nb, unsigned int time, char *msg)
 int	choose_sleep(t_philo *philo)
 {
 	(void)philo;
-	return (30);
+	return (20);
 }

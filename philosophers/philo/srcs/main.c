@@ -42,24 +42,27 @@ int	wait_thr(t_vars *vars)
 {
 	int		i;
 	t_philo	*philo;
+	void	*ret;
+	void	*cret;
 
 	i = 1;
+	if (pthread_create(&vars->clock_thr, NULL, ft_clock, (void *)vars))
+		return (0);
 	while (i <= vars->nb)
 	{
 		philo = get_philo(vars->plist, i++);
-		if (!philo)
-			return (1);
-		pthread_detach(philo->thread);
+		if (pthread_join(philo->thread, &ret))
+			return (-1);
 	}
-	pthread_detach(vars->clock_thr);
-	pthread_mutex_lock(&vars->turn);
+	if (pthread_join(vars->clock_thr, &cret))
+		return (-1);
 	return (1);
 }
 
 int	init_args(t_vars *vars, char **av)
 {
 	vars->nb = ft_atoi(av[1]);
-	if (nblen(vars->nb) != ft_strlen(av[1]) || vars->nb > 1024)
+	if (nblen(vars->nb) != ft_strlen(av[1]) || vars->nb > 1024 || !vars->nb)
 		return (0);
 	vars->die_time = ft_atoi(av[2]);
 	if (nblen(vars->die_time) != ft_strlen(av[2]))
@@ -110,8 +113,6 @@ int	init_vars(t_vars *vars, char **av)
 	get_time(&vars->start_time);
 	vars->cur_time = vars->start_time;
 	vars->philo_end = 0;
-	if (pthread_create(&vars->clock_thr, NULL, ft_clock, (void *)vars))
-		return (0);
 	return (1);
 }
 
@@ -132,7 +133,6 @@ int	main(int ac, char **av)
 		return (0);
 	if (wait_thr(&vars) < 0)
 		return (0);
-	pthread_mutex_lock(&vars.turn);
 	free_philo(vars.plist);
 	free(vars.forks);
 	free(vars.mutex_forks);

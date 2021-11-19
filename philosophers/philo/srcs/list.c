@@ -58,8 +58,8 @@ void	add_end(t_philo **list, t_philo *elem)
 	{
 		*list = elem;
 		(*list)->last = 1;
-		(*list)->next = NULL;
-		(*list)->previous = NULL;
+		(*list)->next = *list;
+		(*list)->previous = *list;
 		return ;
 	}
 	tmp = *list;

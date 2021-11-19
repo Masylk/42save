@@ -32,18 +32,19 @@ int	check_meals(t_vars *vars)
 	t_philo	*tmp;
 
 	tmp = vars->plist;
+	if (vars->eat_goal < 0)
+		return (0);
 	while (tmp && !tmp->last)
 	{
-		if (tmp->goal != vars->eat_goal)
+		if (tmp->goal < vars->eat_goal)
 			return (0);
 		tmp = tmp->next;
 	}
 	if (tmp && !tmp->last)
 	{
-		if (tmp->goal != vars->eat_goal)
+		if (tmp->goal < vars->eat_goal)
 			return (0);
 	}
-	pthread_mutex_unlock(&vars->turn);
 	vars->philo_end = 1;
 	return (1);
 }
@@ -60,20 +61,23 @@ void	*ft_clock(void *args)
 		pthread_mutex_lock(&vars->mutex);
 		get_time(&vars->cur_time);
 		check_meals(vars);
-		while (nb < vars->nb)
+		while (vars->plist)
 		{
 			if (vars->plist->vars->cur_time - vars->plist->prev_mealtime >= vars->die_time + 1)
 			{
 				print_message(vars->plist->id, vars->cur_time - vars->start_time,
-						" died");
+						" died", vars);
 				vars->philo_end = 1;
-				pthread_mutex_unlock(&vars->turn);
+				pthread_mutex_unlock(&vars->mutex);
 			}
+			if (vars->plist->last)
+				break ;
 			vars->plist = vars->plist->next;
 			nb++;
 		}
+		vars->plist = vars->plist->next;
 		pthread_mutex_unlock(&vars->mutex);
-		usleep(10);
+		usleep(5);
 	}
 	return (vars);
 }
