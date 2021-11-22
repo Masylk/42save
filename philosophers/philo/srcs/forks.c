@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 17:07:49 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/11/22 18:54:42 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/11/22 20:08:30 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,10 @@ int	get_forks(t_vars *vars, int fl, int fr, int id)
 void	print_message(int nb, unsigned int time, char *msg, t_vars *vars)
 {
 	if (vars->philo_end)
+	{
+		ft_putstr_fd("NO", 1);
 		return ;
+	}
 	ft_putstr_fd("[", 1);
 	ft_putnbr_fd(time, 1);
 	ft_putstr_fd(" ms] : ", 1);

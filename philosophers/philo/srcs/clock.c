@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 17:07:25 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/11/22 19:31:00 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/11/22 20:13:28 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,31 +49,36 @@ int	check_meals(t_vars *vars)
 	return (1);
 }
 
+int	check_death(t_vars *vars)
+{
+	if (vars->plist->vars->cur_time
+		- vars->plist->prev_mealtime >= vars->die_time + 1)
+	{
+		print_message(vars->plist->id, vars->cur_time - vars->start_time,
+			" died", vars);
+		return (1);
+	}
+	return (0);
+}
+
 void	*ft_clock(void *args)
 {
 	t_vars		*vars;
-	int			nb;
 
 	vars = (t_vars *)args;
 	while (!vars->philo_end)
 	{
-		nb = 0;
 		pthread_mutex_lock(&vars->mutex);
 		get_time(&vars->cur_time);
 		check_meals(vars);
 		while (vars->plist)
 		{
-			if (vars->plist->vars->cur_time - vars->plist->prev_mealtime >= vars->die_time + 3)
-			{
-				print_message(vars->plist->id, vars->cur_time - vars->start_time,
-						" died", vars);
-				vars->philo_end = 1;
-			}
+			vars->philo_end = check_death(vars);
 			if (vars->plist->last)
 				break ;
 			vars->plist = vars->plist->next;
-			nb++;
 		}
+		ft_putnbr_fd(vars->philo_end, 1);
 		if (vars->plist && vars->plist->next)
 			vars->plist = vars->plist->next;
 		pthread_mutex_unlock(&vars->mutex);
