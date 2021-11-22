@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 17:07:25 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/10/20 17:07:43 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/11/22 19:31:00 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	check_meals(t_vars *vars)
 void	*ft_clock(void *args)
 {
 	t_vars		*vars;
-	int		nb;
+	int			nb;
 
 	vars = (t_vars *)args;
 	while (!vars->philo_end)
@@ -63,19 +63,19 @@ void	*ft_clock(void *args)
 		check_meals(vars);
 		while (vars->plist)
 		{
-			if (vars->plist->vars->cur_time - vars->plist->prev_mealtime >= vars->die_time + 1)
+			if (vars->plist->vars->cur_time - vars->plist->prev_mealtime >= vars->die_time + 3)
 			{
 				print_message(vars->plist->id, vars->cur_time - vars->start_time,
 						" died", vars);
 				vars->philo_end = 1;
-				pthread_mutex_unlock(&vars->mutex);
 			}
 			if (vars->plist->last)
 				break ;
 			vars->plist = vars->plist->next;
 			nb++;
 		}
-		vars->plist = vars->plist->next;
+		if (vars->plist && vars->plist->next)
+			vars->plist = vars->plist->next;
 		pthread_mutex_unlock(&vars->mutex);
 		usleep(5);
 	}

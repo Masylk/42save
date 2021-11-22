@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 17:07:49 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/10/21 16:46:57 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/11/22 18:54:42 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	get_forks(t_vars *vars, int fl, int fr, int id)
 {
 	int	time_ms;
 
-	
 	pthread_mutex_lock(&vars->mutex);
 	if ((get_fork(vars, fl) && get_fork(vars, fr)))
 	{

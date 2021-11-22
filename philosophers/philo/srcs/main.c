@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 03:01:53 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/10/20 18:14:35 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/11/22 19:05:05 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ int	init_vars(t_vars *vars, char **av)
 	i = 0;
 	vars->plist = NULL;
 	pthread_mutex_init(&vars->mutex, NULL);
-	pthread_mutex_init(&vars->turn, NULL);
 	if (!init_args(vars, av))
 		return (0);
 	vars->forks = malloc(sizeof(int) * (vars->nb));

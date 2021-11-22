@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 17:07:56 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/10/20 18:16:41 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/11/22 19:11:12 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ int	eat_state(t_philo *philo, int id)
 	if (!philo->eating)
 	{
 		if (philo->sleeping && !philo->thinking)
-				return (think_state(philo, philo->id));
-		else if (!get_forks(philo->vars, philo->fleft, philo->fright, philo->id))
+			return (think_state(philo, philo->id));
+		else if (!get_forks(philo->vars, philo->fleft, philo->fright
+				, philo->id))
 			return (1);
 		pthread_mutex_lock(&philo->vars->mutex);
 		time_ms = philo->vars->cur_time - philo->vars->start_time;
@@ -80,12 +81,14 @@ unsigned int	handle_state(t_philo *philo, t_vars *vars)
 	next_timer = 1;
 	if (!philo->eating)
 	{
-		if (philo->sleeping && philo->vars->cur_time - philo->prev_time >= vars->sleep_time)
+		if (philo->sleeping
+			&& philo->vars->cur_time - philo->prev_time >= vars->sleep_time)
 			eat_state(philo, id);
 		else if (!philo->sleeping)
 			eat_state(philo, id);
 	}
-	else if (philo->vars->cur_time - philo->prev_mealtime >= vars->eat_time && philo->eating)
+	else if (philo->vars->cur_time
+		- philo->prev_mealtime >= vars->eat_time && philo->eating)
 		sleep_state(philo, id);
 	return (next_timer);
 }

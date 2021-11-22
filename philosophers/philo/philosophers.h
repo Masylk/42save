@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 04:47:55 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/10/21 16:46:49 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/11/22 19:02:20 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ typedef struct s_vars
 	pthread_t		clock_thr;
 	pthread_mutex_t	mutex;
 	pthread_mutex_t	*mutex_forks;
-	pthread_mutex_t	turn;
 	int				philo_end;
 	t_philo			*plist;
 	int				*forks;
