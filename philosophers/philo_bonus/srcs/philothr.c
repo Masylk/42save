@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 17:50:27 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/10/21 17:56:16 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/11/24 19:08:32 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	think_state(t_philo *philo, int id)
 	sem_wait(philo->vars->sem_turn);
 	time_ms = philo->vars->cur_time - philo->vars->start_time;
 	if (!philo->vars->philo_end)
-	print_message(id, time_ms, " is thinking");
+		print_message(id, time_ms, " is thinking");
 	philo->sleeping = 0;
 	philo->thinking = 1;
 	sem_post(philo->vars->sem_turn);
