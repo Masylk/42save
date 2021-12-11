@@ -140,7 +140,7 @@ namespace ft
 			
 			void		clear_container()
 			{
-				int	i = 0;
+				size_type	i = 0;
 
 				while (i < this->size())
 					this->alloc.destroy(start + i++);
@@ -154,15 +154,20 @@ namespace ft
 			
 			void		realloc(size_type n)
 			{
-				int	i = 0;
+				size_type	i = 0;
 				pointer	new_start;
 
+				elem_count = 0;
 				new_start = this->alloc.allocate(n);
 				while (i < this->size())
+				{
 					this->alloc.construct(new_start, start + i++);
+					elem_count++;
+				}
 				clear_container();
 				deallocate_container();
 				start = new_start;
+				this->max = n;
 			};
 
 	//
@@ -296,13 +301,47 @@ namespace ft
 				}
 				else
 				{
+					int	i = this->size();
 					realloc(n);
+					while (i < this->max)
+					{
+						alloc.construct(start + i++, val);
+						elem_count++;
+					}
 				}
 			};
 
 	//
 	//---CAPACITY FUNCTIONS END
-		
+	
+	//---MODIFIERS START
+	//
+
+	/*	template<typename InputIterator>
+	void	assign(InputIterator first, InputIterator last)
+		{
+			(void)first;
+			(void)last;
+		};*/
+
+		void	assign(size_type n, const value_type &val)
+		{
+			size_type	i = 0;
+
+			clear_container();
+			realloc(n);
+			std::cout << "intern test : " <<  max << std::endl;
+			while (i < max)
+			{
+				std::cout << "intern test : " <<  start + i << std::endl;
+				alloc.construct(start + i++, val);
+				elem_count++;
+			}
+		};
+
+	//
+	//---MODIFIERS END
+	
 		private :
 			allocator_type	alloc;
 			pointer		start;
