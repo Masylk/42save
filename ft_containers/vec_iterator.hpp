@@ -4,10 +4,13 @@
 # include <iostream>
 # include <iterator>
 
+namespace ft
+{
+template<typename T>
 class	IteratorVec : public std::iterator<std::random_access_iterator_tag, int>
 {
 	public :
-		IteratorVec(int *x) : i(x) {};
+		IteratorVec(T *x) : i(x) {};
 		IteratorVec(const IteratorVec &cpy) : i(cpy.i) {};
 		~IteratorVec() {};
 
@@ -34,7 +37,7 @@ class	IteratorVec : public std::iterator<std::random_access_iterator_tag, int>
 		};
 
 	private :
-			int	*i;
+			T	*i;
 };
-
+}
 #endif
