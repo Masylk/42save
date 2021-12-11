@@ -43,7 +43,6 @@ namespace ft
 
 	//---MEMBER TYPES START
 	//
-	
 			typedef Alloc										allocator_type;
 			typedef size_t										size_type;
 			typedef typename allocator_type::reference 			reference;
@@ -155,17 +154,17 @@ namespace ft
 			void		realloc(size_type n)
 			{
 				size_type	i = 0;
-				pointer	new_start;
+				pointer		new_start;
 
-				elem_count = 0;
 				new_start = this->alloc.allocate(n);
+				
 				while (i < this->size())
 				{
-					this->alloc.construct(new_start, start + i++);
-					elem_count++;
+					this->alloc.construct(new_start, *(start + i++));
 				}
 				clear_container();
 				deallocate_container();
+				this->elem_count = i;
 				start = new_start;
 				this->max = n;
 			};
@@ -279,7 +278,7 @@ namespace ft
 			void		reserve(size_type n)
 			{
 				if (n > this->capacity())
-					realloc();
+					realloc(n);
 			};
 		
 	//resize to fit size
@@ -295,13 +294,13 @@ namespace ft
 			{
 				if (n < this->size())
 				{
-					int i = n;
+					size_type	i = n;
 					while (i < this->size())
 						this->alloc.destroy(start + i++);
 				}
 				else
 				{
-					int	i = this->size();
+					size_type	i = this->size();
 					realloc(n);
 					while (i < this->max)
 					{
@@ -317,6 +316,7 @@ namespace ft
 	//---MODIFIERS START
 	//
 
+	//----TODO
 	/*	template<typename InputIterator>
 	void	assign(InputIterator first, InputIterator last)
 		{
@@ -330,15 +330,24 @@ namespace ft
 
 			clear_container();
 			realloc(n);
-			std::cout << "intern test : " <<  max << std::endl;
 			while (i < max)
 			{
-				std::cout << "intern test : " <<  start + i << std::endl;
 				alloc.construct(start + i++, val);
 				elem_count++;
 			}
 		};
 
+		void	push_back(const value_type &val)
+		{
+
+			if (this->size() == this->max)
+			{
+				reserve(this->max + 2);
+			std::cout << "capacity : " << this->capacity() << std::endl;
+			}
+			*(start + this->size()) = val;
+			elem_count++;
+		};
 	//
 	//---MODIFIERS END
 	
