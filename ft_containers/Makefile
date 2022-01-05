@@ -22,7 +22,7 @@ PATHS= $(OBJDIR)/srcs
 
 SRC=main.cpp
 
-INCFLAGS=-I.
+INCFLAGS=-I. -I./utils -I./containers -I./iterators
 
 RM=rm -rf
 

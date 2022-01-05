@@ -21,15 +21,14 @@ int	main()
 {
 	ft::vector<int>	o;
 	ft::vector<int>	v;
-	int	tab[] = {1, 2, 3};
-	(void)tab;
+
 	std::cout << "creation : " << std::endl;
 	print_vec(o);
 	std::cout << "--------------------------------" << std::endl;
-	o.assign(7, 3);
+	o.assign(5, 1);
 	std::cout << "assign : " << std::endl;
 	print_vec(o);
-/*	std::cout << "--------------------------------" << std::endl;
+	std::cout << "--------------------------------" << std::endl;
 	o.push_back(223);	
 	std::cout << "push_back : " << std::endl;
 	print_vec(o);
@@ -45,24 +44,7 @@ int	main()
 	o.swap(v);
 	std::cout << "swap back : " << std::endl;
 	print_vec(o);
-*/
 	std::cout << "--------------------------------" << std::endl;
-	
 	ft::IteratorVec<int> b = o.begin();
 	std::cout << "begin : " << *b << std::endl;
-	
-	std::cout << "--------------------------------" << std::endl;
-	std::cout << "assign to v : " << std::endl;
-	v.assign(o.begin(), o.end());
-	std::cout << "---V--- : " << std::endl;
-	print_vec(v);
-	std::cout << "---O--- : " << std::endl;
-	print_vec(o);
-
-	std::cout << "--------------------------------" << std::endl;
-	
-//	ft::IteratorVec<int> b = o.begin();
-	std::cout << "begin : " << *b << std::endl;
-	
-
 }

@@ -4,12 +4,8 @@
 # include <iostream>
 # include <stdexcept>
 # include "vec_iterator.hpp"
-//add un fichier pour chaque categorie :
-//# include "iterators.hpp"
-//# include "capacity.hpp"
-//# include "modifiers.hpp"
-//# include "access.hpp"
-
+# include "iterator.hpp"
+# include "template.hpp"
 
 //allocator doc :
 //
@@ -43,17 +39,19 @@ namespace ft
 
 	//---MEMBER TYPES START
 	//
+	//Container and alloc Types
 			typedef Alloc										allocator_type;
 			typedef size_t										size_type;
 			typedef typename allocator_type::reference 			reference;
 			typedef typename allocator_type::const_reference	const_reference;
 			typedef typename allocator_type::pointer			pointer;
 			typedef T							value_type;
-			typedef ft::IteratorVec<value_type>	iterator;
-		//const_iterator
+	//Iterator Types
+			typedef ft::IteratorVec<value_type>				iterator;
+			typedef const ft::IteratorVec<value_type>			const_iterator;
 		//reverse_iterator
 		//const_reverse_iterator
-		//difference_type : voir au moment des iterator
+			typedef typename ft::iterator_traits<iterator>::difference_type	difference_type;
 
 	//
 	//---MEMBER TYPES END
@@ -127,8 +125,8 @@ namespace ft
 	//---ITERATORS START
 	//
 	
-			iterator	begin(){return start;};
-			iterator	end(){return start + max;};
+			iterator	begin() const {return start;};
+			iterator	end() const {return start + max;};
 			//operator= : copy rhs container elements into this container (deleting the previous ones)
 	
 	//
@@ -160,7 +158,8 @@ namespace ft
 				
 				while (i < this->size())
 				{
-					this->alloc.construct(new_start, *(start + i++));
+					this->alloc.construct((new_start + i), *(start + i));
+					i++;
 				}
 				clear_container();
 				deallocate_container();
@@ -296,7 +295,10 @@ namespace ft
 				{
 					size_type	i = n;
 					while (i < this->size())
+					{
 						this->alloc.destroy(start + i++);
+						elem_count--;
+					}
 				}
 				else
 				{
@@ -317,12 +319,22 @@ namespace ft
 	//
 
 	//----TODO
-	/*	template<typename InputIterator>
-	void	assign(InputIterator first, InputIterator last)
+	template<typename InputIterator>
+		void	assign(InputIterator first, InputIterator last,
+				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL)
 		{
-			(void)first;
-			(void)last;
-		};*/
+			size_type	i = 0;
+			size_type	size = last - first;
+			
+			//std::cout << isIterator<InputIterator>() << std::endl;
+			clear_container();
+			realloc(size);
+			while (i < size)
+			{
+				alloc.construct(start + i++, *(first++));
+				elem_count++;
+			}
+		};
 
 		void	assign(size_type n, const value_type &val)
 		{
@@ -337,16 +349,59 @@ namespace ft
 			}
 		};
 
+
+		void	clear()
+		{
+			clear_container();
+		};
+
+	
+		iterator	insert(iterator position, const value_type &val)
+		{
+			(void)val;
+			return position;
+		};
+
+		void	insert(iterator position, size_type n, const value_type &val)
+		{
+			(void)position, n, val;
+		}
+
+		template<typename InputIterator>
+		void	insert(iterator position, InputIterator first, InputIterator last)
+		{
+			(void)position, first, last;
+		}
 		void	push_back(const value_type &val)
 		{
 
 			if (this->size() == this->max)
-			{
 				reserve(this->max + 2);
-			std::cout << "capacity : " << this->capacity() << std::endl;
-			}
-			*(start + this->size()) = val;
+			alloc.construct(start + this->size(), val);
 			elem_count++;
+		};
+
+		void	pop_back()
+		{
+			alloc.destroy(start + this->size());
+			elem_count--;	
+		};
+
+		void	swap(vector &x)
+		{
+			pointer		tmp;
+			size_type	t_elem_count;
+			size_type	t_max;
+
+			tmp = start;
+			t_elem_count = elem_count;
+			t_max = max;
+			start = x.start;
+			elem_count = x.elem_count;
+			max = x.max;
+			x.max = t_max;
+			x.elem_count = t_elem_count;
+			x.start = tmp;
 		};
 	//
 	//---MODIFIERS END
