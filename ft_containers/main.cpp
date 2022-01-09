@@ -19,12 +19,14 @@ void	print_vec(ft::vector<T, A> const &v)
 
 int	main()
 {
-	ft::vector<int>	o;
-	ft::vector<int>	v;
-	int	tab[] = {1, 2, 3};
+	int	tab[] = {1, 2};
+	ft::vector<int>	o(tab, tab + 2);
+	ft::vector<int>	v(o);
+
 	(void)tab;
 	std::cout << "creation : " << std::endl;
 	print_vec(o);
+	print_vec(v);
 	std::cout << "--------------------------------" << std::endl;
 	o.assign(7, 3);
 	std::cout << "assign : " << std::endl;
@@ -50,10 +52,10 @@ int	main()
 	
 	ft::IteratorVec<int> b = o.begin();
 	std::cout << "begin : " << *b << std::endl;
-	
 	std::cout << "--------------------------------" << std::endl;
 	std::cout << "assign to v : " << std::endl;
-	v.assign(o.begin(), o.end());
+	v.assign(tab, tab + 1);
+	v.insert(v.begin(), tab, tab + 2);
 	std::cout << "---V--- : " << std::endl;
 	print_vec(v);
 	std::cout << "---O--- : " << std::endl;

@@ -75,11 +75,11 @@ namespace ft
 			explicit vector (size_type n, const value_type& val = value_type(), const allocator_type &alloc = allocator_type())
 			{
 				this->alloc = alloc;
-				start = this->alloc.allocate(n);
+				start = alloc.allocate(n);
 				max = 0;
 				while (n)
 				{
-					this->alloc.construct(start + max, val);
+					alloc.construct(start + max, val);
 					max++;
 					n--;
 				}
@@ -91,27 +91,16 @@ namespace ft
 	//with each element constructed from its corresponding element in that range in the same orde
 			
 			template <typename InputIterator>
-			explicit vector (InputIterator first, InputIterator last,
-				const allocator_type &alloc = allocator_type(),
-				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL)
+			vector (InputIterator first, InputIterator last, const allocator_type &alloc = allocator_type())
 			{
-				size_type	i = 1;
-				InputIterator	tmp = first;
-
-				this->alloc = alloc;
-				while (tmp != last)
-				{
-					tmp++;
-					i++;
-				}
 			//	difference_type n = distance(first, last);
-				start = this->alloc.allocate(i);
+			//	start = alloc.allocate(n);
 				max = 0;
 				elem_count = 0;
 				this->alloc = alloc;
 				while (first != last)
 				{
-					this->alloc.construct(start + max, *first);
+					alloc.construct(start + max, *first);
 					first++;
 					max++;
 					elem_count++;
@@ -123,30 +112,16 @@ namespace ft
 	//the container keeps an internal copy of alloc
 	//the copy constructor creates a container that keeps and uses a copy of x allocator
 			
-			vector(const vector &cpy)
-			{
-				this->alloc = cpy.alloc;
-				start = this->alloc.allocate(cpy.capacity());
-				elem_count = 0;
-				max = 0;
-				insert(begin(), cpy.begin(), cpy.end());	
-			};
+			vector(const vector &cpy);
 			
 	//destructor
 	//deallocate container and destroy its elements
 	
 			~vector()
 			{
-				clear();
-				alloc.deallocate(start, capacity());
-				std::cout << "Destructor called !" << std::endl;
 			};
 				
-		
-			allocator_type	get_allocator() const
-			{
-				return this->alloc;
-			};	
+			
 	//---ITERATORS START
 	//
 	
@@ -429,73 +404,24 @@ namespace ft
 
 		iterator	insert(iterator position, const value_type &val)
 		{
-			T	tmp;
-			size_type	pos = position - begin();
-
-			tmp = *position;
+			(void)val;
 			realloc(elem_count + 1);
-			*(start + pos) = val;
-			pos++;
-
-			T	swp;
-			while (pos < max)
-			{
-				swp = *(start + pos);
-				*(start + pos) = tmp;
-				tmp = swp;
-				pos++;
-			}
-			elem_count++;
+			T	tmp;
+			
+			tmp = *position;
+			*(start + &(*position)) = val;
 			return position;
 		};
 
 		void	insert(iterator position, size_type n, const value_type &val)
 		{
-			ft::vector<T>		tmp;
-			size_type		pos = position - begin();
-
-			tmp.assign(&(*begin()) + pos, &(*end()));
-			realloc(elem_count + n);
-			for (size_type i = 0; i < n; i++)
-			{
-				*(start + pos) = val;
-				pos++;
-			}
-			int	i = 0;
-			while (pos < max)
-			{
-				*(start + pos) = *(&(*tmp.begin()) + i);
-				i++;
-				pos++;
-			}
-			tmp.clear_container();
-			elem_count += n;
+			(void)position, n, val;
 		};
 
 		template<typename InputIterator>
-		void	insert(iterator position, InputIterator first, InputIterator last,
-				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL)
+		void	insert(iterator position, InputIterator first, InputIterator last)
 		{
-			ft::vector<T>		tmp;
-			size_type		pos = position - begin();
-			difference_type		range = last - first;
-
-			tmp.assign(&(*begin()) + pos, &(*end()));
-			realloc(elem_count + range);
-			while (first != last)
-			{
-				*(start + pos) = *(first)++;
-				pos++;
-			}
-			int	i = 0;
-			while (pos < max)
-			{
-				*(start + pos) = *(&(*tmp.begin()) + i);
-				i++;
-				pos++;
-			}
-			tmp.clear_container();
-			elem_count += range;
+			(void)position, first, last;
 		};
 
 		void	push_back(const value_type &val)
