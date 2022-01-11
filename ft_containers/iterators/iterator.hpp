@@ -4,10 +4,10 @@
 # include <iterator>
 # include <cstddef>
 # include <typeinfo>
+# include <vec_iterator.hpp>
 
 namespace ft
 {
-
 template<typename Category, typename T, typename Distance = ptrdiff_t,
 	typename Pointer = T*, typename Reference = T&>
 	class iterator
@@ -51,6 +51,14 @@ template<typename IteratorT>
 			return true;
 		return false;
 	};
+
+	template<typename InputIterator>
+	typename ft::iterator_traits<InputIterator>::difference_type
+	distance(InputIterator first, InputIterator last)
+	{
+		return (last - first);
+	};
+
 }
 
 #endif

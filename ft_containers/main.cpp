@@ -21,11 +21,12 @@ int	main()
 {
 	int	tab[] = {1, 2};
 	ft::vector<int>	o(tab, tab + 2);
-	ft::vector<int>	v(o);
+	ft::vector<int>	v;
 
 	(void)tab;
 	std::cout << "creation : " << std::endl;
 	print_vec(o);
+	v = o;
 	print_vec(v);
 	std::cout << "--------------------------------" << std::endl;
 	o.assign(7, 3);

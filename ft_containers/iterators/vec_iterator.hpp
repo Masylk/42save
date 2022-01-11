@@ -19,12 +19,21 @@ class	IteratorVec : public ft::iterator<ft::random_access_iterator_tag, int>
 		IteratorVec(const IteratorVec &cpy) : i(cpy.i) {};
 		~IteratorVec() {};
 
+		//---OPERATORS START
+		//
+
+		IteratorVec	&operator=(const IteratorVec &cpy)
+		{
+			if (cpy == *this)
+				return (*this);
+			this->i = cpy.i;
+			return (*this);
+		};
 		IteratorVec	&operator++() 
 		{
 			++i;
 			return *this;
 		}
-
 		IteratorVec	operator++(int)
 		{
 			IteratorVec	tmp(*this);
@@ -35,7 +44,7 @@ class	IteratorVec : public ft::iterator<ft::random_access_iterator_tag, int>
 		IteratorVec	operator--()
 		{	
 			++i;
-			return *this;
+			return (*this);
 		}
 		IteratorVec	operator--(int)
 		{
@@ -44,18 +53,38 @@ class	IteratorVec : public ft::iterator<ft::random_access_iterator_tag, int>
 			++i;
 			return (tmp);
 		}
-
-		bool	operator==(const IteratorVec &rhs) const{
-			return rhs.i == i;
+		IteratorVec	operator+(difference_type n) const
+		{
+			return (i + n);
 		};
-		bool	operator!=(const IteratorVec &rhs) const{
-			return rhs.i != i;
+		reference	operator[](difference_type n)
+		{
+			return (*(i + n));
+		};
+		IteratorVec	&operator+=(difference_type n)
+		{
+			i += n;
+			return (*this);
+		};
+		IteratorVec	&operator-=(difference_type n)
+		{
+			i -= n;
+			return (*this);
 		};
 		int		&operator*(){
-			return *i;
+			return (*i);
 		};
+		pointer		operator->(void)
+		{
+			return (i);
+		}
+		
+		//
+		//---OPERATORS END
 
+		//---GETTER
 		pointer	base() const{return this->i;};
+	
 	private :
 			T	*i;
 };
@@ -65,7 +94,50 @@ class	IteratorVec : public ft::iterator<ft::random_access_iterator_tag, int>
 	operator-(const ft::IteratorVec<T> lhs, const ft::IteratorVec<T> rhs)
 	{
 		return (lhs.base() - rhs.base());
-	}
+	};
+
+	template<typename T>
+	bool	operator>(const ft::IteratorVec<T> lhs, const ft::IteratorVec<T> rhs)
+	{
+		return (lhs.base() > rhs.base());
+	};
+
+
+	template<typename T>
+	bool	 operator>=(const ft::IteratorVec<T> lhs, const ft::IteratorVec<T> rhs)
+	{
+		return (lhs.base() >= rhs.base());
+	};
+
+	template<typename T>
+	bool 	operator<(const ft::IteratorVec<T> lhs, const ft::IteratorVec<T> rhs)
+	{
+		return (lhs.base() < rhs.base());
+	};
+
+	template<typename T>
+	bool	operator<=(const ft::IteratorVec<T> lhs, const ft::IteratorVec<T> rhs)
+	{
+		return (lhs.base() <= rhs.base());
+	};
+
+	
+	template<typename T>
+	bool	operator==(const ft::IteratorVec<T> lhs, const ft::IteratorVec<T> rhs){
+			return rhs.base() == lhs.base();
+	};
+	
+	template<typename T>
+	bool	operator!=(const ft::IteratorVec<T> lhs, const ft::IteratorVec<T> rhs){
+			return rhs.base() != lhs.base();
+	};
+
+	template<typename T>
+	typename ft::IteratorVec<T>::difference_type	
+	operator+(typename ft::IteratorVec<T>::difference_type i, typename ft::IteratorVec<T> rhs)
+	{
+		return (&(*rhs) + i);
+	};
 
 }
 #endif
