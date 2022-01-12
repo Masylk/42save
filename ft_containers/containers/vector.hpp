@@ -3,7 +3,8 @@
 
 # include <iostream>
 # include <stdexcept>
-# include "vec_iterator.hpp"
+# include "random_access.hpp"
+# include "reverse.hpp"
 # include "iterator.hpp"
 # include "template.hpp"
 
@@ -47,11 +48,11 @@ namespace ft
 			typedef typename allocator_type::pointer			pointer;
 			typedef T							value_type;
 	//Iterator Types
-			typedef ft::IteratorVec<value_type>				iterator;
-			typedef const ft::IteratorVec<value_type>			const_iterator;
-		//reverse_iterator
-		//const_reverse_iterator
-			typedef typename ft::iterator_traits<iterator>::difference_type	difference_type;
+			typedef ft::random_access_iterator<value_type>				iterator;
+			typedef const ft::random_access_iterator<value_type>			const_iterator;
+			typedef ft::reverse_iterator<value_type>				reverse_iterator;
+			typedef const ft::reverse_iterator<value_type>				const_reverse_iterator;
+			typedef typename ft::iterator_traits<iterator>::difference_type		difference_type;
 
 	//
 	//---MEMBER TYPES END
@@ -150,14 +151,37 @@ namespace ft
 	//---ITERATORS START
 	//
 	
-			iterator	begin() const {return start;};
-			iterator	end() const {
+			iterator		begin(void) {return (start);};
+			
+			const_iterator		cbegin(void) const {return (start);};
+			
+			iterator		end(void) {
 				if (this->empty())
 				{
 					return (this->begin());
 				}
-				return start + elem_count;
+				return (start + elem_count);
 			};
+			
+			const_iterator		cend(void) const {
+				if (this->empty())
+					return (start);
+				return (start + elem_count);
+			};
+			
+			reverse_iterator	rbegin(void) const {
+				if (this->empty())
+					return (rend());
+				return (start + elem_count);
+			};
+
+			const_reverse_iterator	crbegin(void) const {return (begin());};
+			
+			reverse_iterator	rend(void) const {
+				return (start);
+			};
+			
+			const_reverse_iterator	crend(void) const {return (rend());};
 			//operator= : copy rhs container elements into this container (deleting the previous ones)
 
 	//
@@ -172,7 +196,7 @@ namespace ft
 				if (*this == rhs)
 					return (*this);
 				clear();
-				insert(begin(), rhs.begin(), rhs.end());
+				insert(cbegin(), rhs.cbegin(), rhs.cend());
 				return (*this);
 			};
 
@@ -568,9 +592,9 @@ namespace ft
 			if (lhs.size() != rhs.size())
 				return (false);
 			typename ft::vector<T, Alloc>::size_type	i = 0;
-			while (&(*lhs.begin()) + i != &(*lhs.end()))
+			while (lhs.cbegin() + i != lhs.cend())
 			{
-				if (&(*rhs.begin()) + i == &(*rhs.end()) || *(&(*lhs.begin()) + i) != *(&(*rhs.begin()) + i)) 
+				if (rhs.cbegin() + i == rhs.cend() || *(lhs.cbegin() + i) != *(rhs.cbegin() + i)) 
 					return (false);
 				i++;
 			}
@@ -581,11 +605,11 @@ namespace ft
 		bool	operator<(const ft::vector<T, Alloc> &lhs, const ft::vector<T, Alloc> &rhs)
 		{
 			typename ft::vector<T, Alloc>::size_type	i = 0;
-			while (&(*lhs.begin()) + i != &(*lhs.end()))
+			while (lhs.begin() + i != lhs.end())
 			{
-				if (*(&(*lhs.begin()) + i) < *(&(*rhs.begin()) + i))
+				if (*(lhs.cbegin() + i) < *(rhs.cbegin() + i))
 				       return (true);
-				if (&(*rhs.begin()) + i == &(*rhs.end()) || *(&(*rhs.begin()) + i) < *(&(*lhs.begin()) + i))
+				if (rhs.cbegin() + i == rhs.cend() || *(rhs.cbegin() + i) < *(lhs.cbegin() + i))
 					return (false);
 				i++;
 			}

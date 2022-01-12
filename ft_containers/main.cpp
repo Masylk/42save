@@ -4,14 +4,14 @@
 template<typename T, typename A>
 void	print_vec(ft::vector<T, A> const &v)
 {
-	typename ft::vector<T>::iterator	it = v.begin();
+	typename ft::vector<T>::iterator	it = v.cbegin();
 	
 	std::cout << "vector size : " << v.size() << std::endl;
 	std::cout << "vector content: " << std::endl;
-	while (it != v.end())
+	while (it != v.cend())
 	{
 		std::cout << *(it++);
-		if (it != v.end())
+		if (it != v.cend())
 			std::cout << ", ";
 	}
 	std::cout << std::endl;
@@ -51,8 +51,11 @@ int	main()
 */
 	std::cout << "--------------------------------" << std::endl;
 	
-	ft::IteratorVec<int> b = o.begin();
+	ft::random_access_iterator<int> b = v.begin();
+	ft::reverse_iterator<int> d = v.rbegin();
+	(void)d;
 	std::cout << "begin : " << *b << std::endl;
+	std::cout << "rbegin : " << *d << std::endl;
 	std::cout << "--------------------------------" << std::endl;
 	std::cout << "assign to v : " << std::endl;
 	v.assign(tab, tab + 1);
@@ -64,7 +67,7 @@ int	main()
 
 	std::cout << "--------------------------------" << std::endl;
 	
-//	ft::IteratorVec<int> b = o.begin();
+//	ft::random_access_iterator<int> b = o.begin();
 	std::cout << "begin : " << *b << std::endl;
 	
 
