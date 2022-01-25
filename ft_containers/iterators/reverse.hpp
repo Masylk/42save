@@ -8,14 +8,25 @@
 namespace ft
 {
 template<typename T>
-class	reverse_iterator : public ft::iterator<ft::random_access_iterator_tag, int>
+class	reverse_iterator
 {
 	public :
-		
+	
+		typedef	T	iterator_type;
+		typedef typename ft::iterator_traits<T>::iterator_category	iterator_category;
+		typedef typename ft::iterator_traits<T>::value_type	value_type;
+		typedef typename ft::iterator_traits<T>::difference_type	difference_type;
+		typedef typename ft::iterator_traits<T>::pointer	pointer;
+		typedef typename ft::iterator_traits<T>::reference	reference;
+
 		reverse_iterator() : i(NULL) {};
-		reverse_iterator(T *x) : i(x) {};
-		reverse_iterator(const reverse_iterator &cpy) : i(cpy.i) {};
-		~reverse_iterator() {};
+		reverse_iterator(iterator_type x) : i(x) {};
+		
+		template <typename Iterator>
+		reverse_iterator(const reverse_iterator<Iterator> &cpy) : i(cpy.base()) 
+		{};
+		
+		virtual ~reverse_iterator() {};
 
 		//---OPERATORS START
 		//
@@ -69,10 +80,11 @@ class	reverse_iterator : public ft::iterator<ft::random_access_iterator_tag, int
 			i += n;
 			return (*this);
 		};
-		int		&operator*(){
-			return (*(i - 1));
+		reference	operator*(){
+			iterator_type	tmp = i;
+			return (*(--tmp));
 		};
-		pointer		operator->(void)
+		pointer		operator->(void) const
 		{
 			return (i);
 		}
@@ -81,10 +93,10 @@ class	reverse_iterator : public ft::iterator<ft::random_access_iterator_tag, int
 		//---OPERATORS END
 
 		//---GETTER
-		pointer	base() const{return this->i;};
+		iterator_type	base() const{return this->i;};
 	
 	private :
-			T	*i;
+			iterator_type	i;
 };
 	
 	template<typename T>

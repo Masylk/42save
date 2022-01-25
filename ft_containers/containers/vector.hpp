@@ -49,9 +49,9 @@ namespace ft
 			typedef T							value_type;
 	//Iterator Types
 			typedef ft::random_access_iterator<value_type>				iterator;
-			typedef const ft::random_access_iterator<value_type>			const_iterator;
-			typedef ft::reverse_iterator<value_type>				reverse_iterator;
-			typedef const ft::reverse_iterator<value_type>				const_reverse_iterator;
+			typedef ft::random_access_iterator<const value_type>			const_iterator;
+			typedef ft::reverse_iterator<iterator>				reverse_iterator;
+			typedef ft::reverse_iterator<const_iterator>				const_reverse_iterator;
 			typedef typename ft::iterator_traits<iterator>::difference_type		difference_type;
 
 	//
@@ -153,7 +153,7 @@ namespace ft
 	
 			iterator		begin(void) {return (start);};
 			
-			const_iterator		cbegin(void) const {return (start);};
+			const_iterator		begin(void) const {return (start);};
 			
 			iterator		end(void) {
 				if (this->empty())
@@ -163,25 +163,31 @@ namespace ft
 				return (start + elem_count);
 			};
 			
-			const_iterator		cend(void) const {
+			const_iterator		end(void) const {
 				if (this->empty())
 					return (start);
 				return (start + elem_count);
 			};
 			
-			reverse_iterator	rbegin(void) const {
+			reverse_iterator	rbegin(void) {
 				if (this->empty())
 					return (rend());
-				return (start + elem_count);
+				return (reverse_iterator(start + elem_count));
 			};
 
-			const_reverse_iterator	crbegin(void) const {return (begin());};
-			
-			reverse_iterator	rend(void) const {
-				return (start);
+			const_reverse_iterator	rbegin(void) const {
+				if (this->empty())
+					return (rend());
+				return (reverse_iterator(start + elem_count));
 			};
 			
-			const_reverse_iterator	crend(void) const {return (rend());};
+			reverse_iterator	rend(void) {
+				return (reverse_iterator(start));
+			};
+			
+			const_reverse_iterator	rend(void) const {
+				return (reverse_iterator(start));
+			};
 			//operator= : copy rhs container elements into this container (deleting the previous ones)
 
 	//
@@ -196,7 +202,7 @@ namespace ft
 				if (*this == rhs)
 					return (*this);
 				clear();
-				insert(cbegin(), rhs.cbegin(), rhs.cend());
+				insert(begin(), rhs.begin(), rhs.end());
 				return (*this);
 			};
 
@@ -592,9 +598,9 @@ namespace ft
 			if (lhs.size() != rhs.size())
 				return (false);
 			typename ft::vector<T, Alloc>::size_type	i = 0;
-			while (lhs.cbegin() + i != lhs.cend())
+			while (lhs.begin() + i != lhs.end())
 			{
-				if (rhs.cbegin() + i == rhs.cend() || *(lhs.cbegin() + i) != *(rhs.cbegin() + i)) 
+				if (rhs.begin() + i == rhs.end() || *(lhs.begin() + i) != *(rhs.begin() + i)) 
 					return (false);
 				i++;
 			}
@@ -607,9 +613,9 @@ namespace ft
 			typename ft::vector<T, Alloc>::size_type	i = 0;
 			while (lhs.begin() + i != lhs.end())
 			{
-				if (*(lhs.cbegin() + i) < *(rhs.cbegin() + i))
+				if (*(lhs.begin() + i) < *(rhs.begin() + i))
 				       return (true);
-				if (rhs.cbegin() + i == rhs.cend() || *(rhs.cbegin() + i) < *(lhs.cbegin() + i))
+				if (rhs.begin() + i == rhs.end() || *(rhs.begin() + i) < *(lhs.begin() + i))
 					return (false);
 				i++;
 			}
