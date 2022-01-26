@@ -30,6 +30,9 @@ int	main()
 	(void)m;	
 	(void)pair;
 	(void)tab;
+	
+	std::cout << "Iterator begin test : " << m.rbegin()->second << std::endl;
+	std::cout << "Iterator begin test : " << m.rend()->second << std::endl;
 	std::cout << "creation : " << std::endl;
 	print_vec(o);
 	v = o;

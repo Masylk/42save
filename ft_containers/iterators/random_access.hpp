@@ -79,7 +79,7 @@ class	random_access_iterator : public ft::iterator<ft::random_access_iterator_ta
 		reference	operator*() const{
 			return (*i);
 		};
-		pointer		operator->(void)
+		pointer		operator->(void) const
 		{
 			return (i);
 		}

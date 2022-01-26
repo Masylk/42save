@@ -13,6 +13,7 @@ class	map_iterator : public ft::iterator<ft::bidirectional_iterator_tag, int>
 	public :
 		
 		typedef typename T::value_type									value_type;
+		typedef Comp										Compare;
 		typedef typename ft::iterator<ft::bidirectional_iterator_tag, value_type>::iterator_category	iterator_category;
 
 		typedef typename ft::iterator<ft::bidirectional_iterator_tag, value_type>::difference_type	difference_type;
@@ -48,7 +49,7 @@ class	map_iterator : public ft::iterator<ft::bidirectional_iterator_tag, int>
 			return (tmp);
 		}
 		map_iterator	operator--()
-		{	
+		{
 			i = i->prev;
 			return (*this);
 		}
@@ -62,7 +63,7 @@ class	map_iterator : public ft::iterator<ft::bidirectional_iterator_tag, int>
 		reference	operator*() const{
 			return (i->value);
 		};
-		pointer		operator->(void)
+		pointer		operator->(void) const
 		{
 			return (&(i->value));
 		}

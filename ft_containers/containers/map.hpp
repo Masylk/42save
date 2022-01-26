@@ -6,6 +6,7 @@
 # include "reverse.hpp"
 # include "less.hpp"
 # include "maplist.hpp"
+# include "reverse_map.hpp"
 
 namespace ft
 {
@@ -28,7 +29,7 @@ namespace ft
 		typedef typename allocator_type::const_pointer			const_pointer;
 		typedef typename ft::maplist<value_type, Compare>::iterator	iterator;
 		typedef const iterator						const_iterator;
-		typedef ft::reverse_iterator<iterator>				reverse_iterator;
+		typedef ft::reverse_iterator_map<iterator>			reverse_iterator;
 		typedef const reverse_iterator					const_reverse_iterator;
 		typedef ptrdiff_t						difference_type;
 		typedef size_t							size_type;
@@ -90,6 +91,51 @@ namespace ft
 		//
 		//---CONSTRUCTORS END
 	
+		//---ITERATORS START
+		//
+			iterator	begin()
+			{
+				return (iterator(container.head));
+			};
+
+			const_iterator	begin() const
+			{
+				return (const_iterator(container.head));
+			};
+
+			iterator	end()
+			{
+				return (iterator(container.get_last_node()));
+			}
+			
+			const_iterator	end() const
+			{
+				return (const_iterator(container.get_last_node()));
+			}
+
+			reverse_iterator	rbegin()
+			{
+				return (reverse_iterator(container.get_last_node_reverse()));
+			};
+			
+			const_reverse_iterator	rbegin() const
+			{
+				return (reverse_iterator(container.get_last_node_reverse()));
+			};
+
+			reverse_iterator	rend()
+			{
+				return (reverse_iterator(--begin()));
+			};
+
+			const_reverse_iterator	rend() const
+			{
+				return (reverse_iterator(--begin()));
+			};
+
+		//
+		//---ITERATORS END
+
 		private:
 
 		key_compare			compare;

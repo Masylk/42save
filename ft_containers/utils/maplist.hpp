@@ -25,12 +25,8 @@ namespace ft
 
 		};
 		
-		//return a pair
-		//ft::pair<iterator, bool>	insertPair(pair_type i)
 		ft::pair<iterator, bool>	insertPair(pair_type i)
 		{
-			//search if key already exist
-			//if it doesnt exist put it in order (lowest first)
 			Node	*tmp = head;
 
 			if (!tmp)
@@ -63,6 +59,23 @@ namespace ft
 			tmp->next->next = NULL;
 			aff_list();
 			return (ft::make_pair<iterator, bool>(iterator(tmp), true));
+		};
+
+		Node	*get_last_node()
+		{
+			Node	*tmp = head;
+			
+			while (tmp)
+				tmp = tmp->next;
+			return tmp;
+		};
+
+		Node	*get_last_node_reverse()
+		{
+			Node	*tmp = head;
+			while (tmp->next)
+				tmp = tmp->next;
+			return (tmp);
 		};
 
 		void	aff_list()
