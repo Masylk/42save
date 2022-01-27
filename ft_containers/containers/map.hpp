@@ -136,6 +136,104 @@ namespace ft
 		//
 		//---ITERATORS END
 
+		//---CAPACITY FUNCCTIONS START
+		//
+		
+			bool	empty() const
+			{
+				if (container.head)
+					return (true);
+				return (false);
+			};
+
+			size_type	size() const
+			{
+				return (container.size());
+			};
+
+			size_type	max_size() const
+			{
+				return (container.max_size());
+			};
+		//
+		//---CAPACITY FUNCTIONS END
+		
+		//---MODIFIERS FUNCTIONS START
+		//
+		
+			void	clear()
+			{
+				container.clear();
+			};
+
+			void	erase(iterator position)
+			{
+				container.erase(position->first);
+			};
+
+			size_type	erase(const key_type &k)
+			{
+				if (container.erase(k))
+					return (1);
+				return (0);
+			};
+
+			void	erase(iterator first, iterator last)
+			{
+				while (first != last)
+				{
+					erase(first++);
+				};
+			};
+			
+			void	swap(map &x)
+			{
+				container.swap(x.container);
+			};
+		//
+		//---MODIFIERS FUNCTIONS END
+	
+		//---OPERATIONS FUNCTIONS START
+		//
+			iterator	find(const key_type &k)
+			{
+				return (iterator(container.find(k)));
+			};
+
+			const_iterator	find(const key_type &k) const
+			{
+				return (const_iterator(container.find(k)));
+			};
+	
+			size_type	count(const key_type &k)
+			{
+				if (container.find(k) != NULL)
+					return (1);
+				return (0);
+			};	
+		
+			iterator	lower_bound(const key_type &k)
+			{
+				return (iterator(container.lower_bound(k)));
+			};
+
+			const_iterator	lower_bound(const key_type &k) const
+			{
+				return (const_iterator(container.lower_bound(k)));
+			};
+
+			iterator	upper_bound(const key_type &k)
+			{
+				return (iterator(container.upper_bound(k)));
+			};
+
+			const_iterator	upper_bound(const key_type &k) const
+			{
+				return (const_iterator(container.upper_bound(k)));
+			};	
+
+		//
+		//---OPERATIONS FUNCTIONS END	
 		private:
 
 		key_compare			compare;

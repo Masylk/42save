@@ -14,8 +14,12 @@ namespace ft
 	struct	maplist
 	{
 		typedef T				pair_type;
-		Node					*head;
+		typedef typename pair_type::first_type	key_type;
+		typedef typename pair_type::second_type	value_type;
 		typedef ft::map_iterator<Node, Compare> iterator;
+
+		//---PUBLIC VARIABLE
+		Node					*head;
 
 		maplist(const allocator &alloc = allocator()) : head(NULL), alloc_node(alloc)
 		{};
@@ -78,6 +82,77 @@ namespace ft
 			return (tmp);
 		};
 
+		int	size() const
+		{
+			Node	*tmp = head;
+			int	i = 0;
+
+			while (tmp)
+			{
+				tmp = tmp->next;
+				i++;
+			}
+			return (i);
+		};
+
+		int	max_size() const
+		{
+			return (alloc_node.max_size());
+		};
+
+		void	clear()
+		{
+			Node	*tmp;
+
+			while (head)
+			{
+				tmp = head;
+				head = head->next;
+				alloc_node.destroy(tmp);
+				alloc_node.deallocate(tmp, 1);
+			};
+		};
+
+		bool	erase(const key_type &key)
+		{
+			Node	*tmp = head;
+
+			while (tmp->value.first	!= key)
+			{
+				tmp = tmp->next;
+			}
+			if (tmp)
+			{
+				if (tmp->prev)
+					tmp->prev->next = tmp->next;
+				if (tmp->next)
+					tmp->next->prev = tmp->prev;
+				alloc_node.destroy(tmp);
+				alloc_node.deallocate(tmp, 1);
+				return (true);
+			}
+			return (false);
+		};
+
+		void	swap(maplist &x)
+		{
+			if (*this == x)
+				return ;
+
+			Node	*tmp = head;
+			head = x.head;
+			x.head = tmp;
+		};
+
+		Node	*find(const key_type &k)
+		{
+			Node	*tmp = head;
+
+			while (tmp->value.first != k)
+				tmp = tmp->next;
+			return (tmp);
+		};
+
 		void	aff_list()
 		{
 			Node	*tmp = head;
@@ -94,6 +169,33 @@ namespace ft
 			}
 			std::cout << std::endl;
 		}
+
+		Node	*upper_bound(const key_type &k)
+		{
+			Node	*tmp = head;
+
+			while	(tmp)
+			{	
+				if (tmp->value.first > k)
+					return (tmp);
+				tmp = tmp->next;
+			};
+			return (tmp);
+		};
+
+		Node	*lower_bound(const key_type &k)
+		{
+			Node	*tmp;
+
+			while (tmp)
+			{
+				if (tmp->value.first >= k)
+					return (tmp);
+				tmp = tmp->next;
+			}
+			return (tmp);
+		};
+
 		private :
 		allocator	alloc_node;
 	};
