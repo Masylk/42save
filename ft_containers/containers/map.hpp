@@ -82,12 +82,18 @@ namespace ft
 			compare(comp),
 			allocator(alloc)
 		{
-			//insert(first, last);
+			insert(first, last);
 		};
 
 		map(const map &x) : compare(x.compare), allocator(x.allocator)
-		{};
-		
+		{
+			insert(x.begin(), x.end());
+		};
+	
+		~map()
+		{
+			clear();
+		};	
 		//
 		//---CONSTRUCTORS END
 	
@@ -190,6 +196,26 @@ namespace ft
 			{
 				container.swap(x.container);
 			};
+
+			pair<iterator, bool>	insert(const value_type &val)
+			{
+				return (container.insertPair(val));
+			};
+
+			iterator	insert(iterator position, const value_type &val)
+			{
+				return (iterator(container.insertPair(val).first));
+			};
+
+			template<typename InputIterator>
+			void	insert(InputIterator first, InputIterator last,
+			typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL)
+			{
+				while (first != last)
+				{
+					insert(*(first++));
+				}
+			};
 		//
 		//---MODIFIERS FUNCTIONS END
 	
@@ -230,10 +256,53 @@ namespace ft
 			const_iterator	upper_bound(const key_type &k) const
 			{
 				return (const_iterator(container.upper_bound(k)));
+			};
+
+			ft::pair<iterator, iterator>	equal_range(const key_type &k)
+			{
+				return (ft::make_pair<iterator, iterator>(lower_bound(k), upper_bound(k)));
 			};	
 
+			ft::pair<const_iterator, const_iterator>	equal_range(const key_type &k) const
+			{
+				return (ft::make_pair<const_iterator, const_iterator>(lower_bound(k), upper_bound(k)));
+			};
 		//
 		//---OPERATIONS FUNCTIONS END	
+	
+		//---OBSERVERS FUNCTIONS START
+		//
+			
+			key_compare	key_comp() const
+			{
+				return (key_compare());
+			};
+
+			value_compare	value_comp() const
+			{
+				return (value_compare(key_compare()));
+			};
+			
+			allocator_type	get_allocator() const
+			{
+				return (allocator);
+			};	
+		//
+		//---OBSERVERS FUNCTIONS END
+
+		mapped_type	&operator[](const key_type &k)
+		{
+			return ((find(k))->second);
+		};
+
+		map	&operator=(const map &cpy)
+		{
+			if (*this == cpy)
+				return (*this);
+			clear();
+			insert(cpy.begin(), cpy.end());
+		};
+
 		private:
 
 		key_compare			compare;

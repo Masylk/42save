@@ -22,6 +22,13 @@ namespace ft
 
 		~list_node()
 		{};
+
+		list_node	&operator=(const list_node &cpy)
+		{
+			this->value = cpy.value;
+			this->next = cpy.next;
+			this->prev = cpy.prev;
+		};
 		
 	};
 }
