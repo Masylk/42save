@@ -5,7 +5,6 @@
 # include <stdexcept>
 # include "random_access.hpp"
 # include "reverse.hpp"
-# include "iterator.hpp"
 # include "template.hpp"
 
 //allocator doc :
@@ -105,10 +104,9 @@ namespace ft
 					tmp++;
 					i++;
 				}
-			//	difference_type n = distance(first, last);
-				start = this->alloc.allocate(i);
-				max = 0;
-				elem_count = 0;
+				this->start = this->alloc.allocate(i);
+				this->max = 0;
+				this->elem_count = 0;
 				this->alloc = alloc;
 				while (first != last)
 				{
@@ -140,7 +138,6 @@ namespace ft
 			{
 				clear();
 				alloc.deallocate(start, capacity());
-				std::cout << "Destructor called !" << std::endl;
 			};
 				
 		
@@ -148,12 +145,17 @@ namespace ft
 			{
 				return this->alloc;
 			};	
+
 	//---ITERATORS START
 	//
 	
-			iterator		begin(void) {return (start);};
+			const_iterator		begin(void) const {
+				return (start);
+			};
 			
-			const_iterator		begin(void) const {return (start);};
+			iterator		begin(void) {
+				return (start);
+			};
 			
 			iterator		end(void) {
 				if (this->empty())
@@ -225,7 +227,7 @@ namespace ft
 
 			void		deallocate_container()
 			{
-				this->alloc.deallocate(start, this->size());
+				this->alloc.deallocate(start, this->max);
 			}
 			
 			void		realloc(size_type n)
@@ -233,19 +235,35 @@ namespace ft
 				size_type	i = 0;
 				pointer		new_start;
 
-				new_start = this->alloc.allocate(n);
-				
-				while (i < this->size())
+				if (n < this->capacity())
+					new_start = this->alloc.allocate(this->capacity());
+				else
+					new_start = this->alloc.allocate(n);
+				if (n < this->size())
 				{
-					this->alloc.construct((new_start + i), *(start + i));
-					i++;
+					while (i < n)
+					{
+						this->alloc.construct((new_start + i), *(start + i));
+						i++;
+					}
+				}
+				else
+				{
+					while (i < this->size())
+					{
+						this->alloc.construct((new_start + i), *(start + i));
+						i++;
+					}
 				}
 				clear_container();
 				deallocate_container();
 				this->elem_count = i;
 				start = new_start;
 				container = start;
-				this->max = n;
+				if (n < this->capacity())
+					this->max = this->capacity();
+				else
+					this->max = n;
 			};
 
 	//
@@ -286,24 +304,24 @@ namespace ft
 	
 			reference	front()
 			{
-				return (start);
+				return (*start);
 			};
 
 			const_reference	front() const
 			{
-				return (start);
+				return (*start);
 			};
 	
 	//access last element
 	
 			reference	back()
 			{
-				return (start + this->size());
+				return (*(start + this->size() - 1));
 			};
 
 			const_reference	back() const
 			{
-				return (start + this->size());
+				return (*(start + this->size() - 1));
 			};
 	
 	//access container
@@ -373,12 +391,7 @@ namespace ft
 			{
 				if (n < this->size())
 				{
-					size_type	i = n;
-					while (i < this->size())
-					{
-						this->alloc.destroy(start + i++);
-						elem_count--;
-					}
+					realloc(n);
 				}
 				else
 				{
@@ -455,22 +468,25 @@ namespace ft
 
 		iterator	erase(iterator first, iterator last)
 		{
-			int		erased = 0;
-			size_type	pos = first - begin();
+			iterator	tmp = first;
+			size_type	erased = 0;
 			
-			while (&(*first) != &(*last) + 1 )
+			while (first != last)
 			{
-				alloc.destroy(&(*(first++)));
 				erased++;
+				alloc.destroy(&(*first++));
 			}
-			size_type	i = pos + 1;
-			while 	(i < elem_count)
+			(void)tmp;
+			size_type	pos = &(*(start + elem_count)) - &(*last);
+			size_type	i = 0;
+			while (i < pos)
 			{
-				alloc.construct(start + (i - erased), *(start + i));
+				alloc.construct(&(*tmp) + i, *(last + i));
 				alloc.destroy(&(*last) + i);
 				i++;
 			}
 			elem_count -= erased;
+			//REFAIRE LA FONCTION
 			return (&(*last) + 1);	
 		};
 
@@ -481,7 +497,10 @@ namespace ft
 			size_type	pos = position - begin();
 
 			tmp = *position;
-			realloc(elem_count + 1);
+			if (this->capacity())
+				realloc(elem_count * 2);
+			else
+				realloc(elem_count + 1);
 			*(start + pos) = val;
 			pos++;
 
@@ -550,7 +569,12 @@ namespace ft
 		{
 
 			if (this->size() == this->max)
-				reserve(this->max + 2);
+			{
+				if (this->max == 0)
+					reserve(this->max + 1);
+				else
+					reserve((this->max) * 2);
+			}
 			alloc.construct(start + this->size(), val);
 			elem_count++;
 		};
@@ -619,6 +643,7 @@ namespace ft
 					return (false);
 				i++;
 			}
+			return (lhs != rhs);
 		};
 		
 		template<typename T, typename Alloc>
@@ -645,6 +670,11 @@ namespace ft
 			return (!(lhs == rhs));
 		};
 
+		template<typename T, typename Alloc>
+		void	swap(ft::vector<T, Alloc> &x, ft::vector<T, Alloc> &y)
+		{
+			x.swap(y);
+		}
 	//
 	//--RELATIONAL OPERATORS END
 }

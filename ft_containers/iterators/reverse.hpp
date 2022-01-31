@@ -66,6 +66,10 @@ class	reverse_iterator
 		{
 			return (i - n);
 		};
+		reverse_iterator	operator-(difference_type n) const
+		{
+			return (i + n);
+		};
 		reference	operator[](difference_type n)
 		{
 			return (*(i - n));

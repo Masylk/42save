@@ -16,11 +16,11 @@ CC=g++
 
 OBJDIR = obj
 
-CFLAGS=-Wall -Wextra -Werror -std=c++98
+CFLAGS=-Wall -Wextra -Werror --std=c++98
 
 PATHS= $(OBJDIR)/srcs
 
-SRC=main.cpp
+SRC=main.cpp tester_vector.cpp tester.cpp
 
 INCFLAGS=-I. -I./utils -I./containers -I./iterators
 
