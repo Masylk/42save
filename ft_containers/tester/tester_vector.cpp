@@ -1,21 +1,9 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   tester_vector.cpp                                  :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rchallie <rchallie@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/27 17:54:42 by rchallie          #+#    #+#             */
-/*   Updated: 2020/12/08 19:14:23 by rchallie         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 # include <vector>
 # include <fstream>
 # include <string>
 
-# include "../containers/vector.hpp"
-# include "../containers/utils/random_access_iterator.hpp"
+# include "vector.hpp"
+# include "random_access.hpp"
 # include "tester.hpp"
 
 template <class T>
@@ -251,6 +239,7 @@ void test_vector()
         std::vector<int> stl_range_vector(stl_iterator, stl_iterator + 6);
         ft::vector<int> ft_range_vector(ft_iterator, ft_iterator + 6);
 
+    	std::cout << "OUI";
         fs.open("./tester/vectors_output/constructor_copy", std::fstream::in | std::fstream::out | std::fstream::trunc);
 
         std::vector<int> stl_copy_vector(stl_range_vector);
@@ -383,6 +372,7 @@ void test_vector()
         fs.close();
     }
 
+    
     /* Iterator end() */
     {
         int range_array[] = { 48, 967, 52, -45, -9, 956551, 44};
@@ -396,7 +386,7 @@ void test_vector()
         fs.open("./tester/vectors_output/iterator_end", std::fstream::in | std::fstream::out | std::fstream::trunc);
         
         int from_stl = *(stl_range_vector.end() - 1);
-        int from_ft = *(ft_range_vector.end() - 1);
+       int from_ft = *(ft_range_vector.end() - 1);
 
         std::cout << ((printSingleValue(fs, from_stl, from_ft) == true) ? "[OK]" : "[NOP]");
         fs << "\nCode executed:\n";
@@ -420,6 +410,7 @@ void test_vector()
 
     /* Const iterator end() */
     {
+	
         int range_array[] = { 95, 89, -6121, 48, 5 };
 
         std::vector<int>::const_iterator stl_iterator(&(range_array[0]));
@@ -455,10 +446,12 @@ void test_vector()
         fs << "    ^^^^^^^^\n";
         fs << "    Compared value";
         fs.close();
-    }
+  
+	}
 
     /* Iterator rbegin() */
     {
+	
         int range_array[] = {250, -1200, -98657, 2, 34};
 
         std::vector<int>::iterator stl_iterator(&(range_array[0]));
@@ -490,10 +483,12 @@ void test_vector()
         fs << "    ^^^^^^^^\n";
         fs << "    Compared value";
         fs.close();
+	
     }
 
     /* Const iterator rbegin() */
     {
+	
         int range_array[] = { 958, -561, 54, 789, -8};
 
         std::vector<int>::const_iterator stl_iterator(&(range_array[0]));
@@ -529,10 +524,12 @@ void test_vector()
         fs << "    ^^^^^^^^\n";
         fs << "    Compared value";
         fs.close();
+
     }
 
         /* Iterator rend() */
     {
+
         int range_array[] = {78, -951, 562, 8, 745, 51236, 6987};
 
         std::vector<int>::iterator stl_iterator(&(range_array[0]));
@@ -568,6 +565,7 @@ void test_vector()
 
     /* Const iterator rend() */
     {
+	
         int range_array[] = { 8, -5615, 412, 89, 475};
 
         std::vector<int>::const_iterator stl_iterator(&(range_array[0]));
@@ -603,6 +601,7 @@ void test_vector()
         fs << "    ^^^^^^^^\n";
         fs << "    Compared value";
         fs.close();
+
     }
 
     std::cout << "\n";
@@ -610,7 +609,7 @@ void test_vector()
 
     /* Size small */
     {
-        std::vector<int> stl_filled(20);
+	    std::vector<int> stl_filled(20);
         ft::vector<int> ft_filled(20);
 
         fs.open("./tester/vectors_output/size_small", std::fstream::in | std::fstream::out | std::fstream::trunc);
@@ -626,6 +625,7 @@ void test_vector()
 
     /* Size big */
     {
+	    
         std::vector<int> stl_filled(100000);
         ft::vector<int> ft_filled(100000);
 
@@ -638,10 +638,12 @@ void test_vector()
         fs << "¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯\n";
         fs << "std::vector<int> stl_filled(1000000);\n";
         fs.close();
+	
     }
 
     /* Maximum size */
     {
+	   
         std::vector<int> stl_base;
         ft::vector<int> ft_base;
 
@@ -653,7 +655,8 @@ void test_vector()
         fs << "\nCompared with:\n";
         fs << "¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯\n";
         fs << "std::vector<int> stl_base;\n";
-        fs.close();    
+        fs.close();  
+     	
     }
 
     /* Resize extension */
@@ -1038,6 +1041,7 @@ void test_vector()
         fs << "std::vector<int> stl_back(stl_iterator_beg, stl_iterator_beg + 5);\n";
         fs << "const int stl_const = stl_back.back();\n";
         fs.close();
+    	std::cout << "OUI";
     }
  
     std::cout << "\n";

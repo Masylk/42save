@@ -17,12 +17,17 @@ namespace ft
 		typedef typename pair_type::first_type	key_type;
 		typedef typename pair_type::second_type	value_type;
 		typedef ft::map_iterator<Node, Compare> iterator;
+		typedef ft::const_map_iterator<Node, Compare> const_iterator;
 
 		//---PUBLIC VARIABLE
 		Node					*head;
 
 		maplist(const allocator &alloc = allocator()) : head(NULL), alloc_node(alloc)
-		{};
+		{
+			node_end = alloc_node.allocate(1);
+			alloc_node.construct(node_end, Node());
+			head = node_end;
+		};
 
 		~maplist()
 		{
@@ -33,11 +38,14 @@ namespace ft
 		{
 			Node	*tmp = head;
 
-			if (!tmp)
+			if (tmp == node_end)
 			{
-				head = alloc_node.allocate(1);
-				alloc_node.construct(head, Node(i));
-				aff_list();
+				tmp = alloc_node.allocate(1);
+				alloc_node.construct(tmp, Node(i));
+				head->prev = tmp;
+				tmp->next = head;
+				tmp->prev = NULL;
+				head = tmp;
 				return (ft::make_pair<iterator, bool>(iterator(head), true));
 			}
 			if (i.first < tmp->value.first)
@@ -48,38 +56,44 @@ namespace ft
 				tmp->next = head;
 				tmp->prev = NULL;
 				head = tmp;
-				aff_list();
 				return (ft::make_pair<iterator, bool>(iterator(tmp), true));
 			}
-			while (tmp->next && tmp->value.first <= i.first)
+			while (tmp->next != node_end && tmp->next->value.first <= i.first)
 			{
-				if (i.first == tmp->value.first)
+				if (i.first == tmp->next->value.first)
 					return (ft::make_pair<iterator, bool>(iterator(tmp), false));
 				tmp = tmp->next;
 			}
-			tmp->next = alloc_node.allocate(1);
-			alloc_node.construct(tmp->next, Node(i));
-			tmp->next->prev = tmp;
-			tmp->next->next = NULL;
-			aff_list();
+			if (tmp->next != node_end)
+			{
+				Node	*new_node;
+				
+				new_node = alloc_node.allocate(1);
+				alloc_node.construct(new_node, Node(i));
+				tmp->next->prev = new_node;
+				new_node->next = tmp->next;
+				new_node->prev = tmp;
+				tmp->next = new_node;
+			}
+			else
+			{
+				tmp->next = alloc_node.allocate(1);
+				alloc_node.construct(tmp->next, Node(i));
+				tmp->next->prev = tmp;
+				tmp->next->next = node_end;
+				tmp->next->next->prev = tmp->next;
+			}
 			return (ft::make_pair<iterator, bool>(iterator(tmp), true));
 		};
 
-		Node	*get_last_node()
+		Node	*get_last_node() const
 		{
-			Node	*tmp = head;
-			
-			while (tmp)
-				tmp = tmp->next;
-			return tmp;
+			return (node_end);	
 		};
 
 		Node	*get_last_node_reverse()
 		{
-			Node	*tmp = head;
-			while (tmp->next)
-				tmp = tmp->next;
-			return (tmp);
+			return (node_end);
 		};
 
 		int	size() const
@@ -87,7 +101,7 @@ namespace ft
 			Node	*tmp = head;
 			int	i = 0;
 
-			while (tmp)
+			while (tmp != node_end)
 			{
 				tmp = tmp->next;
 				i++;
@@ -104,7 +118,7 @@ namespace ft
 		{
 			Node	*tmp;
 
-			while (head)
+			while (head != node_end)
 			{
 				tmp = head;
 				head = head->next;
@@ -113,19 +127,33 @@ namespace ft
 			};
 		};
 
+		void	destroy()
+		{
+			clear();
+			alloc_node.destroy(head);
+			alloc_node.deallocate(head, 1);
+		};
+
 		bool	erase(const key_type &key)
 		{
 			Node	*tmp = head;
-
-			while (tmp->value.first	!= key)
+			
+			while (tmp != node_end && tmp->value.first != key)
 			{
 				tmp = tmp->next;
 			}
-			if (tmp)
+			if (tmp != node_end)
 			{
 				if (tmp->prev)
+				{
 					tmp->prev->next = tmp->next;
-				if (tmp->next)
+				}
+
+				if (!tmp->prev)
+				{
+					head = tmp->next;
+				}
+				else if (tmp->next)
 					tmp->next->prev = tmp->prev;
 				alloc_node.destroy(tmp);
 				alloc_node.deallocate(tmp, 1);
@@ -136,11 +164,15 @@ namespace ft
 
 		void	swap(maplist &x)
 		{
-			if (*this == x)
+			if (this == &x)
 				return ;
 
+			Node	*tmp_end = node_end;
 			Node	*tmp = head;
+
 			head = x.head;
+			node_end = x.node_end;
+			x.node_end = tmp_end;
 			x.head = tmp;
 		};
 
@@ -148,19 +180,19 @@ namespace ft
 		{
 			Node	*tmp = head;
 
-			while (tmp->value.first != k)
+			while (tmp != node_end && tmp->value.first != k)
 				tmp = tmp->next;
 			return (tmp);
 		};
 
-		void	aff_list()
+		void	aff_list() const
 		{
 			Node	*tmp = head;
 			int	i = 0;
 
-			if (!tmp)
+			if (tmp == node_end)
 				std::cout << "NO LIST !" << std::endl;
-			while (tmp)
+			while (tmp != node_end)
 			{
 				i++;
 				std::cout << i << ") : key :  " << tmp->value.first;
@@ -174,7 +206,7 @@ namespace ft
 		{
 			Node	*tmp = head;
 
-			while	(tmp)
+			while	(tmp != node_end)
 			{	
 				if (tmp->value.first > k)
 					return (tmp);
@@ -185,9 +217,9 @@ namespace ft
 
 		Node	*lower_bound(const key_type &k)
 		{
-			Node	*tmp;
+			Node	*tmp = head;
 
-			while (tmp)
+			while (tmp != node_end)
 			{
 				if (tmp->value.first >= k)
 					return (tmp);
@@ -197,6 +229,7 @@ namespace ft
 		};
 
 		private :
+		Node		*node_end;
 		allocator	alloc_node;
 	};
 };

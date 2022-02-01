@@ -649,7 +649,7 @@ namespace ft
 		template<typename T, typename Alloc>
 		bool	operator>(const ft::vector<T, Alloc> &lhs, const ft::vector<T, Alloc> &rhs)
 		{
-			return (!(lhs < rhs));
+			return (rhs < lhs);
 		};
 	
 		template<typename T, typename Alloc>

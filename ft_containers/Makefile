@@ -18,11 +18,11 @@ OBJDIR = obj
 
 CFLAGS=-Wall -Wextra -Werror --std=c++98
 
-PATHS= $(OBJDIR)/srcs
+PATHS= $(OBJDIR)/srcs $(OBJDIR)/tester
 
-SRC=main.cpp tester_vector.cpp tester.cpp
+SRC=main.cpp tester/tester_vector.cpp tester/tester_stack.cpp tester/tester_map.cpp tester/tester.cpp
 
-INCFLAGS=-I. -I./utils -I./containers -I./iterators
+INCFLAGS=-I. -I./utils -I./containers -I./iterators -I./tester
 
 RM=rm -rf
 

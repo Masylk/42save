@@ -11,7 +11,7 @@ namespace ft
 		list_node	*next;
 		list_node	*prev;
 
-		list_node() : value(NULL), next(NULL), prev(NULL)
+		list_node() : value(), next(NULL), prev(NULL)
 		{};
 
 		list_node(T lvalue) : value(lvalue), next(NULL), prev(NULL)

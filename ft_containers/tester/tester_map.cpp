@@ -1,19 +1,7 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   tester_map.cpp                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rchallie <rchallie@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/07 18:22:17 by rchallie          #+#    #+#             */
-/*   Updated: 2020/12/10 21:40:05 by rchallie         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <map>
 #include "tester.hpp"
-#include "../containers/map.hpp"
-#include "../containers/utils/binary_search_tree.hpp"
+#include "map.hpp"
+#include "maplist.hpp"
 
 template <class Ta, class Tb>
 std::string equalContent(
@@ -141,7 +129,6 @@ void test_map()
 		fs << "std::map<int, std::string> stl_default_map;\n";
 		fs.close();     
 	}
-
 	/* Range constrcutor */
 	{
 		const int range_int[] = {-652, -4, 98, 54, -210};
@@ -267,7 +254,6 @@ void test_map()
 		fs << "std::map<int, std::string> stl_map_copy = stl_map;\n";
 		fs.close();
 	}
-
 	std::cout << std::endl;
 	std::cout << "Iterators : ";
 

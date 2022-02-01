@@ -18,8 +18,10 @@ namespace ft
 
 		//copy constructor
 		template<typename U, typename V>
-		pair(const pair<U,V> &pr): first(pr.first), second(pr.second)
-		{};
+		pair(const pair<U,V> &pr): first(pr.first)
+		{
+			second = pr.second;
+		};
 
 		//initialization constructor
 		pair(const first_type &a, const second_type &b):
@@ -28,7 +30,7 @@ namespace ft
 		
 		pair	&operator=(const pair &pr)
 		{
-			if (*this == pr)
+			if (this == &pr)
 				return (*this);
 			this->first = pr.first;
 			this->second = pr.second;

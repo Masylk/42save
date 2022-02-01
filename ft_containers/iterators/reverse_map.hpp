@@ -47,10 +47,10 @@ class	reverse_iterator_map
 		{
 			reverse_iterator_map	tmp(*this);
 			
-			--i;
+			--(*this);
 			return (tmp);
 		}
-		reverse_iterator_map	operator--()
+		reverse_iterator_map	&operator--()
 		{	
 			++i;
 			return (*this);
@@ -59,7 +59,7 @@ class	reverse_iterator_map
 		{
 			reverse_iterator_map	tmp(*this);
 			
-			++i;
+			++(*this);
 			return (tmp);
 		}
 		reverse_iterator_map	operator+(difference_type n) const
@@ -82,7 +82,7 @@ class	reverse_iterator_map
 		};
 		reference	operator*() const {
 			iterator_type	tmp = i;	
-			return (*(tmp));
+			return (*(--tmp));
 		};
 		pointer		operator->(void) const
 		{
