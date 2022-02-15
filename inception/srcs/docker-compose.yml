@@ -1,4 +1,40 @@
-version: '3'
+version: '3.9'
 
 services:
-        image:  ./NGINX/
+        nginx:
+                build: nginx/
+                ports:
+                        - 80:80
+                        - 443:443
+                volumes:
+                        - /data/html:/var/www/html
+                links:
+                        - wordpress
+        mariadb:
+                image: mariadb
+                environment:
+                        MYSQL_DATABASE: wp
+                        MYSQL_USER: wp
+                        MYSQL_PASSWORD: secret
+                        MYSQL_ROOT_PASSWORD: secret
+                volumes:
+                        - /data/mysql:/var/lib/mysql
+                restart: always
+        wordpress:
+                image: wordpress:php7.3-fpm-alpine
+                ports:
+                        - 9000:9000
+                volumes:
+                        - /data/html:/var/www/html
+                depends_on:
+                        - mariadb
+                environment:
+                        WORDPRESS_DB_HOST: mariadb
+                        MYSQL_ROOT_PASSWORD: secret
+                        WORDPRESS_DB_NAME: wp
+                        WORDPRESS_DB_USER: wp
+                        WORDPRESS_DB_PASSWORD: secret
+                        WORDPRESS_TABLE_PREFIX: wp_
+                links:
+                        - mariadb
+                restart: always
