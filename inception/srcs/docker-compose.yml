@@ -4,37 +4,54 @@ services:
         nginx:
                 build: nginx/
                 ports:
-                        - 80:80
+                        - 8080:80
+                          #  - 80:80
                         - 443:443
                 volumes:
                         - /data/html:/var/www/html
                 links:
                         - wordpress
+                networks:
+                        - frontend
+                restart: on-failure
         mariadb:
                 image: mariadb
                 environment:
-                        MYSQL_DATABASE: wp
-                        MYSQL_USER: wp
-                        MYSQL_PASSWORD: secret
-                        MYSQL_ROOT_PASSWORD: secret
+                        - MYSQL_DATABASE=${MYSQL_DATABASE}
+                        - MYSQL_USER=${MYSQL_USER}
+                        - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+                        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+                        - MYSQL_PORT=${MYSQL_PORT}
+                        - MYSQL_ROOT_HOST=${MYSQL_HOST}
                 volumes:
-                        - /data/mysql:/var/lib/mysql
-                restart: always
+                        - "/data/mysql:/var/lib/mysql"
+                ports:
+                        - 3306:3306
+                networks:
+                        - backend
+                restart: on-failure
         wordpress:
-                image: wordpress:php7.3-fpm-alpine
+                image: wordpress
                 ports:
                         - 9000:9000
                 volumes:
                         - /data/html:/var/www/html
-                depends_on:
-                        - mariadb
                 environment:
-                        WORDPRESS_DB_HOST: mariadb
-                        MYSQL_ROOT_PASSWORD: secret
-                        WORDPRESS_DB_NAME: wp
-                        WORDPRESS_DB_USER: wp
-                        WORDPRESS_DB_PASSWORD: secret
-                        WORDPRESS_TABLE_PREFIX: wp_
+                        - WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST}
+                        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+                        - WORDPRESS_DB_NAME=${WORDPRESS_DB_NAME}
+                        - WORDPRESS_DB_USER=${WORDPRESS_DB_USER}
+                        - WORDPRESS_DB_PASSWORD=${WORDPRESS_DB_PASSWORD}
+                        - WORDPRESS_TABLE_PREFIX=${WORDPRESS_TABLE_PREFIX}
+                        - MYSQL_PORT=${MYSQL_PORT}
+                        - MYSQL_HOST=${MYSQL_HOST}
                 links:
                         - mariadb
-                restart: always
+                networks:
+                        - frontend
+                        - backend
+                restart: on-failure
+
+networks:
+        frontend:
+        backend:
