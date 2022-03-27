@@ -11,30 +11,26 @@ RUN	apk -U upgrade && apk add\
 	bash
 
 
-WORKDIR /var/www
+WORKDIR /var/www/html
 
 RUN	wget http://fr.wordpress.org/latest-fr_FR.tar.gz && \
 	tar -xvzf latest-fr_FR.tar.gz
 
 RUN	adduser -S nginx && addgroup -S www-data && \
-	chown -R nginx:www-data /var/www/wordpress
+	chown -R nginx:www-data /var/www/html
 
-WORKDIR /var/www/wordpress
-
-#HEALTHCHECK --interval=20s --timeout=10s \
-#	CMD mariadbprout -h$MYSQL_HOST -P$MYSQL_PORT -u$WORDPRESS_DB_USER -p$MYSQL_ROOT_PASSWORD \
-#	|| exit 1
-
-RUN	rm ./wp-config-sample.php
-#RUN	mkdir /var/log/php-fpm
 COPY	./config/php-fpm.conf /etc/php7/php-fpm.conf
 COPY	./config/www.conf /etc/php7/php-fpm.d/www.conf
 
-COPY	./config /config
-COPY	./config/wp-config.php ./
-COPY	./tools/start.sh /start.sh
+WORKDIR /var/www/html/wordpress
 
-#HEALTHCHECK
+RUN ls /var/www/html
+#RUN	mkdir /var/log/php-fpm
 
-CMD	/bin/bash /start.sh
-#ENTRYPOINT ["bash", "/start.sh"]
+RUN	rm ./wp-config-sample.php
+#COPY	./config /config
+COPY	./config/wp-config.php ./wp-config.php
+COPY	./tools/start.sh /tmp/start.sh
+
+#CMD	./start.sh
+ENTRYPOINT ["/bin/bash", "/tmp/start.sh"]

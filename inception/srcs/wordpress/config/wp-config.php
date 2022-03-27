@@ -30,8 +30,7 @@ define( 'DB_USER', getenv('WORDPRESS_DB_USER') );
 define( 'DB_PASSWORD', getenv('MYSQL_ROOT_PASSWORD') );
 
 /** MySQL hostname */
-#define( 'DB_HOST', getenv('MYSQL_HOST').':'.getenv('MYSQL_PORT') );
-define( 'DB_HOST', '0.0.0.0::3306' );
+define( 'DB_HOST', getenv('MYSQL_HOST') );
 
 /** Database Charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );

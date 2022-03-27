@@ -1,56 +1,58 @@
-version: '3.9'
-
+version: "3"
 services:
-        nginx:
-                build: nginx/
-                ports:
-                        - 8080:80
-                          #  - 80:80
-                        - 443:443
-                volumes:
-                        - /data/html:/var/www/html
-                links:
-                        - wordpress
-                networks:
-                        - frontend
-                restart: on-failure
-        mariadb:
-                image: mariadb
-                environment:
-                        - MYSQL_DATABASE=${MYSQL_DATABASE}
-                        - MYSQL_USER=${MYSQL_USER}
-                        - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-                        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-                        - MYSQL_PORT=${MYSQL_PORT}
-                        - MYSQL_ROOT_HOST=${MYSQL_HOST}
-                volumes:
-                        - "/data/mysql:/var/lib/mysql"
-                ports:
-                        - 3306:3306
-                networks:
-                        - backend
-                restart: on-failure
-        wordpress:
-                image: wordpress
-                ports:
-                        - 9000:9000
-                volumes:
-                        - /data/html:/var/www/html
-                environment:
-                        - WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST}
-                        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-                        - WORDPRESS_DB_NAME=${WORDPRESS_DB_NAME}
-                        - WORDPRESS_DB_USER=${WORDPRESS_DB_USER}
-                        - WORDPRESS_DB_PASSWORD=${WORDPRESS_DB_PASSWORD}
-                        - WORDPRESS_TABLE_PREFIX=${WORDPRESS_TABLE_PREFIX}
-                        - MYSQL_PORT=${MYSQL_PORT}
-                        - MYSQL_HOST=${MYSQL_HOST}
-                links:
-                        - mariadb
-                networks:
-                        - frontend
-                        - backend
-                restart: on-failure
+  nginx:
+    depends_on:
+      - wordpress
+    build:
+      context: ./nginx
+    container_name: "inception_nginx"
+    image: ft_nginx
+    ports:
+      - "8080:80"
+      - "443:443"
+    links:
+      - wordpress
+    volumes:
+      - /data/wordpress:/var/www/html
+    restart: on-failure
+    networks:
+        - frontend
+
+####################### wordpress #########################
+  wordpress:
+    depends_on:
+      - mariadb
+    build:
+      context: ./wordpress
+    image: ft_wordpress
+    ports:
+      - "9000:9000"
+    container_name: "inception_wordpress"
+    env_file:
+      - "./.env"
+    links:
+      - mariadb
+    volumes:
+      - /data/wordpress:/var/www/html
+    restart: on-failure
+    networks:
+        - frontend
+        - backend
+
+####################### mariadb #########################
+
+  mariadb:
+    build:
+      context: ./mariadb
+    container_name: "inception_mariadb"
+    image: ft_mariadb
+    env_file:
+      - "./.env" #inclusion du  fichier .env :)
+    volumes:
+      - /data/mysql:/var/lib/mysql
+    restart: on-failure
+    networks:  
+      - backend
 
 networks:
         frontend:

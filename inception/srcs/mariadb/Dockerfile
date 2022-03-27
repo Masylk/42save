@@ -1,10 +1,17 @@
-FROM	alpine:3.13
+FROM debian:buster
 
-RUN	apk update && apk upgrade && apk add --no-cache \
-	mariadb \
-	mariadb-client
+RUN apt-get update \
+        && apt-get -y install apt-utils mariadb-server mariadb-client \
+        && rm -rf /var/lib/mysql \
+        && mkdir -p /var/lib/mysql /run/mysqld \
+        && chown -R mysql:mysql /var/lib/mysql  /run/mysqld \
+        && chmod 777 /var/run/mysqld\
+		&&  apt-get -y install emacs
 
+VOLUME /var/lib/mysql
 
-COPY	tools/start.sh	/tmp/start.sh
+COPY ./tools/start.sh ./
+COPY ./tools/dump.sql ./
+EXPOSE 3306
 
-ENTRYPOINT ["sh", "/tmp/start.sh"]
+ENTRYPOINT ["./start.sh"]
