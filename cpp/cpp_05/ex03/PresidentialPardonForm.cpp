@@ -1,7 +1,7 @@
 #include "PresidentialPardonForm.hpp"
 
-PresidentialPardonForm::PresidentialPardonForm(std::string target) : Form{"PresidentialPardonForm", 137 , 145}
-, gradeEx(137), gradeS(145), name("PresidentialPardonForm"), target(target)
+PresidentialPardonForm::PresidentialPardonForm(std::string target) : Form("PresidentialPardonForm", 5 , 25)
+, gradeEx(5), gradeS(25), name("PresidentialPardonForm"), target(target)
 {
 	this->isSigned = false;
 	if (gradeEx < 1 || gradeS < 1)

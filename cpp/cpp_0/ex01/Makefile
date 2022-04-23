@@ -12,7 +12,7 @@
 
 NAME=phonebook
 
-CC=g++
+CC=c++
 
 OBJDIR = obj
 

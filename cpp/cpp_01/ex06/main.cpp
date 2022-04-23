@@ -4,7 +4,7 @@
 //les niveaux sont stocké dans un tableau de fonction
 //allant de 0 à 3 (taille 4)
 
-#include "Karen.hpp"
+#include "Harl.hpp"
 
 int	main(int ac, char **av)
 {
@@ -16,7 +16,7 @@ int	main(int ac, char **av)
 
 	}
 	std::string	filter(av[1]);
-	Karen		test = Karen(filter);
+	Harl		test = Harl(filter);
 	if (test.filter > 3)
 	{
 		std::cout << "[Probably complaining about insignificant problems]"

@@ -45,12 +45,16 @@ void	Bureaucrat::upgrade(void)
 {
 	if (this->grade > 1)
 		this->grade--;
+	else
+		throw Bureaucrat::GradeTooHighException();
 }
 
 void	Bureaucrat::downgrade(void)
 {
 	if (this->grade < 150)
 		this->grade++;
+	else
+		throw Bureaucrat::GradeTooLowException();
 }
 
 void	Bureaucrat::signForm(Form *f)

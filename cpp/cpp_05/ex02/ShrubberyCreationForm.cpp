@@ -1,6 +1,6 @@
 #include "ShrubberyCreationForm.hpp"
 
-ShrubberyCreationForm::ShrubberyCreationForm(std::string target) : Form{"ShrubberyCreationForm", 137 , 145}
+ShrubberyCreationForm::ShrubberyCreationForm(std::string target) : Form("ShrubberyCreationForm", 137 , 145)
 , gradeEx(137), gradeS(145), name("ShrubberyCreationForm"), target(target)
 {
 	this->isSigned = false;
@@ -77,7 +77,7 @@ void	ShrubberyCreationForm::execute(Bureaucrat const &executor) const
 	if (isExecutable(executor, *this))
 	{
 		name.insert(0, this->target);
-		std::ofstream	ostream(name);
+		std::ofstream	ostream(name.c_str());
 		ostream << 
 			"                   .         ;\n.              .              ;%     ;;\n,           ,                :;%  %;\n:         ;                   :;%;'     .,\n,.        %;     %;            ;        %;'    ,;\n;       ;%;  %%;        ,     %;    ;%;    ,%'\n%;       %;%;      ,  ;       %;  ;%;   ,%;'\n;%;      %;        ;%;        % ;%;  ,%;'\n`%;.     ;%;     %;'         `;%%;.%;'\n`:;%.    ;%%. %@;        %; ;@%;%'\n`:%;.  :;bd%;          %;@%;'\n`@%:.  :;%.         ;@@%;'\n`@%.  `;@%.      ;@@%;\n`@%%. `@%%    ;@@%;\n;@%. :@%%  %@@%;\n%@bd%%%bd%%:;\n#@%%%%%:;;\n%@@%%%::;\n%@@@%(o);  . '\n%@@@o%;:(.,'\n`.. %@@@o%::;\n`)@@@o%::;\n%@@(o)::;\n.%@@@@%::;\n;%@@@@%::;.\n;%@@@@%%:;;;.\n...;%@@@@@%%:;;;;,..\n";
 		ostream.close();

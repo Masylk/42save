@@ -10,9 +10,9 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME=karenFilter
+NAME=harlFilter
 
-CC=g++
+CC=c++
 
 OBJDIR = obj
 
@@ -20,7 +20,7 @@ CFLAGS=-Wall -Wextra -Werror
 
 PATHS= $(OBJDIR)/srcs
 
-SRC=main.cpp Karen.cpp
+SRC=main.cpp Harl.cpp
 
 INCFLAGS=-I.
 

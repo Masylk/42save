@@ -11,7 +11,7 @@ Bureaucrat::Bureaucrat(int grade, std::string name) : name(name)
 		this->grade = grade;
 }
 
-	Bureaucrat::Bureaucrat(const Bureaucrat &cpy) : name (cpy.getName())
+Bureaucrat::Bureaucrat(const Bureaucrat &cpy) : name (cpy.getName())
 							, grade(cpy.getGrade())
 {
 	*this = cpy;

@@ -14,7 +14,8 @@ int	main(int ac, char **av)
 
 	//parse the arguments and check if they're not empty
 	std::ifstream	istream(av[1]);
-	std::ofstream	ostream("replace.out");
+	std::string	out = std::string(av[1]) + ".replace";
+	std::ofstream	ostream(&out[0]);
 	std::string	s1(av[2]);
 	std::string	s2(av[3]);
 	std::istreambuf_iterator<char>	eos;

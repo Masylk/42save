@@ -9,4 +9,8 @@ int	main()
 	jon.attack("your mom");
 	jon.beRepaired(3);
 	jon.takeDamage(5);
+	jon.takeDamage(5);
+	jon.takeDamage(5);
+	jon.takeDamage(5);
+	jon.beRepaired(3);
 }

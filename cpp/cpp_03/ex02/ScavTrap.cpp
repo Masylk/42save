@@ -1,6 +1,6 @@
 #include "ScavTrap.hpp"
 
-ScavTrap::ScavTrap(std::string name): ClapTrap{name}
+ScavTrap::ScavTrap(std::string name): ClapTrap(name)
 {
 	this->_hitpoints = 100;
 	this->_energypoints = 50;
@@ -21,8 +21,27 @@ ScavTrap::~ScavTrap()
 
 void	ScavTrap::guardGate()
 {
-	std::cout << this->getName() << " is in gate keeper mode!" << std::endl;
-	this->set_gatekmode(true);
+	if (this->_hitpoints >= 1)
+	{
+		std::cout << this->getName() << " is in gate keeper mode!" << std::endl;
+		this->set_gatekmode(true);
+	}
+	else
+		std::cout << this->_name << " is unable to act !" << std::endl;
+}
+
+void	ScavTrap::attack(std::string const &target)
+{
+	if (this->_energypoints >= 1 && this->_hitpoints >= 1)
+	{
+		std::cout << "ScavTrap " << this->getName()
+			<< " attack " << target << " causing "
+			<< this->getAttack_damage() << " points of damage!"
+			<< std::endl;
+		this->_energypoints--;
+	}
+	else
+		std::cout << this->_name << " is unable to act !" << std::endl;
 }
 
 /*

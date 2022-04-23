@@ -1,6 +1,6 @@
 NAME=test
 
-CC=g++
+CC=c++
 
 OBJDIR = obj
 

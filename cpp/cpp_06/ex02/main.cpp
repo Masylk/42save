@@ -1,5 +1,6 @@
 #include "Base.hpp"
 #include <iostream>
+#include <stdlib.h>
 
 class	A : public virtual Base{};
 class	B : public virtual Base{};
@@ -44,14 +45,14 @@ void	identify(Base &p)
 		dynamic_cast<A &>(p);
 		std::cout << "A" << std::endl;
 	}
-	catch (std::bad_cast &e)
+	catch (std::exception &e)
 	{
 		try
 		{
 			dynamic_cast<B &>(p);
 			std::cout << "B" << std::endl;
 		}
-		catch (std::bad_cast &e)
+		catch (std::exception &e)
 		{
 			std::cout << "C" << std::endl;
 		}

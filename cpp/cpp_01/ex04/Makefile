@@ -12,7 +12,7 @@
 
 NAME=replace
 
-CC=g++
+CC=c++
 
 OBJDIR = obj
 

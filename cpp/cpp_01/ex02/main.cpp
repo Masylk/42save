@@ -12,6 +12,7 @@ int	main(void)
 	std::cout << "string adress : " << (void*)s.data() << std::endl;
 	std::cout << "ptr address : " << stringPTR << std::endl;
 	std::cout << "ref address : " << (void*)stringREF.data() << std::endl;
+	std::cout << "string : " << s << std::endl;
 	std::cout << "ptr : " << *stringPTR << std::endl;
 	std::cout << "ref : " << stringREF << std::endl;
 }

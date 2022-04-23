@@ -82,8 +82,7 @@ void		Character::unequip(int idx)
 {
 	if (idx >= 0 && idx < 4 && this->materias[idx])
 	{
-		delete this->materias[idx];
-		this->materias[idx] = NULL;
+		this->materias[idx] = NULL;	
 	}
 }
 

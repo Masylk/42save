@@ -1,6 +1,6 @@
 #include "FragTrap.hpp"
 
-FragTrap::FragTrap(std::string name): ClapTrap{name}
+FragTrap::FragTrap(std::string name): ClapTrap(name)
 {
 	this->_hitpoints = 100;
 	this->_energypoints = 100;
@@ -20,5 +20,10 @@ FragTrap::~FragTrap()
 
 void	FragTrap::highFivesGuys()
 {
-	std::cout << this->getName() << " wants to make a high five with you !" << std::endl;
+	if (this->_hitpoints >= 1)
+	{
+		std::cout << this->getName() << " wants to make a high five with you !" << std::endl;
+	}
+	else
+		std::cout << this->_name << " is unable to act !" << std::endl;
 }

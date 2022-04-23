@@ -1,7 +1,7 @@
 #include "RobotomyRequestForm.hpp"
 
-RobotomyRequestForm::RobotomyRequestForm(std::string target) : Form{"RobotomyRequestForm", 137 , 145}
-, gradeEx(137), gradeS(145), name("RobotomyRequestForm"), target(target)
+RobotomyRequestForm::RobotomyRequestForm(std::string target) : Form("RobotomyRequestForm", 45 , 72)
+, gradeEx(45), gradeS(72), name("RobotomyRequestForm"), target(target)
 {
 	this->isSigned = false;
 	if (gradeEx < 1 || gradeS < 1)

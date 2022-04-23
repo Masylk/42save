@@ -2,6 +2,8 @@
 # define ROBOTOMYREQUESTFORM_HPP
 
 # include <iostream>
+# include <stdlib.h>
+# include <time.h>
 # include "Bureaucrat.hpp"
 
 class	Bureaucrat;

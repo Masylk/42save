@@ -13,6 +13,7 @@ class ICharacter
 		virtual	std::string const &getName() const = 0;
 		virtual	void equip(AMateria *m) = 0;
 		virtual	void use(int idc, ICharacter &target) = 0;
+		virtual void	unequip(int idx) = 0;
 };
 
 class Character : public virtual ICharacter

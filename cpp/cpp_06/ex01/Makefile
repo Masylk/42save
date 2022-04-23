@@ -12,11 +12,11 @@
 
 NAME=test
 
-CC=g++
+CC=c++
 
 OBJDIR = obj
 
-CFLAGS=-Wall -Wextra -Werror
+CFLAGS=-Wall -Wextra -Werror 
 
 PATHS= $(OBJDIR)/srcs
 
