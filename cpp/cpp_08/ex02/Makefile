@@ -12,7 +12,7 @@
 
 NAME=test
 
-CC=g++
+CC=c++
 
 OBJDIR = obj
 
@@ -20,7 +20,7 @@ CFLAGS=-Wall -Wextra -Werror
 
 PATHS= $(OBJDIR)/srcs
 
-SRC=main.cpp mutantstack.cpp
+SRC=main.cpp MutantStack.cpp
 
 INCFLAGS=-I.
 

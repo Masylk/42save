@@ -64,7 +64,7 @@ long		Span::longestSpan()
 
 long		Span::shortestSpan()
 {
-	long 	lowest(INT8_MAX);
+	long 	lowest = -1;
 	long	span;
 
 	if (v.size() <= 1)
@@ -79,7 +79,7 @@ long		Span::shortestSpan()
 				span = static_cast<long>(*jt) - static_cast<long>(*it);
 			if (!span)
 				return (0);
-			if (lowest > span)
+			if (lowest > span || lowest < 0)
 				lowest = span;
 		}
 	}

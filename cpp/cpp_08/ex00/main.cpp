@@ -4,11 +4,11 @@ int	main()
 {
 	std::vector<int> v(5, 5);
 
-	for (int value : v)
-		std::cout << value << std::endl;
+	for (int i = 0; v[i];i++)
+		std::cout << v[i] << std::endl;
 	try
 	{
-		std::cout << easyfind(v, 3) << std::endl;
+		std::cout << easyfind(v, 5) << std::endl;
 	}
 	catch (std::exception &e)
 	{

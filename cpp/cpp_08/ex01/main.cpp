@@ -1,19 +1,37 @@
 #include "span.hpp"
+#include <stdlib.h>
+#include <time.h>
 
-int	main()
-{
-	Span	sp(4);
-	std::vector<int> tab{1, 2, 3, 45, 94, 8, -17, -329, 20000, 949, 39, 30};
+void	addToSpan(Span *sp)
+{	
+	std::vector<int> tab;
+    	std::vector<int>::iterator it;
+	int	size;
 
+	srand(time(NULL));
+	size = rand() % 20;
+	for (int i = 0; i < size; i++)
+		tab.push_back(rand() % 1000 - rand() % 1000);
+	for (it = tab.begin(); it != tab.end(); it++)
+		std::cout << *it << ", ";
+	std::cout << std::endl;
 	try
 	{
-		for (int value : tab)
-			sp.addNumber(value);
+		for (it = tab.begin(); it != tab.end(); it++)
+			sp->addNumber(*it);
 	}
 	catch (std::exception &e)
 	{
 		std::cout << e.what() << std::endl;
 	}
+
+}
+
+int	main()
+{
+	Span	sp(10000);
+
+	addToSpan(&sp);
 	try
 	{	
 		std::cout << "shortest span : " << sp.shortestSpan() << std::endl;
