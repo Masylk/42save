@@ -11,7 +11,7 @@ int	main()
 	std::cout << "<---------------------" << std::endl;
 	const Animal* i = new Cat();
 	std::cout << "<---------------------" << std::endl;
-	const Animal* h = new WrongCat();
+	const WrongAnimal* h = new WrongCat();
 
 	std::cout << "<---------------------" << std::endl;
 	std::cout << j->getType() << " " << std::endl;

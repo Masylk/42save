@@ -2,9 +2,9 @@
 # define WRONGCAT_HPP
 
 # include <iostream>
-# include "Dog.hpp"
+# include "WrongAnimal.hpp"
 
-class	WrongCat: virtual public Dog
+class	WrongCat: virtual public WrongAnimal
 {
 	public :
 		WrongCat();
@@ -12,6 +12,7 @@ class	WrongCat: virtual public Dog
 		~WrongCat();
 
 		WrongCat const &operator=(WrongCat const &rhs);
+		void	makeSound(void) const;
 };
 
 #endif

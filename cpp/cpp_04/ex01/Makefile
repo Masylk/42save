@@ -6,7 +6,7 @@
 #    By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/15 11:23:31 by mtogbe            #+#    #+#              #
-#    Updated: 2021/10/25 14:56:50 by mtogbe           ###   ########.fr        #
+#    Updated: 2022/04/28 17:15:36 by mtogbe           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ CFLAGS=-Wall -Wextra -Werror
 
 PATHS= $(OBJDIR)/srcs
 
-SRC=main.cpp Dog.cpp Cat.cpp Brain.cpp Animal.cpp
+SRC=main.cpp WrongAnimal.cpp Dog.cpp Cat.cpp Brain.cpp Animal.cpp
 
 INCFLAGS=-I.
 
