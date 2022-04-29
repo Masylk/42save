@@ -15,6 +15,19 @@ DiamondTrap::~DiamondTrap()
 	std::cout << "DiamondTrap is destroyed !" << std::endl;
 }
 
+DiamondTrap &	DiamondTrap::operator=(DiamondTrap const & rhs)
+{
+	if (this != &rhs)
+	{
+		this->_name = rhs.getName();
+		this->_energypoints = rhs.getEnergypoints();
+		this->_hitpoints = rhs.getHitpoints();
+		this->_attack_damage = rhs.getAttack_damage();
+	}
+	return *this;
+}
+
+
 
 void	DiamondTrap::whoAmI()
 {

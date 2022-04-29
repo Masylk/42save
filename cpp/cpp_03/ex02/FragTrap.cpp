@@ -9,10 +9,27 @@ FragTrap::FragTrap(std::string name): ClapTrap(name)
 	std::cout << "FragTrap is built!" << std::endl;
 }
 
+FragTrap::FragTrap(FragTrap const &cpy) : ClapTrap(cpy)
+{}
+
 FragTrap::~FragTrap()
 {
 	std::cout << "FragTrap is Destroyed!" << std::endl;
 }
+
+FragTrap &	FragTrap::operator=(FragTrap const & rhs)
+{
+	if (this != &rhs)
+	{
+		this->_name = rhs.getName();
+		this->_energypoints = rhs.getEnergypoints();
+		this->_hitpoints = rhs.getHitpoints();
+		this->_attack_damage = rhs.getAttack_damage();
+	}
+	return *this;
+}
+
+
 
 /*
  *-------------MEMBER-FUNCTIONS----------

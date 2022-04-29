@@ -10,10 +10,26 @@ ScavTrap::ScavTrap(std::string name): ClapTrap(name)
 	std::cout << "Scavtrap is built!" << std::endl;
 }
 
+ScavTrap::ScavTrap(ScavTrap const &cpy): ClapTrap(cpy)
+{}
+
 ScavTrap::~ScavTrap()
 {
 	std::cout << "Scavtrap is Destroyed!" << std::endl;
 }
+
+ScavTrap &	ScavTrap::operator=(ScavTrap const & rhs)
+{
+	if (this != &rhs)
+	{
+		this->_name = rhs.getName();
+		this->_energypoints = rhs.getEnergypoints();
+		this->_hitpoints = rhs.getHitpoints();
+		this->_attack_damage = rhs.getAttack_damage();
+	}
+	return *this;
+}
+
 
 /*
  *-------------MEMBER-FUNCTIONS----------

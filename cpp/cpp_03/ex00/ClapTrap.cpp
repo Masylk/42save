@@ -23,6 +23,18 @@ ClapTrap::~ClapTrap()
 	std::cout << this->getName() << " is destroyed !" << std::endl;
 }
 
+ClapTrap &	ClapTrap::operator=(ClapTrap const & rhs)
+{
+	if (this != &rhs)
+	{
+		this->_name = rhs.getName();
+		this->_energypoints = rhs.getEnergypoints();
+		this->_hitpoints = rhs.getHitpoints();
+		this->_attack_damage = rhs.getAttack_damage();
+	}
+	return *this;
+}
+
 /*
  *---------------FUNCTIONS------------
  **/
