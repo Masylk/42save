@@ -11,19 +11,24 @@ void	aff_line(std::string index, std::string f_name, std::string l_name, std::st
 	std::cout << index;
 	std::cout << "|";
 	std::cout << std::setw(10);
-	std::cout << f_name.substr(0, 9);
 	if (f_name.length() > 9)
-		std::cout << ".";
+		std::cout << f_name.substr(0, 9) + ".";
+	else
+		std::cout << f_name;
+//	if (f_name.length() > 9)
+//		std::cout << ".";
 	std::cout << "|";
 	std::cout << std::setw(10);
-	std::cout << l_name.substr(0, 9);
 	if (l_name.length() > 9)
-		std::cout << ".";
+		std::cout << l_name.substr(0, 9) + ".";
+	else
+		std::cout << l_name;
 	std::cout << "|";
 	std::cout << std::setw(10);
-	std::cout << n_name.substr(0, 9);
 	if (n_name.length() > 9)
-		std::cout << ".";
+		std::cout << n_name.substr(0, 9) + ".";
+	else
+		std::cout << n_name;
 	std::cout << std::endl;
 }
 
@@ -45,7 +50,7 @@ int	aff_contacts(PhoneBook pbook)
 	std::ostringstream		convert;
 
 	i = 0;
-	aff_line("index", "first_name", "last_name", "nickname");
+	aff_line("index", "firstname", "last_name", "nickname");
 	while (!pbook.get_contact(i)->get_first_name().empty())
 	{
 		convert << i;
