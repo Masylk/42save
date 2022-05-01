@@ -10,6 +10,15 @@ Animal::Animal(Animal const &cpy)
 	this->type = cpy.type;
 }
 
+Animal const &	Animal::operator=(Animal const & rhs)
+{
+	if (this != &rhs)
+	{
+		this->type = rhs.type;
+	}
+	return *this;
+}
+
 Animal::~Animal()
 {
 	std::cout << "Animal is dead" << std::endl;
