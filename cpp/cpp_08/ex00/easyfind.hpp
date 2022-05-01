@@ -2,6 +2,7 @@
 # define EASYFIND_HPP
 
 # include <iostream>
+# include <algorithm>
 # include <iterator>
 # include <vector>
 
@@ -18,16 +19,20 @@ template<typename T>
 int	easyfind(const T&list, const int i)
 {
 	T		tmp;
-	typename T::const_iterator	it;
+	typename T::iterator	it;
 
 	tmp = const_cast<T&>(list);
-	it = tmp.begin();
+/*	it = tmp.begin();
 	while (it != tmp.end())
 	{
 		if (*it == i)
 			return (*it);
 		it++;
-	}
-	throw NotFoundException();
+	}*/
+	it = std::find(tmp.begin(), tmp.end(), i);
+	if (it == tmp.end())
+		throw NotFoundException();
+	else
+		return *it;
 }
 #endif 

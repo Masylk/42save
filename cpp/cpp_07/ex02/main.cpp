@@ -11,6 +11,7 @@ int	main()
 		try
 		{
 			std::cout << o[i++] << std::endl;
+			o[i] = "oui";
 		}
 		catch (std::exception &e)
 		{
