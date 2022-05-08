@@ -29,7 +29,9 @@ Intern::~Intern()
 //assign operator
 const Intern &Intern::operator=(const Intern &rhs)
 {
-	*this = rhs;
+	forms[0] = rhs.forms[0];
+	forms[1] = rhs.forms[1];
+	forms[2] = rhs.forms[2];
 	return *this;
 }
 

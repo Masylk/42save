@@ -6,7 +6,7 @@
 #    By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/15 11:23:31 by mtogbe            #+#    #+#              #
-#    Updated: 2021/10/25 14:56:50 by mtogbe           ###   ########.fr        #
+#    Updated: 2022/05/08 15:51:05 by mtogbe           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC=c++
 
 OBJDIR = obj
 
-CFLAGS=-Wall -Wextra -Werror
+CFLAGS=-Wall -Wextra -Werror -std=c++98
 
 PATHS= $(OBJDIR)/srcs
 
