@@ -141,9 +141,9 @@ void	Converter::printFloat()
 		std::cout << "float : ";
 		if (this->toFloat(this->base))
 		{
-			std::cout << std::setprecision(1) << this->f;
-			if (this->f - static_cast<int>(this->f) == 0)
-				std::cout << ".0";
+			std::cout << std::setprecision(1) << std::fixed << this->f;
+//			if (this->f - static_cast<int>(this->f) == 0)
+//				std::cout << ".0";
 			std::cout << "f";
 		}
 		else
@@ -163,9 +163,9 @@ void	Converter::printDouble()
 		std::cout << "double : ";
 		if (this->toDouble(this->base))
 		{
-			std::cout << std::setprecision(1) << this->d;
-			if (this->d - static_cast<int>(this->d) == 0)
-				std::cout << ".0";
+			std::cout << std::setprecision(1) << std::fixed << this->d;
+//			if (this->d - static_cast<int>(this->d) == 0)
+//				std::cout << ".0";
 		}
 		else
 			throw Converter::ImpossibleException();
