@@ -15,16 +15,7 @@ void	addToSpan(Span *sp)
 	for (it = tab.begin(); it != tab.end(); it++)
 		std::cout << *it << ", ";
 	std::cout << std::endl;
-	try
-	{
-		for (it = tab.begin(); it != tab.end(); it++)
-			sp->addNumber(*it);
-	}
-	catch (std::exception &e)
-	{
-		std::cout << e.what() << std::endl;
-	}
-
+	sp->addSpan(tab.begin(), tab.end());
 }
 
 int	main()

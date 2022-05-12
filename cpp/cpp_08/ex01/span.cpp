@@ -40,6 +40,22 @@ void		Span::addNumber(int n)
 		throw MaxCapacityException();
 }
 
+void	Span::addSpan(std::vector<int>::iterator begin, std::vector<int>::iterator end)
+{	
+    	std::vector<int>::iterator it;
+	
+	try
+	{
+		for (it = begin; it != end; it++)
+			addNumber(*it);
+	}
+	catch (std::exception &e)
+	{
+		std::cout << e.what() << std::endl;
+	}
+
+}
+
 long		Span::longestSpan()
 {
 	long	max;

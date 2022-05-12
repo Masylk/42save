@@ -11,4 +11,14 @@ void	iter(T *arr, int len, void (*f)(T &))
 		f(arr[i++]);
 }
 
+template<typename T>
+void	iter(const T *arr, const int len, void (*f)(const T &))
+{
+	int	i;
+
+	i = 0;
+	while (i < len)
+		f(arr[i++]);
+}
+
 #endif

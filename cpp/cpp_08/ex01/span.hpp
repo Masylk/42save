@@ -14,9 +14,10 @@ class	Span
 		const Span	&operator=(const Span &rhf);
 		unsigned int	getSize(void) const;
 		void		addNumber(int n);
+		void		addSpan(std::vector<int>::iterator begin, std::vector<int>::iterator end);
 		long		shortestSpan(void);
 		long		longestSpan(void);
-
+		
 	class	MaxCapacityException : public std::exception
 	{
 		public :
