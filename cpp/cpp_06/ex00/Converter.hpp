@@ -2,6 +2,7 @@
 # define CONVERTER_HPP
 
 # include <iostream>
+# include <iomanip>
 # include <stdio.h>
 # include <string.h>
 # include <stdlib.h>

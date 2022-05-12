@@ -7,6 +7,7 @@ Animal::Animal()
 
 Animal::Animal(Animal const &cpy)
 {
+	std::cout << "animal copy" << std::endl;
 	this->type = cpy.type;
 }
 
@@ -20,6 +21,7 @@ void	Animal::makeSound() const
 		
 Animal const &Animal::operator=(Animal const &rhs)
 {
+	std::cout << "animal operator";
 	if (this != &rhs)
 	{
 		this->type = rhs.getType();

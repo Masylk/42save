@@ -6,6 +6,15 @@
 
 int	main()
 {
+
+	Dog	basic;
+	Cat	bb;
+	{
+		Cat tt = bb;
+		Dog tmp = basic;
+		std::cout << (tt.getBrain()) << std::endl;
+		std::cout << (bb.getBrain()) << std::endl;
+	}
 	Animal *arr[10];
 	int	i;
 

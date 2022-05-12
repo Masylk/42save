@@ -8,7 +8,9 @@ Brain::Brain()
 
 Brain::Brain(Brain const &cpy)
 {
-	this->ideas = cpy.ideas;
+	this->ideas = new std::string[100];
+	for (int i = 0; i < 100; i++)
+		this->ideas[i] = cpy.getIdeas()[i];
 }
 
 Brain::~Brain()
@@ -21,7 +23,8 @@ Brain const &Brain::operator=(Brain const &rhs)
 {
 	if (this != &rhs)
 	{
-		this->ideas = rhs.getIdeas();
+		for (int i = 0; i < 100; i++)
+			this->ideas[i] = rhs.getIdeas()[i];
 	}
 	return *this;
 }
@@ -29,4 +32,9 @@ Brain const &Brain::operator=(Brain const &rhs)
 std::string*	Brain::getIdeas(void) const
 {
 	return this->ideas;
+}
+
+void		Brain::setIdeas(std::string *ideas)
+{
+	this->ideas = ideas;
 }

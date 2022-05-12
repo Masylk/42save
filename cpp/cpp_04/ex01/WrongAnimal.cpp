@@ -15,6 +15,16 @@ WrongAnimal::~WrongAnimal()
 	std::cout << "WrongAnimal is dead" << std::endl;
 }
 
+
+WrongAnimal const &	WrongAnimal::operator=(WrongAnimal const & rhs)
+{
+	if (this != &rhs)
+	{
+		this->type = rhs.type;
+	}
+	return *this;
+}
+
 void	WrongAnimal::makeSound() const
 {
 	std::cout << "Wroooong !" << std::endl;

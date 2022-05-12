@@ -11,7 +11,8 @@ class	Brain
 		virtual ~Brain();
 
 		Brain const &operator=(Brain const &rhs);
-
+		
+		void		setIdeas(std::string *ideas);
 		std::string*	getIdeas(void) const;
 	protected :
 		std::string	*ideas;

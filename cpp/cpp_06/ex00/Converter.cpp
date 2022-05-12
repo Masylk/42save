@@ -141,7 +141,7 @@ void	Converter::printFloat()
 		std::cout << "float : ";
 		if (this->toFloat(this->base))
 		{
-			std::cout << this->f;
+			std::cout << std::setprecision(1) << this->f;
 			if (this->f - static_cast<int>(this->f) == 0)
 				std::cout << ".0";
 			std::cout << "f";
@@ -163,7 +163,7 @@ void	Converter::printDouble()
 		std::cout << "double : ";
 		if (this->toDouble(this->base))
 		{
-			std::cout << this->d;
+			std::cout << std::setprecision(1) << this->d;
 			if (this->d - static_cast<int>(this->d) == 0)
 				std::cout << ".0";
 		}
@@ -257,6 +257,8 @@ bool	Converter::strDigit(char *str)
 	while (str[i])
 	{
 		if (!std::isdigit(str[i]) && (str[i] != '.' || breakpoint))
+			break;
+		else if (i == 0 && str[i] == '.')
 			break;
 		else if (str[i] == '.' && str[i -1] && std::isdigit(str[i - 1]))
 			breakpoint = true;

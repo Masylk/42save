@@ -16,16 +16,19 @@ Dog::~Dog()
 Dog::Dog(Dog const &cpy) : Animal(cpy)
 {
 	this->type = cpy.getType();
-	this->brain = cpy.getBrain();
+	this->brain = new Brain(*cpy.getBrain());
 }
 
 Dog const &Dog::operator=(Dog const &rhs)
 {
+	std::cout << "oui";
 	if (this != &rhs)
 	{
+		std::cout << "oui";
 		delete this->brain;
 		this->brain = new Brain();
-		this->brain =  rhs.getBrain();
+		*this->brain = *rhs.getBrain();
+		//	this->brain->setIdeas(rhs.getBrain()->getIdeas());
 		this->type = rhs.getType();
 	}
 	return *this;

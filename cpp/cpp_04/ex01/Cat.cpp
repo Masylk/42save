@@ -22,7 +22,7 @@ Cat::Cat(Cat const &cpy) : Animal(cpy)
 {
 	this->type = cpy.getType();
 	this->brain = new Brain();
-	this->brain = cpy.getBrain();
+	*this->brain = *cpy.getBrain();
 }
 
 Cat const &Cat::operator=(Cat const &rhs)
@@ -31,7 +31,7 @@ Cat const &Cat::operator=(Cat const &rhs)
 	{
 		delete this->brain;
 		this->brain = new Brain();
-		this->brain =  rhs.getBrain();
+		*this->brain = *rhs.getBrain();
 		this->type = rhs.getType();
 	}
 	return *this;
