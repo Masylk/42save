@@ -7,11 +7,13 @@ void	addToSpan(Span *sp)
 	std::vector<int> tab;
     	std::vector<int>::iterator it;
 	int	size;
+	int	randSize = 20;
+	int	threshold = 500;
 
 	srand(time(NULL));
-	size = rand() % 20;
+	size = rand() % randSize;
 	for (int i = 0; i < size; i++)
-		tab.push_back(rand() % 1000 - rand() % 1000);
+		tab.push_back(rand() % threshold - rand() % threshold);
 	for (it = tab.begin(); it != tab.end(); it++)
 		std::cout << *it << ", ";
 	std::cout << std::endl;

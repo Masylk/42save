@@ -16,23 +16,32 @@ class	NotFoundException : public std::exception
 };
 
 template<typename T>
-int	easyfind(const T&list, const int i)
+typename T::iterator	easyfind(T& list, const int i)
 {
 	T		tmp;
 	typename T::iterator	it;
 
 	tmp = const_cast<T&>(list);
-/*	it = tmp.begin();
-	while (it != tmp.end())
-	{
-		if (*it == i)
-			return (*it);
-		it++;
-	}*/
 	it = std::find(tmp.begin(), tmp.end(), i);
 	if (it == tmp.end())
 		throw NotFoundException();
 	else
-		return *it;
+		return it;
 }
+
+template<typename T>
+typename T::const_iterator	easyfind(const T& list, const int i)
+{
+	T		tmp;
+	typename T::const_iterator	it;
+
+	tmp = const_cast<T&>(list);
+	it = std::find(tmp.begin(), tmp.end(), i);
+	if (it == tmp.end())
+		throw NotFoundException();
+	else
+		return it;
+}
+
+
 #endif 

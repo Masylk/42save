@@ -1,5 +1,8 @@
 #include "span.hpp"
 
+Span::Span(): size(0)
+{}
+
 Span::Span(unsigned int n) : size(n)
 {
 	v.reserve(n);
@@ -58,24 +61,10 @@ void	Span::addSpan(std::vector<int>::iterator begin, std::vector<int>::iterator 
 
 long		Span::longestSpan()
 {
-	long	max;
-	long	min;
-
 	if (v.size() <= 1)
 		throw NoSpanException();
-	for (std::vector<int>::iterator it = v.begin(); it != v.end(); it++)
-	{
-		if (it == v.begin())
-		{
-			min = *it;
-			max = *it;
-		}
-		if (min > *it)
-			min = *it;
-		if (max < *it)
-			max = *it;
-	}
-	return (static_cast<long>(max) - static_cast<long>(min));
+	return ( static_cast<long>(*std::max_element(v.begin(), v.end()))
+		- static_cast<long>(*std::min_element(v.begin(), v.end())) );	
 }
 
 long		Span::shortestSpan()

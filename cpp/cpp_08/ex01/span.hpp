@@ -3,10 +3,12 @@
 
 # include <iostream>
 # include <vector>
+# include <algorithm>
 
 class	Span
 {
 	public :
+		Span();
 		Span(unsigned int n);
 		Span(const Span &cpy);
 		~Span();
