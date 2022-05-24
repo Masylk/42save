@@ -1,0 +1,60 @@
+version: '3'
+
+volumes:
+        wp:
+                driver: local
+                name: wp
+                driver_opts:
+                        type: none
+                        o: bind
+                        device: /home/mtogbe/data/html
+        db:
+                driver: local
+                name: db
+                driver_opts:
+                        type: none
+                        o: bind
+                        device: /home/mtogbe/data/mysql
+
+services:
+        mariadb:
+                build: ./mariadb
+                volumes:
+                        - db:/var/lib/mysql
+                env_file:
+                        - "./.env"
+                restart: on-failure
+                networks:
+                        - backend
+        wordpress:
+                build: ./wordpress
+                volumes:
+                        - wp:/var/www/wordpress
+                depends_on:
+                        - mariadb
+                env_file:
+                        - "./.env"
+                ports:
+                        - 9000:9000
+                networks:
+                        - frontend
+                        - backend
+                restart: on-failure
+        nginx:
+                build: 
+                        context: ./nginx
+                volumes:
+                        - wp:/var/www/wordpress
+                depends_on:
+                        - wordpress 
+                extra_hosts:
+                        - "mtogbe.42.fr:127.0.0.1"
+                ports:
+                        - 8080:80
+                        - 443:443
+                restart: on-failure
+                networks:
+                        - frontend 
+networks:
+        frontend:
+        backend:

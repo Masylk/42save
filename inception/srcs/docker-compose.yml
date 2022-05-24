@@ -13,7 +13,7 @@ services:
     links:
       - wordpress
     volumes:
-      - /data/wordpress:/var/www/html
+      - /home/mtogbe/data/wp_nginx:/var/www/wordpress
     restart: on-failure
     networks:
         - frontend
@@ -33,7 +33,7 @@ services:
     links:
       - mariadb
     volumes:
-      - /data/wordpress:/var/www/html
+      - /home/mtogbe/data/wp_nginx:/var/www/wordpress
     restart: on-failure
     networks:
         - frontend
@@ -47,9 +47,9 @@ services:
     container_name: "inception_mariadb"
     image: ft_mariadb
     env_file:
-      - "./.env" #inclusion du  fichier .env :)
+      - "./.env"
     volumes:
-      - /data/mysql:/var/lib/mysql
+      - /home/mtogbe/data/mysql:/var/lib/html
     restart: on-failure
     networks:  
       - backend

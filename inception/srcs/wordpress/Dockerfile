@@ -1,36 +1,29 @@
-FROM	alpine:3.13.4
+FROM	debian:buster
 
-RUN	apk -U upgrade && apk add\
-	php7 php7-fpm php7-phar php7-json php-intl\
-	php7-mysqli php7-curl php7-iconv php-gd\
-	php7-pecl-mailparse php-cli php-curl\
-	php7-pdo php7-pdo_mysql\
-	php7-pdo_pgsql php7-pdo_sqlite\
-	wget tar\
-	mariadb-client\
-	bash
+RUN	apt-get -y update && apt-get -y upgrade\
+	&& apt-get update && apt-get install -y \
+	wget \
+	php7.3-fpm php7.3-mysql php7.3-json php7.3-xmlrpc \
+	php7.3-curl php7.3-gd php7.3-xml php7.3-mbstring expect
 
 
-WORKDIR /var/www/html
+#COPY	./config/wp-config.php ./
 
-RUN	wget http://fr.wordpress.org/latest-fr_FR.tar.gz && \
-	tar -xvzf latest-fr_FR.tar.gz
+WORKDIR /var/www/
 
-RUN	adduser -S nginx && addgroup -S www-data && \
-	chown -R nginx:www-data /var/www/html
+#RUN	wget http://fr.wordpress.org/latest-fr_FR.tar.gz && \
+#	tar -xvzf latest-fr_FR.tar.gz
 
-COPY	./config/php-fpm.conf /etc/php7/php-fpm.conf
-COPY	./config/www.conf /etc/php7/php-fpm.d/www.conf
+COPY ./latest.tar.gz /var/www/
+COPY	./config/php-fpm.conf /etc/php/7.3/fpm/php-fpm.conf
+COPY	./config/www.conf /etc/php/7.3/fpm/pool.d/www.conf
 
-WORKDIR /var/www/html/wordpress
+#COPY	./tools/start.sh /tmp/start.sh
 
-RUN ls /var/www/html
-#RUN	mkdir /var/log/php-fpm
+#RUN	cp /wp-config.php /var/www/wordpress
 
-RUN	rm ./wp-config-sample.php
-#COPY	./config /config
-COPY	./config/wp-config.php ./wp-config.php
-COPY	./tools/start.sh /tmp/start.sh
+#RUN	chown -R www-data:www-data /var/www/* && \
+#	chmod -R 755 /var/www/*
 
-#CMD	./start.sh
-ENTRYPOINT ["/bin/bash", "/tmp/start.sh"]
+#ENTRYPOINT tar -xzf latest.tar.gz && cp /wp-config.php  /var/www/wordpress && chown -R www-data:www-data /var/www/* && chmod -R 755 /var/www/* &&  exec php-fpm7.3 -F
+ENTRYPOINT tar -xzf latest.tar.gz && chown -R www-data:www-data /var/www/* && chmod -R 755 /var/www/* &&  exec php-fpm7.3 -F

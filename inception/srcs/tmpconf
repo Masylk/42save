@@ -1,0 +1,27 @@
+server {
+
+	listen 80;
+	listen [::]:80;
+	listen 443 ssl;
+	listen [::]:443 ssl;
+
+	access_log on;
+	root /var/www/wordpress;
+	index index.php index.html index.htm index.nginx-debian.html;
+	server_name inception;
+	server_tokens on;
+
+	ssl_certificate /etc/nginx/ssl/mtogbe.pem;
+	ssl_certificate_key /etc/nginx/ssl/mtogbe.key;
+	ssl_protocols TLSv1.2 TLSv1.3;
+
+	error_page	497	https://$server_name:443$request_uri;
+
+	location ~ \.php$ {
+		fastcgi_pass wordpress:9000;
+		#fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+		include fastcgi.conf;
+		include snippets/fastcgi-php.conf;
+	}
+}
+
