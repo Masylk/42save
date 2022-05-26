@@ -12,7 +12,7 @@
 
 NAME=test
 
-CC=g++
+CC=clang++
 
 OBJDIR = obj
 
@@ -20,9 +20,9 @@ CFLAGS=-Wall -Wextra -Werror --std=c++98
 
 PATHS= $(OBJDIR)/srcs $(OBJDIR)/tester
 
-SRC=main.cpp tester/tester_vector.cpp tester/tester_stack.cpp tester/tester_map.cpp tester/tester.cpp
+SRC=main.cpp
 
-INCFLAGS=-I. -I./utils -I./containers -I./iterators -I./tester
+INCFLAGS=-I. -I./utils -I./containers -I./iterators -I./tester -I./containers_test -I./containers_test/srcs/map -I./containers_test/srcs
 
 RM=rm -rf
 
@@ -30,8 +30,12 @@ INC=-I.
 
 OBJ=$(SRC:%.cpp=$(OBJDIR)/%.o)
 
+deps	:= $(patsubst %.o,%.d,$(OBJ))
+-include $(deps)
+DEPFLAGS = -MMD -MF $(@:.o=.d)
+
 $(OBJDIR)/%.o: %.cpp | $(OBJDIR)
-	$(CC) $(CFLAGS) $(INCFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCFLAGS) -c $< $(DEPFLAGS) -o $@
 
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $^
@@ -42,7 +46,7 @@ $(OBJDIR) :
 all: $(NAME)
 
 clean:
-	$(RM) $(OBJ)
+	$(RM) $(OBJ) $(deps)
 fclean: clean
 	$(RM) $(NAME) $(OBJDIR)
 

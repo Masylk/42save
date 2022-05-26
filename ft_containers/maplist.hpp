@@ -176,7 +176,7 @@ namespace ft
 			x.head = tmp;
 		};
 
-		Node	*find(const key_type &k)
+		Node	*find(const key_type &k) const
 		{
 			Node	*tmp = head;
 
@@ -202,7 +202,7 @@ namespace ft
 			std::cout << std::endl;
 		}
 
-		Node	*upper_bound(const key_type &k)
+		Node	*upper_bound(const key_type &k) const
 		{
 			Node	*tmp = head;
 
@@ -215,7 +215,7 @@ namespace ft
 			return (tmp);
 		};
 
-		Node	*lower_bound(const key_type &k)
+		Node	*lower_bound(const key_type &k) const
 		{
 			Node	*tmp = head;
 

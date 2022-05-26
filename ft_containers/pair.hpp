@@ -45,7 +45,6 @@ namespace ft
 		return (ft::pair<T1, T2>(x, y));
 	};
 
-};
 	//---RELATIONAL OPERATORS START
 	//
 	
@@ -64,7 +63,7 @@ namespace ft
 	template<typename T1, typename T2>
 	bool	operator<(const ft::pair<T1, T2> &lhs, const ft::pair<T1, T2> &rhs)
 	{
-		return (lhs.first < rhs.first || (!(rhs.first < lhs.first)) && lhs.second < rhs.second);
+		return ((lhs.first < rhs.first || (!(rhs.first < lhs.first))) && lhs.second < rhs.second);
 	};
 	
 	template<typename T1, typename T2>
@@ -87,5 +86,5 @@ namespace ft
 	
 	//
 	//---RELATIONAL OPERATORS END
-
+};
 #endif

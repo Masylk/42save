@@ -1,83 +1,46 @@
-#include "tester.hpp"
-#include "vector.hpp"
-#include "stack.hpp"
-#include <iostream>
-#include "map.hpp"
-#include <list>
-#include <vector>
-#include <stack>
+#include "common.hpp"
+#include "equal.hpp"
 
-#define T_SIZE_TYPE typename ft::vector<T>::size_type
+#define T1 char
+#define T2 int
+typedef _pair<const T1, T2> T3;
 
-template <typename T>
-void	printSize(ft::vector<T> const &vct, bool print_content = true)
-{
-	const T_SIZE_TYPE size = vct.size();
-	const T_SIZE_TYPE capacity = vct.capacity();
-	const std::string isCapacityOk = (capacity >= size) ? "OK" : "KO";
-	// Cannot limit capacity's max value because it's implementation dependent
-
-	std::cout << "size: " << size << std::endl;
-	std::cout << "capacity: " << isCapacityOk << std::endl;
-	std::cout << "max_size: " << vct.max_size() << std::endl;
-	if (print_content)
-	{
-		typename ft::vector<T>::const_iterator it = vct.begin();
-		typename ft::vector<T>::const_iterator ite = vct.end();
-		std::cout << std::endl << "Content is:" << std::endl;
-		for (; it != ite; ++it)
-			std::cout << "- " << *it << std::endl;
-	}
-	std::cout << "###############################################" << std::endl;
-}
-
-void	checkErase(ft::vector<std::string> const &vct,
-					ft::vector<std::string>::const_iterator const &it)
+template <class MAP>
+void	cmp(const MAP &lhs, const MAP &rhs)
 {
 	static int i = 0;
-	std::cout << "[" << i++ << "] " << "erase: " << it - vct.begin() << std::endl;
-	printSize(vct);
+
+	std::cout << "############### [" << i++ << "] ###############"  << std::endl;
+	std::cout << "eq: " << (lhs == rhs) << " | ne: " << (lhs != rhs) << std::endl;
+	std::cout << "lt: " << (lhs <  rhs) << " | le: " << (lhs <= rhs) << std::endl;
+	std::cout << "gt: " << (lhs >  rhs) << " | ge: " << (lhs >= rhs) << std::endl;
 }
 
-
-int main()
+int		main(void)
 {
-	ft::vector<int> vct(5);
-	ft::vector<int>::iterator it = vct.begin(), ite = vct.end();
+	TESTED_NAMESPACE::map<T1, T2> mp1;
+	TESTED_NAMESPACE::map<T1, T2> mp2;
 
-	std::cout << "len: " << (ite - it) << std::endl;
-	for (; it != ite; ++it)
-	{
-		*it = ((ite - it) + 3) * 2;
-	}
-	it = vct.begin();
-	ft::vector<int> vct_range(it, --(--ite));
-	std::cout << *ite << std::endl;
-	for (int i = 0; it != ite; ++it)
-	{
-		*it = ++i * 5;
-	}
+	mp1['a'] = 2; mp1['b'] = 3; mp1['c'] = 4; mp1['d'] = 5;
+	mp2['a'] = 2; mp2['b'] = 3; mp2['c'] = 4; mp2['d'] = 5;
 
-	it = vct.begin();
-	ft::vector<int> vct_copy(vct);
-	printSize(vct_copy);
-	for (int i = 0; it != ite; ++it)
-		*it = ++i * 7;
-	vct_copy.push_back(42);
-	vct_copy.push_back(21);
+	cmp(mp1, mp1); // 0
+	cmp(mp1, mp2); // 1
 
-	std::cout << "\t-- PART ONE --" << std::endl;
-	printSize(vct);
-	printSize(vct_range);
-	printSize(vct_copy);
+/*	mp2['e'] = 6; mp2['f'] = 7; mp2['h'] = 8; mp2['h'] = 9;
 
-	vct = vct_copy;
-	vct_copy = vct_range;
-	vct_range.clear();
+	cmp(mp1, mp2); // 2
+	cmp(mp2, mp1); // 3
 
-	std::cout << "\t-- PART TWO --" << std::endl;
-	printSize(vct);
-	printSize(vct_range);
-	printSize(vct_copy);
+	(++(++mp1.begin()))->second = 42;
 
+	cmp(mp1, mp2); // 4
+	cmp(mp2, mp1); // 5
+
+	swap(mp1, mp2);
+
+	cmp(mp1, mp2); // 6
+	cmp(mp2, mp1); // 7
+*/
+	return (0);
 }
