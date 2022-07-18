@@ -48,25 +48,6 @@ else
 	echo "\n[i] Skipping initialization cause Mysql database is already created"
 fi
 
-cat <<EOF 
-#######################	 User Identifiant ##########################
-#		user sql	:
-#					 login		: $WP_ADMIN_USER
-#					 password 	: $WP_ADMIN_PWD 
-#
-#
-#		user wordpress	:
-#					 login		: maxime
-#					 password 	: maxime
-#
-#					 login		: axel
-#					 password 	: axel
-#
-#####################################################################
-
-EOF
-sleep 5
-
 echo "[i] Starting mariadb server\n"
 exec mysqld -u root
 exec "$@"

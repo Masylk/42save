@@ -14,4 +14,4 @@ prune: clean
 reload: 
 	@ docker-compose -f srcs/docker-compose.yml up --build -d
 
-.PHONY: linux stop clean prune reload all
+.PHONY: stop clean prune reload all
