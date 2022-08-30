@@ -3,15 +3,12 @@ NAME = Inception
 all: reload
 
 stop:
-	@ docker-compose -f srcs/docker-compose.yml down
+	@ docker-compose -f srcs/docker-compose.yaml down
 
 clean:	stop
-	@ docker-compose -f srcs/docker-compose.yml down --volumes --rmi all
-
-prune: clean
-	@ docker system prune -f
+	@ docker-compose -f srcs/docker-compose.yaml down --volumes --rmi all
 
 reload: 
-	@ docker-compose -f srcs/docker-compose.yml up --build -d
+	@ docker-compose -f srcs/docker-compose.yaml up --build -d
 
-.PHONY: stop clean prune reload all
+.PHONY: stop clean reload all
