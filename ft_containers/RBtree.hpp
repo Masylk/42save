@@ -150,14 +150,122 @@ namespace ft
                 insertFix(node);
             }
             
-            void    fixDelete(Node *node)
+            void    transplant(Node *x, Node *y)
             {
-
+                if (!x->parent)
+                    root = y;
+                else if (x == x->parent->left)
+                    x->parent->left = y;
+                else
+                    x->parent->right = y;
+                y->parent = x->parent;
             }
 
-            void    delete(Node *node)
+            Node    *minimum(Node *node)
             {
+                while (node->left)
+                    node = node->left;
+                return node;
+            }
 
+            Node    *maximum(Node *node)
+            {
+                while (node->right)
+                    node = node->right;
+                return node;
+            }
+
+            Node    *successor(Node *x)
+            {
+                if (x->right)
+                    return minimum(x->right);
+                Node    *y = x->parent;
+
+                while (y && x == y->right)
+                {
+                    x = y;
+                    y = y->parent;
+                }
+                return y;
+            }
+
+            Node    *predecessor(Node *x)
+            {
+                if (x->left)
+                    return maximum(x->left);
+                Node    *y = x->parent;
+
+                while (y && x == y->left)
+                {
+                    x = y;
+                    y = y->parent;
+                }
+                return y;
+            }
+
+            void    fixDelete(Node *node)
+            {
+                //TODO : see the algorithm on : https://www.programiz.com/dsa/red-black-tree
+                while (x != root && node->black)
+                {
+                    
+
+                }
+            }
+
+            void    deleteNode(Node *node)
+            {
+                bool    originalColor = node->black;
+                int     key = node->value;
+                Node    *x, y;
+                //cursor
+                Node    *z = NULL;
+
+                while (node)
+                {
+                    if (node->value == key)
+                        z = node;
+                    if (node->value <= key)
+                        node = node->right;
+                    else
+                        node = node->left;
+                }
+                if (!z)
+                {
+                    std::cout << "Key not found for deletion" << std::endl;
+                    return ;
+                }
+                if (!z->left)
+                {
+                    x = z->right;
+                    transplant(z, z->right);
+                }
+                else if (!z->right)
+                {
+                    x = z->left;
+                    transplant(z, z->left);
+                }
+                else
+                {
+                    y = minimum(z->right);
+                    originalColor = y->black;
+                    x = y->right;
+                    if (y->parent == z)
+                        x->parent = y;
+                    else
+                    {
+                        transplant(y, y->right);
+                        y->right = z->right;
+                        y->right->parent = y;
+                    }
+                    transplant(z, y);
+                    y->left = z->left;
+                    y->left->parent = y;
+                    y->black = z->black;
+                }
+                delete z;
+                if (originalColor)
+                    fix_delete(x);
             }
 
             void    recolor(Node *node)
@@ -205,6 +313,21 @@ namespace ft
                     node->parent->left = x;
                 x->right = node;
                 node->parent = x;
+            }
+
+            Node searchNode(int key) 
+            {
+                Node node = root;
+                while (node != null) {
+                    if (key == node.data) {
+                        return node;
+                    } else if (key < node.data) {
+                    node = node.left;
+                    } else {
+                        node = node.right;
+                    }
+                }
+                return null;
             }
 
             void    fix_delete(Node *node)
