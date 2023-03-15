@@ -206,11 +206,76 @@ namespace ft
             void    fixDelete(Node *node)
             {
                 //TODO : see the algorithm on : https://www.programiz.com/dsa/red-black-tree
-                while (x != root && node->black)
-                {
-                    
+                Node    *w;
 
+                while (node != root && node->black)
+                {
+                    if (node == node->parent->left)
+                    {
+                        w = node->parent->right;
+                        if (!w->black)
+                        {
+                            w->black = 1;
+                            node->parent->black = 0;
+                            left_rotate(node->parent);
+                            w = node->parent->right;
+                        }
+                        if (w->left->black && w->right->black)
+                        {
+                            w->black = 0;
+                            node = node->parent;
+                        }
+                        else 
+                        {
+                            if (w->right->black)
+                            {
+                                w->left->black = 1;
+                                w->black = 0;
+                                right_rotate(w);
+                                w = node->parent->right
+                            }
+
+                            w->black = node->parent->black;
+                            node->parent->black = 1;
+                            w->right->black = 1;
+                            left_rotate(node->parent);
+                            node = root;
+                        }
+                    }
+                    else
+                    {
+                        w = node->parent->left
+                        if (!w->black)
+                        {
+                            w->black = 1;
+                            node->parent->black = 0;
+                            right_rotate(node->parent);
+                            w = node->parent->left;
+                        }
+                        if (w->left->black && w->right->black)
+                        {
+                            w->black = 0;
+                            node = node->parent;
+                        }
+                        else 
+                        {
+                            if (w->left->black)
+                            {
+                                w->right->black = 1;
+                                w->black = 0;
+                                left_rotate(w);
+                                w = node->parent->left
+                            }
+
+                            w->black = node->parent->black;
+                            node->parent->black = 1;
+                            w->left->black = 1;
+                            right_rotate(node->parent);
+                            node = root;
+                        }
+                    }
                 }
+                node->black = 1;
             }
 
             void    deleteNode(Node *node)
