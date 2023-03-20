@@ -4,150 +4,85 @@
 # include <iostream>
 # include "iterator.hpp"
 # include "iterators_tag.hpp"
+#  include "map_iterator.hpp"
 
 namespace ft
 {
 template<typename T>
 class	reverse_iterator_map
 {
-	public :
-	
-		typedef	T	iterator_type;
-		typedef typename ft::iterator_traits<T>::iterator_category	iterator_category;
-		typedef typename ft::iterator_traits<T>::value_type	value_type;
-		typedef typename ft::iterator_traits<T>::difference_type	difference_type;
-		typedef typename ft::iterator_traits<T>::pointer	pointer;
-		typedef typename ft::iterator_traits<T>::reference	reference;
+	template <bool IsConst>
+		class map_iterator {
+		public:
+			// Member types
+			typedef					ft::pair<const Key, T>										pair_type;
+			typedef typename		ft::conditional<IsConst, const pair_type, pair_type>::type	value_type;
+			typedef typename		ft::conditional<IsConst, const node, node>::type			node_type;
+			typedef					std::ptrdiff_t												difference_type;
+			typedef					std::size_t													size_type;
+			// -structors
+			mapIterator				(void)														{ _ptr = NULL; }
+			mapIterator				(node_type * const ptr)										{ _ptr = ptr; }
+			~mapIterator			(void)														{}
+			// Const stuff
+			template <bool B>		mapIterator
+				(const mapIterator<B> & x, typename ft::enable_if<!B>::type* = 0)				{ _ptr = x.getPtr(); }
 
-		reverse_iterator_map() : i(NULL) {};
-		reverse_iterator_map(iterator_type x) : i(x) {};
-		
-		template <typename Iterator>
-		reverse_iterator_map(const reverse_iterator_map<Iterator> &cpy) : i(cpy.base()) 
-		{};
-		
-		virtual ~reverse_iterator_map() {};
+			// Assignment
+			mapIterator &			operator=	(const mapIterator & x)							{ _ptr = x.getPtr(); return (*this); }
+			// Comparison
+			template <bool B> bool	operator==	(const mapIterator<B> & x) const				{ return (_ptr == x.getPtr()); }
+			template <bool B> bool	operator!=	(const mapIterator<B> & x) const				{ return (_ptr != x.getPtr()); }
+			// -crementation
+			mapIterator &			operator++	(void)											{ this->nextNode(); return (*this); }
+			mapIterator &			operator--	(void)											{ this->prevNode(); return (*this); }
+			mapIterator				operator++	(int)											{ mapIterator<IsConst> x(*this); this->nextNode(); return (x); }
+			mapIterator				operator--	(int)											{ mapIterator<IsConst> x(*this); this->prevNode(); return (x); }
+			// Dereference
+			value_type &			operator*	(void) const									{ return (_ptr->data); }
+			value_type *			operator->	(void) const									{ return (&_ptr->data); }
+			// Member functions
+			node_type *				getPtr		(void) const									{ return (_ptr); }
 
-		//---OPERATORS START
-		//
+		private:
+			node_type *				_ptr;
 
-		reverse_iterator_map	&operator=(const reverse_iterator_map &cpy)
-		{
-			if (cpy == *this)
-				return (*this);
-			this->i = cpy.i;
-			return (*this);
-		};
-		reverse_iterator_map	&operator++() 
-		{
-			--i;
-			return *this;
-		}
-		reverse_iterator_map	operator++(int)
-		{
-			reverse_iterator_map	tmp(*this);
-			
-			--(*this);
-			return (tmp);
-		}
-		reverse_iterator_map	&operator--()
-		{	
-			++i;
-			return (*this);
-		}
-		reverse_iterator_map	operator--(int)
-		{
-			reverse_iterator_map	tmp(*this);
-			
-			++(*this);
-			return (tmp);
-		}
-		reverse_iterator_map	operator+(difference_type n) const
-		{
-			return (i - n);
-		};
-		reference	operator[](difference_type n)
-		{
-			return (*(i - n));
-		};
-		reverse_iterator_map	&operator+=(difference_type n)
-		{
-			i -= n;
-			return (*this);
-		};
-		reverse_iterator_map	&operator-=(difference_type n)
-		{
-			i += n;
-			return (*this);
-		};
-		reference	operator*() const {
-			iterator_type	tmp = i;	
-			return (*(--tmp));
-		};
-		pointer		operator->(void) const
-		{
-			return (&(operator*()));
-		}
-		
-		//
-		//---OPERATORS END
+			void prevNode (void)
+			{
+				if (_ptr->right != _ptr->right->left)
+				{
+					_ptr = _ptr->right;
+					while (_ptr->left != _ptr->left->left)
+						_ptr = _ptr->left;
+				}
+				else
+				{
+					while (_ptr == _ptr->parent->right && _ptr != _ptr->parent)
+						_ptr = _ptr->parent;
+					_ptr = _ptr->parent;
+				}
+			}
 
-		//---GETTER
-		iterator_type	base() const{return this->i;};
-	
-	private :
-			iterator_type	i;
-};
-	
-	template<typename T>
-	typename ft::reverse_iterator_map<T>::difference_type	
-	operator-(const ft::reverse_iterator_map<T> lhs, const ft::reverse_iterator_map<T> rhs)
-	{
-		return (lhs.base() - rhs.base());
-	};
-
-	template<typename T>
-	bool	operator>(const ft::reverse_iterator_map<T> lhs, const ft::reverse_iterator_map<T> rhs)
-	{
-		return (lhs.base() < rhs.base());
-	};
-
-
-	template<typename T>
-	bool	 operator>=(const ft::reverse_iterator_map<T> lhs, const ft::reverse_iterator_map<T> rhs)
-	{
-		return (lhs.base() <= rhs.base());
-	};
-
-	template<typename T>
-	bool 	operator<(const ft::reverse_iterator_map<T> lhs, const ft::reverse_iterator_map<T> rhs)
-	{
-		return (lhs.base() > rhs.base());
-	};
-
-	template<typename T>
-	bool	operator<=(const ft::reverse_iterator_map<T> lhs, const ft::reverse_iterator_map<T> rhs)
-	{
-		return (lhs.base() >= rhs.base());
-	};
-
-	
-	template<typename T>
-	bool	operator==(const ft::reverse_iterator_map<T> lhs, const ft::reverse_iterator_map<T> rhs){
-			return rhs.base() == lhs.base();
-	};
-	
-	template<typename T>
-	bool	operator!=(const ft::reverse_iterator_map<T> lhs, const ft::reverse_iterator_map<T> rhs){
-			return rhs.base() != lhs.base();
-	};
-
-	template<typename T>
-	typename ft::reverse_iterator_map<T>	
-	operator+(typename ft::reverse_iterator_map<T>::difference_type i, typename ft::reverse_iterator_map<T> rhs)
-	{
-		return (rhs + i);
-	};
-
+			void nextNode (void)
+			{
+				if (_ptr == _ptr->parent)
+				{
+					while (_ptr->right != _ptr->right->left)
+						_ptr = _ptr->right;
+				}
+				else if (_ptr->left != _ptr->left->left)
+				{
+					_ptr = _ptr->left;
+					while (_ptr->right != _ptr->right->left)
+						_ptr = _ptr->right;
+				}
+				else
+				{
+					while (_ptr == _ptr->parent->left && _ptr != _ptr->parent)
+						_ptr = _ptr->parent;
+					_ptr = _ptr->parent;
+				}
+			}
+		}; // Iterator
 }
 #endif
