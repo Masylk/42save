@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME=test
+NAME=RPN
 
 CC=c++
 
@@ -20,7 +20,7 @@ CFLAGS=-Wall -Wextra -Werror -std=c++98
 
 PATHS= $(OBJDIR)/srcs
 
-SRC=main.cpp
+SRC=main.cpp RPN.cpp
 
 INCFLAGS=-I.
 
