@@ -1,4 +1,5 @@
 /nest-chat/node_modules
 /react-chat/node_modules
+/front-chat/node_modules
 /nest-chat/dist
-/react-chat/dist
+/front-chat/dist
