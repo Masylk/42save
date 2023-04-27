@@ -1,5 +1,6 @@
-/nest-chat/node_modules
-/react-chat/node_modules
-/front-chat/node_modules
-/nest-chat/dist
+transcendence_box/nest-chat/node_modules
+transcendence_box/react-chat/node_modules
+transcendence_box/front-chat/node_modules
+transcendence_box/pong/node_modules
+transcendence_box/nest-chat/dist
 /front-chat/dist
