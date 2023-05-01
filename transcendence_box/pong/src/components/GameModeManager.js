@@ -7,13 +7,16 @@ import { useState } from 'react';
 const LOCAL_OPPONENT_POS_X = 860;
 const LOCAL_OPPONENT_POS_Y = 200;
 
+const LOCALMODE = 1;
+const ONLINEMODE = 0;
+
 const GameModeManager = (props) => {
     const [clicked, setClicked] = useState(false);
     const [mode, setMode] = useState("");
     
     const onClickButton = (button) => {
         setClicked(() =>{return true});
-        setMode(button, () => {console.log(button)});
+        setMode(button);
     }
     
     return (
@@ -22,7 +25,7 @@ const GameModeManager = (props) => {
             <ButtonOnline onClick={() => onClickButton("Online")} disabled={clicked}>Online</ButtonOnline>
             {clicked ?
             (mode === "Local" ?
-            <GameBox height={props.height} width={props.width}
+            <GameBox height={props.height} width={props.width} controlMode={LOCALMODE}
                 opponentPosX={LOCAL_OPPONENT_POS_X} opponentPosY={LOCAL_OPPONENT_POS_Y}></GameBox>
             : <MultiplayerManager height={props.height} width={props.width}></MultiplayerManager>)
             : ""}

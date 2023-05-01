@@ -22,7 +22,7 @@ export class SocketEvents  implements OnGatewayInit, OnGatewayConnection, OnGate
     }
     //connexion
     handleConnection(client: Socket){
-      //  console.log(`Client Connected: ${client.id}`);
+       console.log(`Client Connected: ${client.id}`);
         let userId = Array.isArray(client.handshake.query.userId)
                     ? client.handshake.query.userId[0]
                     : client.handshake.query.userId.toString();
@@ -36,6 +36,7 @@ export class SocketEvents  implements OnGatewayInit, OnGatewayConnection, OnGate
 
     handleDisconnect(client: Socket){
         console.log(`Client Disconnected: ${client.id}`);
+        this.matchmakingService.removePlayer(client)
     }
 
     //multiplayer event

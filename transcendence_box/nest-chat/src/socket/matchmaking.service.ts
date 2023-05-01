@@ -12,6 +12,7 @@ export class MatchmakingService {
 
   public removePlayer(player: Socket): void {
         //Do something
+        this.waitingPlayers.delete(player)
     }
 
   private matchPlayers(): void {
