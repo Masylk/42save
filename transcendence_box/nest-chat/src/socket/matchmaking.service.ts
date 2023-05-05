@@ -1,6 +1,8 @@
-import { Server, Socket } from 'socket.io';
+import { Socket } from 'socket.io';
 import { Injectable } from "@nestjs/common";
-import { Inject } from "@nestjs/common";
+
+const ONLINEMODE = 0;
+const PLAYERMODE = 2;
 
 @Injectable()
 export class MatchmakingService {
@@ -31,8 +33,8 @@ export class MatchmakingService {
         player1.join(room);
         player2.join(room);
         // notify the players that the game has started
-        player1.to(room).emit('game-start', room);
-        player2.to(room).emit('game-start', room);
+        player1.to(room).emit('game-start', PLAYERMODE, ONLINEMODE);
+        player2.to(room).emit('game-start', ONLINEMODE, PLAYERMODE);
     }
   }
 

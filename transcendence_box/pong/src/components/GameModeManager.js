@@ -2,13 +2,13 @@ import styled from 'styled-components'
 import GameBox from './GameBox';
 import MultiplayerManager from './MultiplayerManager';
 import FieldImg from '../img/Field.png';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const LOCAL_OPPONENT_POS_X = 860;
 const LOCAL_OPPONENT_POS_Y = 200;
 
-const LOCALMODE = 1;
-const ONLINEMODE = 0;
+const PLAYERMODE = 2;
+const OPPONENTMODE = 1;
 
 const GameModeManager = (props) => {
     const [clicked, setClicked] = useState(false);
@@ -19,13 +19,18 @@ const GameModeManager = (props) => {
         setMode(button);
     }
     
+    useEffect(() =>{
+        console.log("Render GameModeManager");
+
+    });
+
     return (
         <GameModeManagerDiv height={props.height} width={props.width} disabled={clicked}>
             <ButtonLocal onClick={() => onClickButton("Local")} disabled={clicked}>Local</ButtonLocal>
             <ButtonOnline onClick={() => onClickButton("Online")} disabled={clicked}>Online</ButtonOnline>
             {clicked ?
             (mode === "Local" ?
-            <GameBox height={props.height} width={props.width} controlMode={LOCALMODE}
+            <GameBox height={props.height} width={props.width} leftPlayer={PLAYERMODE} rightPlayer={OPPONENTMODE}
                 opponentPosX={LOCAL_OPPONENT_POS_X} opponentPosY={LOCAL_OPPONENT_POS_Y}></GameBox>
             : <MultiplayerManager height={props.height} width={props.width}></MultiplayerManager>)
             : ""}

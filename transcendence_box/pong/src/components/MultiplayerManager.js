@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import GameBox from './GameBox';
 import io from 'socket.io-client'
 import WaitingBox from './WaitingBox'
@@ -6,6 +6,7 @@ import WaitingBox from './WaitingBox'
 const STARTPOS_Y = 200;
 const STARTPOS_X = 860;
 const ONLINEMODE = 0;
+const PLAYERMODE = 2;
 
 const MultiplayerManager = (props) => {
     const [infos, setInfos] = useState({
@@ -13,35 +14,60 @@ const MultiplayerManager = (props) => {
         opponentY: STARTPOS_Y,
         userId: Math.floor(Math.random() * 9999) + 1,
         matchFound: false,
+        rightPlayer: ONLINEMODE,
+        leftPlayer: PLAYERMODE,
+        connected: false
     })
+
+    const socketRef = useRef(null);
 
     // const socket = io('ws://localhost:8000');
 
     useEffect(() => {
-        const socket=io.connect("http://localhost:8000", {
+        
+        const socket=io.connect("ws://localhost:8000", {
             query: {
                 userId: infos.userId
             }
-        })
+          })
+          socketRef.current = socket;
+        
         
         window.addEventListener('beforeunload', () => {
             socket.disconnect();
           });
-
         
         // Listen to the 'connect' event
         socket.on('connect', () => {
             console.log('Connected to socket.io server');
-            console.log('User Id :' + infos.userId);
+           // console.log('User Id :' + infos.userId);
+            setInfos(prevInfos => ({
+              ...prevInfos,
+              connected: true,
+            }));
         });
         
-        socket.on('game-start', () => {
-            console.log("match found !");
-            setInfos(prevInfos => ({
-                ...prevInfos,
-                matchFound: true
-              }));
+
+        //Listen to both p1 and p2 events to determinate on which pos you will be
+        socket.on('game-start', (leftPlayer, rightPlayer) => {
+          console.log("match found !");
+          setInfos(prevInfos => ({
+              ...prevInfos,
+              matchFound: true,
+              rightPlayer: rightPlayer,
+              leftPlayer: leftPlayer
+            }));
         })
+
+        // socket.on('game-start-p2', () => {
+        //   console.log("match found !");
+        //   setInfos(prevInfos => ({
+        //       ...prevInfos,
+        //       matchFound: true,
+        //       rightPlayer: PLAYERMODE,
+        //       leftPlayer: ONLINEMODE
+        //     }));
+        // })
         socket.on('connect_error', (error) => {
             console.error('Failed to connect to socket.io server', error);
         });
@@ -68,12 +94,13 @@ const MultiplayerManager = (props) => {
            socket.off('opponentMoved');
            socket.disconnect();
         };
-     }, [infos]);
+     }, [infos.userId]);
 
     return (
         infos.matchFound === true ? (
           <GameBox height={props.height} width={props.width}
-            opponentPosX={infos.opponentX} opponentPosY={infos.opponentY} controlMode={ONLINEMODE}
+            opponentPosX={infos.opponentX} opponentPosY={infos.opponentY}
+            rightPlayer={infos.rightPlayer} leftPlayer={infos.leftPlayer}
           />
         ) : (
           <WaitingBox height={props.height} width={props.width} />
@@ -84,3 +111,17 @@ const MultiplayerManager = (props) => {
 
  
 export default MultiplayerManager;
+
+
+/* MISC
+
+        //DEFAULT TESTING: NEED TO BE REMOVED
+        socket.on('game-start', () => {
+            console.log("match found !");
+            setInfos(prevInfos => ({
+                ...prevInfos,
+                matchFound: true
+              }));
+        })
+
+*/
